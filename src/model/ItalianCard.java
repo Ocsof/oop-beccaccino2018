@@ -1,6 +1,6 @@
 package model;
 
-public interface Card {
+public interface ItalianCard {
 	
 	enum Suit{
 		BASTONI, SPADE, DENARI, COPPE
