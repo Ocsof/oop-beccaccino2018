@@ -7,7 +7,8 @@ import java.util.List;
  */
 public interface Hand {
 	/**
-	 * @return a list of the cards this hand is currently holding. The order depends on the implementing class
+	 * @return a list of the cards this hand is currently holding. The order depends
+	 *         on the implementing class
 	 */
 	public List<ItalianCard> getCards();
 
