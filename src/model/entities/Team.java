@@ -1,4 +1,4 @@
-package model;
+package model.entities;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public interface Team {
 	public void assignExtraPoints(int points);
 
 	/**
-	 * @return the extra points assigned to this team
+	 * @return extra points currently assigned to this team
 	 */
 	public int getExtraPoints();
 

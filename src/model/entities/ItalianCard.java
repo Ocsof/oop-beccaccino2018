@@ -1,4 +1,4 @@
-package model;
+package model.entities;
 
 /**
  * A classic italian playing card

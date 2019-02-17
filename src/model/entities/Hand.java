@@ -1,4 +1,4 @@
-package model;
+package model.entities;
 
 import java.util.List;
 
@@ -11,11 +11,6 @@ public interface Hand {
 	 *         on the implementing class
 	 */
 	public List<ItalianCard> getCards();
-
-	/**
-	 * @return true if the hand is empty, false otherwise
-	 */
-	public boolean isEmpty();
 
 	/**
 	 * It removes the given card, if present
@@ -32,4 +27,11 @@ public interface Hand {
 	 * @return true if the card has been successfully added, false otherwise
 	 */
 	public boolean addCard(ItalianCard card);
+	
+	/**
+	 * @return true if the hand is empty, false otherwise
+	 */
+	public default boolean isEmpty() {
+		return this.getCards().size() == 0;
+	}
 }

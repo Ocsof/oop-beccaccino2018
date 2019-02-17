@@ -1,8 +1,8 @@
-package model;
+package model.entities;
 
+import static model.entities.ItalianCard.Suit.*;
+import static model.entities.ItalianCard.Value.*;
 import static org.junit.Assert.*;
-import static model.ItalianCard.Suit.*;
-import static model.ItalianCard.Value.*;
 
 /**
  * JUnit test for classes implementing: ItalianCard, Hand, Player, Team
