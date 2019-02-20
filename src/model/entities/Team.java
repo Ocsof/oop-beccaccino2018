@@ -7,6 +7,11 @@ import java.util.List;
  */
 public interface Team {
 	/**
+	 * @param player to be added
+	 * @return true if the player has been successfully added, false otherwise
+	 */
+	public boolean addPlayer(Player player);
+	/**
 	 * @return a list of this team players. The order depends on the implementing
 	 *         class
 	 */
