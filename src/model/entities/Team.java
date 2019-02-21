@@ -7,6 +7,8 @@ import java.util.List;
  */
 public interface Team {
 	/**
+	 * 
+	 * 
 	 * @param player to be added
 	 * @return true if the player has been successfully added, false otherwise
 	 */
