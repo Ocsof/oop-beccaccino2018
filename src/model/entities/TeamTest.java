@@ -47,10 +47,6 @@ public class TeamTest {
 		assertEquals(tizio.getName(), "Tizio");
 		assertEquals(caio.getName(), "Caio");
 
-		/* Testing the method isBot() */
-		assertFalse(tizio.isDrivenByAI());
-		assertFalse(caio.isDrivenByAI());
-
 		/* Testing the method getHand(), and simultaneously all "Hand" methods */
 
 		/* Testing the method isEmpty() */

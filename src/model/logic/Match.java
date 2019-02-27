@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.entities.Play;
 import model.entities.Player;
-import model.entities.Round;
 import model.entities.Team;
 
 /**
@@ -23,15 +22,14 @@ public interface Match {
 	public List<Team> getTeams();
 
 	/**
-	 * @return a list of all the plays made since the start of the match,
-	 *         chronologically ordered
+	 * @return the current round
 	 */
 	public Round getCurrentRound();
 
 	/**
-	 * @return the next turn player
+	 * @return the player on the play
 	 */
-	public Player getNextPlayer();
+	public Player getCurrentPlayer();
 
 	/**
 	 * This method is the only way to proceed through the match

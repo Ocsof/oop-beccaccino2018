@@ -18,14 +18,14 @@ public class GameController {
 		final Map<Player, Optional<AI>> playingEntities = ruleset.getPlayingEntities(game);
 
 		while (!game.isOver()) {
-			final Player nextPlayer = game.getNextPlayer();
-			final Optional<AI> ai = playingEntities.get(nextPlayer);
+			final Player currentPlayer = game.getCurrentPlayer();
+			final Optional<AI> ai = playingEntities.get(currentPlayer);
 			if (ai.isPresent()) {
 				final Play play = ai.get().makePlay(game.getCurrentRound());
 				game.makeTurn(play);
-				view.renderAIPlay(nextPlayer, play);
+				view.renderAIPlay(currentPlayer, play);
 			} else {
-				game.makeTurn(view.getUserPlay(nextPlayer));
+				game.makeTurn(view.getUserPlay(currentPlayer));
 			}
 		}
 	}

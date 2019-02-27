@@ -3,13 +3,14 @@ package model.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.entities.ItalianCard.Suit;
 import model.entities.ItalianCardsDeck;
 import model.entities.Play;
 import model.entities.Player;
-import model.entities.Round;
 import model.entities.Team;
 
 public abstract class BeccaccinoMatch implements Match {
+	private static Suit briscola;
 	private final List<Player> players;
 	private final List<Team> teams;
 
@@ -19,6 +20,10 @@ public abstract class BeccaccinoMatch implements Match {
 		this.teams = new ArrayList<>();
 		ItalianCardsDeck replace = null;
 		this.dealCards(replace);
+	}
+	
+	public static Suit getBriscola() {
+		return BeccaccinoMatch.briscola;
 	}
 
 	@Override
@@ -38,7 +43,7 @@ public abstract class BeccaccinoMatch implements Match {
 	}
 
 	@Override
-	public Player getNextPlayer() {
+	public Player getCurrentPlayer() {
 		// TODO Auto-generated method stub
 		return null;
 	}

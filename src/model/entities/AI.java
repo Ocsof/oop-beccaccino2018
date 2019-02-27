@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.logic.Round;
 
 /**
  * An AI making decisions for non-human players

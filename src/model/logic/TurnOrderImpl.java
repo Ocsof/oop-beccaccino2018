@@ -4,15 +4,13 @@ import java.util.List;
 
 import model.entities.Player;
 
-public class BeccaccinoTurnOrder implements TurnOrder {
+public class TurnOrderImpl implements TurnOrder {
 	private final List<Player> players;
 	private int index;
-	private int counter;
 
-	public BeccaccinoTurnOrder(List<Player> players) {
+	public TurnOrderImpl(List<Player> players) {
 		this.players = players;
 		this.index = 0;
-		this.counter = 0;
 	}
 
 	@Override
@@ -22,18 +20,12 @@ public class BeccaccinoTurnOrder implements TurnOrder {
 		} else {
 			this.index++;
 		}
-		this.counter++;
 		return this.players.get(index);
 	}
 
 	@Override
 	public void setNext(Player player) {
 		this.index = this.players.indexOf(player);
-	}
-
-	@Override
-	public boolean isOver() {
-		return this.counter == this.players.size();
 	}
 
 }

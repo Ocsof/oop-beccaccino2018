@@ -1,48 +1,51 @@
 package model.logic;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 import model.entities.Player;
-import model.entities.Round;
 
 public abstract class RoundTemplate implements Round {
 	private final TurnOrder turnOrder;
-	private final Map<Player, Play> plays;
-	private Player nextPlayer;
-	private Suit suit;
+	private final List<Play> plays;
+	private final List<Player> players;
+	private Player currentPlayer;
+	private Suit roundSuit;
 	
-
+	
 	public RoundTemplate(final TurnOrder turnOrder) {
 		this.turnOrder = turnOrder;
-		this.plays = new HashMap<>();
+		this.plays = new ArrayList<>();
+		this.players = new ArrayList<>();
+		this.currentPlayer = this.turnOrder.next();
 	}
 
-	public boolean isOver() {
-		return this.turnOrder.isOver();
-	}
+	public abstract boolean isOver();
 
-	public Player getNextPlayer() {
-		return this.nextPlayer;
+	public Player getCurrentPlayer() {
+		return this.currentPlayer;
 	}
 
 	public abstract Player getWinningPlayer();
 
 	public Suit getSuit() {
-		return this.suit;
+		return this.roundSuit;
 	}
 
 	public void addPlay(Play play) {
 		if(this.plays.size() == 0) {
-			this.suit = play.getCard().getSuit();
+			this.roundSuit = play.getCard().getSuit();
 		}
-		this.plays.put(this.turnOrder.next(), play);
+		this.plays.add(play);
+		this.players.add(currentPlayer);
+		this.currentPlayer = this.turnOrder.next();
 	}
 
-	public Play getPlay(Player player) {
-		return this.plays.get(player);
+	public List<Play> getPlays(Player player) {
+		return this.plays;
 	}
 
 }
