@@ -24,13 +24,6 @@ public interface Round {
 	public Player getCurrentPlayer();  //TODO add exception
 	
 	/**
-	 * Returns this round suit
-	 * 
-	 * @return the player on the play
-	 */
-	public Suit getSuit();
-	
-	/**
 	 * Returns this round plays
 	 * 
 	 * @return a list of this round plays, chronologically ordered
@@ -45,9 +38,9 @@ public interface Round {
 	public boolean isOver();
 	
 	/**
-	 * Returns the winner
+	 * Returns the winning play of this round
 	 * 
-	 * @return the winning player if this round is over
+	 * @return the winning play if this round is over
 	 */
-	public Player getWinningPlayer();  //TODO add exception
+	public Play getWinningPlay();  //TODO add exception
 }

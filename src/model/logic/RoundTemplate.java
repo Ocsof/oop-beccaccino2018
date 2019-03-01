@@ -13,7 +13,7 @@ public abstract class RoundTemplate implements Round {
 	private final List<Play> plays;
 	private final List<Player> players;
 	private Player currentPlayer;
-	private Suit roundSuit;
+	
 	
 	
 	public RoundTemplate(final TurnOrder turnOrder) {
@@ -29,22 +29,15 @@ public abstract class RoundTemplate implements Round {
 		return this.currentPlayer;
 	}
 
-	public abstract Player getWinningPlayer();
-
-	public Suit getSuit() {
-		return this.roundSuit;
-	}
+	public abstract Play getWinningPlay();
 
 	public void addPlay(Play play) {
-		if(this.plays.size() == 0) {
-			this.roundSuit = play.getCard().getSuit();
-		}
 		this.plays.add(play);
 		this.players.add(currentPlayer);
 		this.currentPlayer = this.turnOrder.next();
 	}
 
-	public List<Play> getPlays(Player player) {
+	public List<Play> getPlays() {
 		return this.plays;
 	}
 
