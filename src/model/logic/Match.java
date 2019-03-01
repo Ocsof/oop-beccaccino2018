@@ -2,7 +2,9 @@ package model.logic;
 
 
 import java.util.List;
+import java.util.Optional;
 
+import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 import model.entities.Player;
 import model.entities.Team;
@@ -30,6 +32,21 @@ public interface Match {
 	 * @return the player on the play
 	 */
 	public Player getCurrentPlayer();
+	
+	/**
+	 * Set this match briscola
+	 * 
+	 * @param the suit to be set as briscola
+	 */
+	public void setBriscola(Suit briscola);
+	
+	/**
+	 * Get this match briscola suit, if present
+	 * 
+	 * @param an optional containing this briscola suit, or an empty optional if
+	 *           there isn't a briscola
+	 */
+	public Optional<Suit> getBriscola();
 
 	/**
 	 * This method is the only way to proceed through the match

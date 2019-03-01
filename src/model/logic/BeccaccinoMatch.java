@@ -10,7 +10,7 @@ import model.entities.Player;
 import model.entities.Team;
 
 public abstract class BeccaccinoMatch implements Match {
-	private static Suit briscola;
+	private Suit briscola;
 	private final List<Player> players;
 	private final List<Team> teams;
 
@@ -20,10 +20,6 @@ public abstract class BeccaccinoMatch implements Match {
 		this.teams = new ArrayList<>();
 		ItalianCardsDeck replace = null;
 		this.dealCards(replace);
-	}
-	
-	public static Suit getBriscola() {
-		return BeccaccinoMatch.briscola;
 	}
 
 	@Override
@@ -51,6 +47,10 @@ public abstract class BeccaccinoMatch implements Match {
 	@Override
 	public void makeTurn(Play play) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void setBriscola(Suit briscola) {
+		this.briscola = briscola;
 	}
 
 	@Override

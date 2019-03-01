@@ -1,5 +1,6 @@
 package view;
 
+import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 import model.entities.Player;
 
@@ -12,6 +13,12 @@ public interface GameView {
 	 * @return the play made by the user
 	 */
 	public Play getUserPlay(Player player);
+	
+	/**
+	 * @param the player that has to select the briscola suit
+	 * @return the suit selected by the user
+	 */
+	public Suit getSelectedBriscola(Player player);
 
 	/**
 	 * @param the player whose play has already been made by the AI
@@ -21,6 +28,5 @@ public interface GameView {
 }
 
 /*
- * LA CLASSE CHE IMPLEMENTA QUESTA INTERFACCIA PRENDE DA COSTRUTTORE UNA
- * List<Player> CON TUTTI I GIOCATORI
+ * LA CLASSE CHE IMPLEMENTA QUESTA INTERFACCIA PRENDE DA COSTRUTTORE UN MATCH
  */

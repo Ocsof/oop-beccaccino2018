@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.entities.ItalianCard.Suit;
 import model.logic.Round;
 
 /**
@@ -13,4 +14,13 @@ public interface AI {
 	 * @return the play this AI decides to make
 	 */
 	public Play makePlay(Round currentRound);
+	
+	/**
+	 * Ask the AI which Suit it prefers
+	 * 
+	 * @return the suit selected by the AI
+	 */
+	public Suit selectBriscola();
 }
+
+//The constructor needs the player
