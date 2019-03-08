@@ -12,7 +12,7 @@ public interface GameView {
 	 * @param the player that needs user to make his play
 	 * @return the play made by the user
 	 */
-	public Play getPlay();
+	public Play getUserPlay();
 	
 	/**
 	 * @param the player that has to select the briscola suit
