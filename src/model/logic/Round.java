@@ -1,11 +1,9 @@
 package model.logic;
 
+import model.entities.ItalianCard;
 import model.entities.Play;
 import model.entities.Player;
-
 import java.util.List;
-
-import model.entities.ItalianCard.Suit;
 
 public interface Round {
 	/**
@@ -43,4 +41,13 @@ public interface Round {
 	 * @return the winning play if this round is over
 	 */
 	public Play getWinningPlay();  //TODO add exception
+	
+	/**
+	 * Returns cards allowed to be played among given cards
+	 * 
+	 * @param cards - a list of cards
+	 *  
+	 * @return a sublist of the playable cards contained in the given list of cards
+	 */
+	public List<ItalianCard> getPlayableCards(List<ItalianCard> cards);
 }
