@@ -12,19 +12,19 @@ public interface GameView {
 	 * @param the player that needs user to make his play
 	 * @return the play made by the user
 	 */
-	public Play getUserPlay(Player player);
+	public Play getPlay();
 	
 	/**
 	 * @param the player that has to select the briscola suit
 	 * @return the suit selected by the user
 	 */
-	public Suit getSelectedBriscola(Player player);
+	public Suit getSelectedBriscola();
 
 	/**
 	 * @param the player whose play has already been made by the AI
 	 * @param the play made by the AI
 	 */
-	public void renderAIPlay(Player player, Play play);
+	public void renderPlay();
 }
 
 /*
