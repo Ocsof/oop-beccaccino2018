@@ -5,26 +5,24 @@ import model.entities.Play;
 import model.entities.Player;
 
 /**
- * A GUI for a turn based italian card game
+ * A GUI for a turn based italian card game.
  */
 public interface GameView {
-	/**
-	 * @param the player that needs user to make his play
-	 * @return the play made by the user
-	 */
-	public Play getUserPlay();
-	
-	/**
-	 * @param the player that has to select the briscola suit
-	 * @return the suit selected by the user
-	 */
-	public Suit getSelectedBriscola();
+    /**
+     * @return the play made by the user
+     */
+    Play getUserPlay();
 
-	/**
-	 * @param the player whose play has already been made by the AI
-	 * @param the play made by the AI
-	 */
-	public void renderPlay();
+    /**
+     * @return the suit selected by the user
+     */
+    Suit getSelectedBriscola();
+
+    /**
+     * @param the player whose play has already been made by the AI
+     * @param the play made by the AI
+     */
+    void renderPlay();
 }
 
 /*

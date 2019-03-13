@@ -19,12 +19,12 @@ public abstract class RoundTemplate implements Round {
 	}
 
 	public Player getCurrentPlayer() {
-		this.checkState(false);
+		this.checkIfOver(false);
 		return this.currentPlayer;
 	}
 
 	public void addPlay(Play play) {
-		this.checkState(false);
+		this.checkIfOver(false);
 		this.plays.add(play);
 		this.currentPlayer = this.turnOrder.next();
 	}
@@ -33,7 +33,7 @@ public abstract class RoundTemplate implements Round {
 		return this.plays;
 	}
 	
-	protected void checkState(boolean state) {
+	protected void checkIfOver(boolean state) {
 		if (this.isOver() != state) {
 			throw new IllegalStateException();
 		}
