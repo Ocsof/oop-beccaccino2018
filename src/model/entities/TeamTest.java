@@ -65,13 +65,13 @@ public class TeamTest {
         assertTrue(caio.getHand().isEmpty());
 
         /* Testing whether the other card-manipulating methods work fine */
-        assertFalse(tizio.getHand().removeCard(assoDiBastoni));
-        assertFalse(caio.getHand().removeCard(treDiCoppe));
+        tizio.getHand().removeCard(assoDiBastoni);
+        caio.getHand().removeCard(treDiCoppe);
 
-        assertTrue(tizio.getHand().addCard(assoDiBastoni));
-        assertTrue(tizio.getHand().addCard(fanteDiSpade));
-        assertTrue(caio.getHand().addCard(cavalloDiDenari));
-        assertTrue(caio.getHand().addCard(treDiCoppe));
+        tizio.getHand().addCard(assoDiBastoni);
+        tizio.getHand().addCard(fanteDiSpade);
+        caio.getHand().addCard(cavalloDiDenari);
+        caio.getHand().addCard(treDiCoppe);
 
         assertTrue(tizio.getHand().getCards().contains(assoDiBastoni));
         assertFalse(tizio.getHand().getCards().contains(treDiCoppe));
@@ -82,8 +82,8 @@ public class TeamTest {
         assertEquals(tizio.getHand().getCards().size(), 2);
         assertEquals(caio.getHand().getCards().size(), 2);
 
-        assertTrue(tizio.getHand().removeCard(fanteDiSpade));
-        assertTrue(caio.getHand().removeCard(cavalloDiDenari));
+        tizio.getHand().removeCard(fanteDiSpade);
+        caio.getHand().removeCard(cavalloDiDenari);
 
         assertEquals(tizio.getHand().getCards().size(), 1);
         assertEquals(caio.getHand().getCards().size(), 1);
