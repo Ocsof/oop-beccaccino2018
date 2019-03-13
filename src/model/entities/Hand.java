@@ -16,18 +16,21 @@ public interface Hand {
      * It removes the given card, if present.
      * 
      * @param card to be removed
-     * @return true if the card has been successfully removed, false otherwise
      */
-    boolean removeCard(ItalianCard card);
+    void removeCard(ItalianCard card);
 
     /**
      * It adds the given card to the hand.
      * 
      * @param card to be added
-     * @return true if the card has been successfully added, false otherwise
      */
-    boolean addCard(ItalianCard card);
+    void addCard(ItalianCard card);
 
+    /**
+     * @return true if the hand is full, false otherwise
+     */
+    boolean isFull();
+    
     /**
      * @return true if the hand is empty, false otherwise
      */
