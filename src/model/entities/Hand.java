@@ -13,14 +13,14 @@ public interface Hand {
     List<ItalianCard> getCards();
 
     /**
-     * It removes the given card, if present.
+     * Removes the given card, if present.
      * 
      * @param card to be removed
      */
     void removeCard(ItalianCard card);
 
     /**
-     * It adds the given card to the hand.
+     * Adds the given card to the hand.
      * 
      * @param card to be added
      */
@@ -30,7 +30,7 @@ public interface Hand {
      * @return true if the hand is full, false otherwise
      */
     boolean isFull();
-    
+
     /**
      * @return true if the hand is empty, false otherwise
      */
