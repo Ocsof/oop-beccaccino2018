@@ -3,7 +3,11 @@ package model.logic;
 import model.entities.ItalianCard;
 import model.entities.Play;
 import model.entities.Player;
+import model.entities.ItalianCard.Suit;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A round is made of a certain number of plays and by a logic that determines
@@ -26,7 +30,7 @@ public interface Round {
     Player getCurrentPlayer(); // TODO add exception
 
     /**
-     * Returns this round plays.
+     * Returns plays already made this round.
      * 
      * @return a list of this round plays, chronologically ordered
      */
@@ -42,17 +46,36 @@ public interface Round {
     /**
      * Returns the winning play of this round.
      * 
-     * @return the winning play if this round is over
+     * @return an optional containing the winning play if present, an empty
+     * optional otherwise
      */
-    Play getWinningPlay(); // TODO add exception
+    Optional<Play> getWinningPlay(); 
 
     /**
-     * Returns cards allowed to be played among given cards.
+     * Returns cards the current player can play.
      * 
-     * @param cards - a list of cards
-     * 
-     * @return a sublist of the playable cards contained in the given list of
-     * cards
+     * @return list of playable cards.
      */
-    List<ItalianCard> getPlayableCards(List<ItalianCard> cards);
+    List<ItalianCard> getPlayableCards();
+
+    /**
+     * Returns this round suit.
+     * 
+     * @return an optional containing this round suit if present, or an empty
+     * optional otherwise.
+     */
+    Optional<Suit> getSuit();
+
+    /**
+     * Returns cards played this round.
+     * 
+     * @return a list of already played cards, chronologically ordered
+     */
+    default List<ItalianCard> getPlayedCards() {
+        final List<ItalianCard> cards = new ArrayList<>();
+        for (Play play : this.getPlays()) {
+            cards.add(play.getCard());
+        }
+        return cards;
+    }
 }
