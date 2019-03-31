@@ -44,6 +44,13 @@ public interface Round {
     boolean isOver();
 
     /**
+     * Checks whether this round has just started or not.
+     * 
+     * @return true if this round has just started, false otherwise
+     */
+    boolean hasJustStarted();
+
+    /**
      * Returns the winning play of this round.
      * 
      * @return an optional containing the winning play if present, an empty
@@ -57,6 +64,14 @@ public interface Round {
      * @return list of playable cards.
      */
     List<ItalianCard> getPlayableCards();
+
+    /**
+     * Returns messages current player can send along with chosen card.
+     * 
+     * @param card - chosen card
+     * @return list of sendable messages.
+     */
+    List<Optional<String>> getSendableMessages(ItalianCard card);
 
     /**
      * Returns this round suit.

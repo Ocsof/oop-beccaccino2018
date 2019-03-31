@@ -10,7 +10,7 @@ import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 
 /**
- * This is a round of the italian card game "Beccaccino".
+ * This is a round of the Italian card game "Beccaccino".
  * @see <a href="Marafone Beccaccino">https://it.wikipedia.org/wiki/Marafone_Beccacino</a>
  */
 public class BeccaccinoRound extends RoundTemplate {
@@ -43,7 +43,7 @@ public class BeccaccinoRound extends RoundTemplate {
     public Optional<Play> getWinningPlay() {
         final BunchOfCards playedCards = null;
 
-        if (this.getPlays().size() == 0) {
+        if (this.hasJustStarted()) {
             return Optional.empty();
         }
         Optional<ItalianCard> winningCard = playedCards.getHighestCardOfSuit(this.briscola);
@@ -90,7 +90,7 @@ public class BeccaccinoRound extends RoundTemplate {
      * optional otherwise.
      */
     public Optional<Suit> getSuit() {
-        if (this.getPlays().size() == 0) {
+        if (this.hasJustStarted()) {
             return Optional.empty();
         }
         return Optional.ofNullable(this.getPlays().get(0).getCard().getSuit());
@@ -105,7 +105,7 @@ public class BeccaccinoRound extends RoundTemplate {
      * an empty optional otherwise
      */
     private Optional<Play> getPlayThatContains(final ItalianCard card) {
-        if (this.getPlays().size() == 0) {
+        if (this.hasJustStarted()) {
             return Optional.empty();
         }
         for (Play play : this.getPlays()) {
@@ -114,5 +114,20 @@ public class BeccaccinoRound extends RoundTemplate {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Only the first player of the round can send messagges.
+     * {@inheritDoc}
+     */
+    public List<Optional<String>> getSendableMessages(final ItalianCard card) {
+        final List<Optional<String>> sendableMessages = new ArrayList<>();
+        sendableMessages.add(Optional.empty());
+        if (this.hasJustStarted()) {
+            sendableMessages.add(Optional.ofNullable("BUSSO"));
+            sendableMessages.add(Optional.ofNullable("STRISCIO"));
+            sendableMessages.add(Optional.ofNullable("VOLO"));
+        }
+        return sendableMessages;
     }
 }
