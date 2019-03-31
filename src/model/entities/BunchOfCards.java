@@ -50,4 +50,18 @@ public interface BunchOfCards {
      * present, an empty optional otherwise
      */
     Optional<ItalianCard> getHighestCardOfSuit(Suit suit);
+
+    /**
+     * Returns contained cards associated with the highest points.
+     * 
+     * @return a list of cards with highest points associated. 
+     */
+    List<ItalianCard> getCardsWithMostPoints();
+
+    /**
+     * Returns contained cards associated with the lowest points.
+     * 
+     * @return a list of cards with lowest points associated. 
+     */
+    List<ItalianCard> getCardsWithLeastPoints();
 }
