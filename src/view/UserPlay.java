@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
@@ -19,7 +20,8 @@ public class UserPlay extends Thread {
     private List<ItalianCard> tableCards;
     private Map<Node, ItalianCard> map;
     private ItalianCard cardPlayed;
-    private PlayImpl play = new PlayImpl();
+    private Optional<String> message;
+    private PlayImpl play;
     /**
      * Class constructor.
      * @param match
@@ -35,7 +37,8 @@ public class UserPlay extends Thread {
         this.tableCards = tableCards;
         this.map = map;
         this.match.getPlayers().get(0).getHand().getCards();
-
+        
+        this.setMessage();
         this.enableCards();
     }
     //abilito le carte giocabili
@@ -50,7 +53,6 @@ public class UserPlay extends Thread {
                     this.cardPlayed = this.map.get(card);
                     this.match.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
                     this.tableCards.add(this.cardPlayed);
-                    play.setCardPlayed(cardPlayed);
                     //sveglio il main
                     notify();
                 });
@@ -58,10 +60,16 @@ public class UserPlay extends Thread {
         }
     }
     /**
+     * The method in order to set the optional message.
+     */
+    private void setMessage() {
+    }
+    /**
      * Play getter.
      * @return the play just played
      */
     public PlayImpl getPlay() {
+        this.play = new PlayImpl(this.cardPlayed, this.message);
         return this.play;
     }
 }
