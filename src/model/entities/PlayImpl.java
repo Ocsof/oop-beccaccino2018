@@ -9,26 +9,14 @@ public class PlayImpl implements Play {
     private ItalianCard card;
     private Optional<String> message;
     /**
-     * Class Constructor.
+     * Class constructor.
+     * @param card the card has been played
+     * @param message the eventually message thrown with the card
      */
-    public PlayImpl() {
-    }
-
-    /**
-     * setter of the card.
-     * @param card an ItalianCard
-     */
-    public void setCardPlayed(final ItalianCard card) {
+    public PlayImpl(final ItalianCard card, final Optional<String> message) {
         this.card = card;
-    }
-
-    /**
-     * setter of the message.
-     * @param message the optional message
-     */
-    public void setMessage(final Optional<String> message) {
         if (message.isPresent()) {
-            this.message = Optional.of(message).get();
+            this.message = message;
         }
     }
 
