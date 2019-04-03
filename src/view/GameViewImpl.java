@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
@@ -47,10 +48,12 @@ public class GameViewImpl implements GameView {
         HBox rootbottom = new HBox();
         VBox rootleft = new VBox();
         VBox rootright = new VBox();
+        Box rootcentre = new Box();
         this.boxes.add(rootbottom);
         this.boxes.add(rootright);
         this.boxes.add(roottop);
         this.boxes.add(rootleft);
+        this.boxes.add(rootcentre);
         Pane table = new BorderPane();
         BorderPane externalPane = new BorderPane();
         Background backGround = new Background(tavolo);
@@ -82,7 +85,7 @@ public class GameViewImpl implements GameView {
     }
     /**
      * A method in order to set Players' Hand in the table.
-     * @param boxes: list of the four region of boxes (where the cards are added)
+     * @param boxes: list of the five region of boxes (where the cards are added)
      */
     private void setPlayersHand(final List<Node> boxes) {
      /*
@@ -95,6 +98,16 @@ public class GameViewImpl implements GameView {
              ((Pane) boxes.get(i)).getChildren().add(c.getCardRepresentation(card));
          }
      }
+    }
+    /**
+     * A method in order to set cards played durind a Round in the centre of the table.
+     * @param boxes list of the five region of boxes (where the cards are added)
+     */
+    private void setTableCards(final List<Node> boxes) {
+        for (ItalianCard card: this.tableCards) {
+            ItalianCardViewFactory c = null;
+            ((Pane) boxes.get(this.boxes.size() - 1)).getChildren().add(c.getCardRepresentation(card));
+        }
     }
 
     @Override
@@ -118,6 +131,8 @@ public class GameViewImpl implements GameView {
         PlayImpl play = userPlay.getPlay();
         this.tableCards.add(play.getCard());
         this.map.remove(play.getCard());
+        this.setPlayersHand(this.boxes);
+        this.setTableCards(this.boxes);
         return play;
     }
 
