@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.Play;
 import model.entities.PlayImpl;
@@ -22,6 +23,8 @@ public class UserPlay extends Thread {
     private ItalianCard cardPlayed;
     private Optional<String> message;
     private PlayImpl play;
+    private Stage primaryStage;
+    private MessageView mess;
     /**
      * Class constructor.
      * @param match
@@ -30,13 +33,14 @@ public class UserPlay extends Thread {
      * @param map
      */
     public UserPlay(final Match match, final List<Node> boxes, final List<ItalianCard> tableCards, 
-            final Map<Node, ItalianCard> map) {
+            final Map<Node, ItalianCard> map, Stage primaryStage) {
         this.match = match;
         //la box contenente le carte dello user è sempre in posizione 0 della lista boxes.
         this.box = (HBox) boxes.get(0);
         this.tableCards = tableCards;
         this.map = map;
         this.match.getPlayers().get(0).getHand().getCards();
+        this.primaryStage = primaryStage;
         
         this.setMessage();
         this.enableCards();
@@ -53,6 +57,7 @@ public class UserPlay extends Thread {
                     this.cardPlayed = this.map.get(card);
                     this.match.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
                     this.tableCards.add(this.cardPlayed);
+                    this.message = this.getMessage();
                     //sveglio il main
                     notify();
                 });
@@ -63,6 +68,14 @@ public class UserPlay extends Thread {
      * The method in order to set the optional message.
      */
     private void setMessage() {
+        mess = new MessageView(this.primaryStage);
+    }
+    /**
+     * The method to save the message.
+     * @return the message sent.
+     */
+    private Optional<String> getMessage() {
+        return this.mess.getMessage();
     }
     /**
      * Play getter.

@@ -54,7 +54,6 @@ public class GameViewImpl implements GameView {
         this.boxes.add(roottop);
         this.boxes.add(rootleft);
         this.boxes.add(rootcentre);
-        Pane table = new BorderPane();
         BorderPane externalPane = new BorderPane();
         Background backGround = new Background(tavolo);
 
@@ -74,7 +73,7 @@ public class GameViewImpl implements GameView {
         externalPane.setRight(this.boxes.get(1));
         externalPane.setTop(this.boxes.get(2));
         externalPane.setLeft(this.boxes.get(3));
-        externalPane.setCenter(table);
+        externalPane.setCenter(this.boxes.get(this.boxes.size()-1));
 
         Scene scene = new Scene(externalPane);
         this.primaryStage.setScene(scene);
@@ -118,7 +117,7 @@ public class GameViewImpl implements GameView {
         *sia piena e la ritorno.
         */
         //creo il nuovo thread che si occupa della giocata
-        UserPlay userPlay = new UserPlay(this.match, this.boxes, this.tableCards, this.map);
+        UserPlay userPlay = new UserPlay(this.match, this.boxes, this.tableCards, this.map, this.primaryStage);
         userPlay.start();
         //WAIT DEL MAIN THREAD
         try {
