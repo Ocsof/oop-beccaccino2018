@@ -73,7 +73,7 @@ public class GameViewImpl implements GameView {
         externalPane.setRight(this.boxes.get(1));
         externalPane.setTop(this.boxes.get(2));
         externalPane.setLeft(this.boxes.get(3));
-        externalPane.setCenter(this.boxes.get(this.boxes.size()-1));
+        externalPane.setCenter(this.boxes.get(this.boxes.size() - 1));
 
         Scene scene = new Scene(externalPane);
         this.primaryStage.setScene(scene);

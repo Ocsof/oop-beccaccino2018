@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
-import model.entities.Play;
 import model.entities.PlayImpl;
 import model.logic.Match;
 /**
@@ -27,13 +26,14 @@ public class UserPlay extends Thread {
     private MessageView mess;
     /**
      * Class constructor.
-     * @param match
-     * @param boxes
-     * @param tableCards
-     * @param map
+     * @param match the match 
+     * @param boxes the boxes
+     * @param tableCards the tableCards
+     * @param map 
+     * @param primaryStage the initial stage
      */
     public UserPlay(final Match match, final List<Node> boxes, final List<ItalianCard> tableCards, 
-            final Map<Node, ItalianCard> map, Stage primaryStage) {
+            final Map<Node, ItalianCard> map, final Stage primaryStage) {
         this.match = match;
         //la box contenente le carte dello user è sempre in posizione 0 della lista boxes.
         this.box = (HBox) boxes.get(0);
@@ -41,8 +41,6 @@ public class UserPlay extends Thread {
         this.map = map;
         this.match.getPlayers().get(0).getHand().getCards();
         this.primaryStage = primaryStage;
-        
-        this.setMessage();
         this.enableCards();
     }
     //abilito le carte giocabili
@@ -55,27 +53,18 @@ public class UserPlay extends Thread {
             if (this.match.getCurrentRound().getPlayableCards().contains(this.map.get(card))) {
                 card.setOnMouseClicked(s -> {
                     this.cardPlayed = this.map.get(card);
+                    /* add the choice of the message associated to the card (in order to the card there
+                     * are available messages.
+                     */
+                    mess = new MessageView(this.primaryStage, this.match, this.cardPlayed);
                     this.match.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
                     this.tableCards.add(this.cardPlayed);
-                    this.message = this.getMessage();
+                    this.message = this.mess.getMessage();
                     //sveglio il main
                     notify();
                 });
             }
         }
-    }
-    /**
-     * The method in order to set the optional message.
-     */
-    private void setMessage() {
-        mess = new MessageView(this.primaryStage);
-    }
-    /**
-     * The method to save the message.
-     * @return the message sent.
-     */
-    private Optional<String> getMessage() {
-        return this.mess.getMessage();
     }
     /**
      * Play getter.
