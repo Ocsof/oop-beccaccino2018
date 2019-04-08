@@ -1,0 +1,45 @@
+package model.artificialIntelligence;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+
+import model.entities.ItalianCard;
+import model.entities.ItalianCard.Value;
+
+/**
+ * A comparator for card values
+ */
+public class BeccaccinoCardComparator implements Comparator<ItalianCard> {
+	
+	private  Map<Value, Integer> valueMap;
+	
+	public BeccaccinoCardComparator() {
+		this.valueMap = new HashMap<>();
+		this.createValueMap();
+	}
+
+	@Override
+	public int compare(final ItalianCard cardOne, final ItalianCard cardTwo) {
+		final int valueCardOne = this.valueMap.get(cardOne.getValue());
+		final int valueCardTwo = this.valueMap.get(cardTwo.getValue());
+		return valueCardOne - valueCardTwo;
+	}
+
+	/**
+	 * it creates the value map, to each value it associates an integer
+	 */
+	private void createValueMap() {
+		int count = 0;
+		valueMap.put(Value.QUATTRO, count++);
+		valueMap.put(Value.CINQUE, count++);
+		valueMap.put(Value.SEI, count++);
+		valueMap.put(Value.SETTE, count++);
+		valueMap.put(Value.FANTE, count++);
+		valueMap.put(Value.CAVALLO, count++);
+		valueMap.put(Value.RE, count++);
+		valueMap.put(Value.ASSO, count++);
+		valueMap.put(Value.DUE, count++);
+		valueMap.put(Value.TRE, count++);
+	}
+}
