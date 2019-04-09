@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.ProfileMenuControlImpl">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="249.0" layoutY="60.0" text="Profile Creation" />
+      <TextField layoutX="62.0" layoutY="169.0" promptText="New Profile Name">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Button disable="true" layoutX="399.0" layoutY="169.0" mnemonicParsing="false" text="Create New Profile">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="226.0" layoutY="304.0" mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <CheckBox layoutX="282.0" layoutY="174.0" mnemonicParsing="false" text="I am sure">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </CheckBox>
+   </children>
+</AnchorPane>
