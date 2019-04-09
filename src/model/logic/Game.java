@@ -10,16 +10,16 @@ import model.entities.Player;
 import model.entities.Team;
 
 /**
- * A game that needs input from the outside to proceed through every turn.
+ * A game that needs outer input to proceed through every turn.
  */
-public interface Match {
+public interface Game {
     /**
-     * @return a list of this match players
+     * @return a list of this game players
      */
     List<Player> getPlayers();
 
     /**
-     * @return a list of the teams in this match
+     * @return a list of the teams in this game
      */
     List<Team> getTeams();
 
@@ -29,19 +29,19 @@ public interface Match {
     Round getCurrentRound();
 
     /**
-     * @return the player on the play
+     * @return the player that has to make his turn
      */
     Player getCurrentPlayer();
 
     /**
-     * Set this match briscola.
+     * Set this game briscola.
      * 
      * @param briscola - the suit to be set as briscola
      */
     void setBriscola(Suit briscola);
 
     /**
-     * Get this match briscola suit, if present.
+     * Get this game briscola suit, if present.
      * 
      * @return an optional containing this briscola suit, or an empty optional
      * if there isn't a briscola
