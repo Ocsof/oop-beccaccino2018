@@ -6,33 +6,26 @@ import java.util.Optional;
 import model.entities.AI;
 import model.entities.Play;
 import model.entities.Player;
-import model.logic.Match;
+import model.logic.Game;
 import model.logic.Ruleset;
 import view.GameView;
 
 public class GameController {
 
-    public GameController(Ruleset ruleset) {
-        final Match game = ruleset.startNewMatch();
-        final GameView view = ruleset.createGameView(game);
-        final Map<Player, Optional<AI>> playingEntities = ruleset.getPlayingEntities(game);
-        boolean briscolaSelected = false;
-
+    public GameController(final Map<Player, Optional<AI>> playingEntities, final Game game, final GameView view) {
         while (!game.isOver()) {
             final Player currentPlayer = game.getCurrentPlayer();
             final Optional<AI> ai = playingEntities.get(currentPlayer);
             if (ai.isPresent()) {
-                if (!briscolaSelected) {
+                if (!game.getBriscola().isPresent()) {
                     game.setBriscola(ai.get().selectBriscola());
-                    briscolaSelected = true;
                 }
                 final Play play = ai.get().makePlay(game.getCurrentRound());
                 game.makeTurn(play);
                 view.renderPlay();
             } else {
-                if (!briscolaSelected) {
+                if (!game.getBriscola().isPresent()) {
                     game.setBriscola(view.getSelectedBriscola());
-                    briscolaSelected = true;
                 }
                 game.makeTurn(view.getUserPlay());
             }

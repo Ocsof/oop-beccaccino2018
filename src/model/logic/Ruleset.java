@@ -1,5 +1,6 @@
 package model.logic;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -8,9 +9,9 @@ import model.entities.Player;
 import view.GameView;
 
 public interface Ruleset {
-    Match startNewMatch();
+    Game newGame(List<Player> players);
 
-    GameView createGameView(Match game);
-
-    Map<Player, Optional<AI>> getPlayingEntities(Match game);
+    GameView newGameView(Game game);
+    
+    Player newPlayer(String name);
 }
