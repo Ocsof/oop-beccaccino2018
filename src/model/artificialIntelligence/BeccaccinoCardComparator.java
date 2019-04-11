@@ -11,15 +11,22 @@ import model.entities.ItalianCard.Value;
  * A comparator for card values
  */
 public class BeccaccinoCardComparator implements Comparator<ItalianCard> {
-	
+   
 	private  Map<Value, Integer> valueMap;
 	
+	/**
+	 * Class constructor.
+	 */
 	public BeccaccinoCardComparator() {
 		this.valueMap = new HashMap<>();
 		this.createValueMap();
 	}
 
 	@Override
+	/**
+	 * @param cardOne is the first card to consider
+	 * @param cardTwo is the second one
+	 */
 	public int compare(final ItalianCard cardOne, final ItalianCard cardTwo) {
 		final int valueCardOne = this.valueMap.get(cardOne.getValue());
 		final int valueCardTwo = this.valueMap.get(cardTwo.getValue());
@@ -27,7 +34,7 @@ public class BeccaccinoCardComparator implements Comparator<ItalianCard> {
 	}
 
 	/**
-	 * it creates the value map, to each value it associates an integer
+	 * It creates the value map, to each value it associates an integer.
 	 */
 	private void createValueMap() {
 		int count = 0;
