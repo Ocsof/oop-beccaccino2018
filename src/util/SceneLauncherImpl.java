@@ -10,6 +10,7 @@ public class SceneLauncherImpl implements SceneLauncher {
 	FXMLLoader loader;
 	String scenePath;
 	String sceneName;
+	Parent root;
 	
 	public SceneLauncherImpl(String passedSceneName){
 		
@@ -22,9 +23,7 @@ public class SceneLauncherImpl implements SceneLauncher {
 	@Override
 	public Parent launchScene() {
 		
-		loader.setLocation((this.getClass().getResource("/scenes/" + sceneName)));
-		
-		Parent root = null;
+		loader.setLocation((this.getClass().getResource(scenePath + sceneName)));
 		
 		try {
 			root = loader.load();
