@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import model.entities.BeccaccinoBunchOfCards;
 import model.entities.BunchOfCards;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
@@ -14,8 +15,8 @@ import model.entities.Play;
  * @see <a href="Marafone Beccaccino">https://it.wikipedia.org/wiki/Marafone_Beccacino</a>
  */
 public class BeccaccinoRound extends RoundTemplate {
-    private static final int NUMBER_OF_TURNS = 4;
     private final Suit briscola;
+    private final int numberOfPlayers;
 
     /**
      * {@inheritDoc}.
@@ -24,24 +25,25 @@ public class BeccaccinoRound extends RoundTemplate {
     public BeccaccinoRound(final TurnOrder turnOrder, final Suit briscola) {
         super(turnOrder);
         this.briscola = briscola;
+        this.numberOfPlayers = turnOrder.getPlayers().size();
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean isOver() {
-        return this.getPlays().size() == NUMBER_OF_TURNS;
+        return this.getPlays().size() == numberOfPlayers;
     }
 
     /**
      * {@inheritDoc}
-     * If the round isn't over, returns the play that "is winning".
+     * If the round isn't over, returns the play that would win if the round was over now.
      * The hierarchy that determines which card wins is the following:
      * 1)Card with greatest value among cards of briscola suit.
      * 2)Card with greatest value among cards of this round dominant suit.
      */
     public Optional<Play> getWinningPlay() {
-        final BunchOfCards playedCards = null;
+        final BunchOfCards playedCards = new BeccaccinoBunchOfCards(this.getPlayedCards()); //TODO new BUNCH(this.getPlayedCards);
 
         if (this.hasJustStarted()) {
             return Optional.empty();
@@ -97,6 +99,34 @@ public class BeccaccinoRound extends RoundTemplate {
     }
 
     /**
+     * Only the first player of the round can send messagges.
+     * {@inheritDoc}
+     */
+    public List<Optional<String>> getSendableMessages(final ItalianCard card) {
+        final List<Optional<String>> sendableMessages = new ArrayList<>();
+        sendableMessages.add(Optional.empty());
+        if (this.hasJustStarted()) {
+            sendableMessages.add(Optional.ofNullable("BUSSO"));
+            sendableMessages.add(Optional.ofNullable("STRISCIO"));
+            sendableMessages.add(Optional.ofNullable("VOLO"));
+        }
+        return sendableMessages;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void checkPlay(final Play play) {
+        ItalianCard card = play.getCard();
+        if (!this.getPlayableCards().contains(card)) {
+            throw new IllegalArgumentException("Can't play this card: " + card);
+        }
+        if (!this.getSendableMessages(card).contains(play.getMessage())) {
+            throw new IllegalArgumentException("Can't send this message now: " + play.getMessage().get());
+        }
+    }
+
+    /**
      * This is an utility method looking for the play that contains a certain
      * card.
      * 
@@ -114,20 +144,5 @@ public class BeccaccinoRound extends RoundTemplate {
             }
         }
         return Optional.empty();
-    }
-
-    /**
-     * Only the first player of the round can send messagges.
-     * {@inheritDoc}
-     */
-    public List<Optional<String>> getSendableMessages(final ItalianCard card) {
-        final List<Optional<String>> sendableMessages = new ArrayList<>();
-        sendableMessages.add(Optional.empty());
-        if (this.hasJustStarted()) {
-            sendableMessages.add(Optional.ofNullable("BUSSO"));
-            sendableMessages.add(Optional.ofNullable("STRISCIO"));
-            sendableMessages.add(Optional.ofNullable("VOLO"));
-        }
-        return sendableMessages;
     }
 }
