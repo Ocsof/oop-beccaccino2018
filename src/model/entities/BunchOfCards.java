@@ -64,13 +64,13 @@ public interface BunchOfCards {
      * @return a list of cards with lowest points associated. 
      */
     List<ItalianCard> getCardsWithLeastPoints();
-    
+
     /**
      * Returns contained cards associated with the highest value.
      * @return a list of cards with highest value. 
      */
     List<ItalianCard> getHighestCards();
-    
+
     /**
      * Returns contained cards associated with the highest value.
      * @return a list of cards with lowest value.
