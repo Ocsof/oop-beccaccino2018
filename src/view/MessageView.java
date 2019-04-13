@@ -8,7 +8,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
-import model.logic.Match;
+import model.logic.Game;
 /**
  * Alessia Rocco
  * Class that implement, by an User Interface, the optional message the User can select.
@@ -16,7 +16,7 @@ import model.logic.Match;
  */
 public class MessageView {
     private Optional<String> message;
-    private Match match;
+    private Game game;
     private ItalianCard card;
     private Stage primaryStage;
     private List<Optional<String>> choice;
@@ -24,15 +24,15 @@ public class MessageView {
     /**
      * Class constructor.
      * @param primaryStage
-     * @param match
+     * @param game
      * @param card
      */
-    public MessageView(final Stage primaryStage, final Match match, final ItalianCard card) {
+    public MessageView(final Stage primaryStage, final Game game, final ItalianCard card) {
         this.primaryStage = primaryStage;
-        this.match = match;
+        this.game = game;
         this.card = card;
         this.choice = new LinkedList<>();
-        choice.addAll(this.match.getCurrentRound().getSendableMessages(this.card));
+        choice.addAll(this.game.getCurrentRound().getSendableMessages(this.card));
 
         this.dialog = new ChoiceDialog<>(this.choice.get(0), this.choice);
         this.dialog.initOwner(this.primaryStage);

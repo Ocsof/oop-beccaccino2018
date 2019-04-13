@@ -9,13 +9,13 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.PlayImpl;
-import model.logic.Match;
+import model.logic.Game;
 /**
  * Alessia Rocco
  * Class UserPlay.
  */
 public class UserPlay extends Thread {
-    private Match match;
+    private Game game;
     private HBox box;
     private List<ItalianCard> tableCards;
     private Map<Node, ItalianCard> map;
@@ -32,14 +32,14 @@ public class UserPlay extends Thread {
      * @param map 
      * @param primaryStage the initial stage
      */
-    public UserPlay(final Match match, final List<Node> boxes, final List<ItalianCard> tableCards, 
+    public UserPlay(final Game game, final List<Node> boxes, final List<ItalianCard> tableCards, 
             final Map<Node, ItalianCard> map, final Stage primaryStage) {
-        this.match = match;
+        this.game = game;
         //la box contenente le carte dello user è sempre in posizione 0 della lista boxes.
         this.box = (HBox) boxes.get(0);
         this.tableCards = tableCards;
         this.map = map;
-        this.match.getPlayers().get(0).getHand().getCards();
+        this.game.getPlayers().get(0).getHand().getCards();
         this.primaryStage = primaryStage;
         this.enableCards();
     }
@@ -50,14 +50,14 @@ public class UserPlay extends Thread {
      */
     public void enableCards() {
         for (Node card: this.box.getChildren()) {
-            if (this.match.getCurrentRound().getPlayableCards().contains(this.map.get(card))) {
+            if (this.game.getCurrentRound().getPlayableCards().contains(this.map.get(card))) {
                 card.setOnMouseClicked(s -> {
                     this.cardPlayed = this.map.get(card);
                     /* add the choice of the message associated to the card (in order to the card there
                      * are available messages.
                      */
-                    mess = new MessageView(this.primaryStage, this.match, this.cardPlayed);
-                    this.match.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
+                    mess = new MessageView(this.primaryStage, this.game, this.cardPlayed);
+                    this.game.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
                     this.tableCards.add(this.cardPlayed);
                     this.message = this.mess.getMessage();
                     //sveglio il main
