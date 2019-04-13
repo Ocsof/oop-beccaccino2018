@@ -17,13 +17,13 @@ import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 import model.entities.PlayImpl;
-import model.logic.Match;
+import model.logic.Game;
 /**
  * Alessia Rocco
  * GameView Implementation.
  */
 public class GameViewImpl implements GameView {
-    private Match match;
+    private Game game;
     private final int size = 80;
     private final BackgroundImage tavolo = new BackgroundImage(new Image("res/tavolo.jpg"),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
@@ -33,10 +33,10 @@ public class GameViewImpl implements GameView {
     private Map<Node, ItalianCard> map = new HashMap<>();
     /**
      * Class constructor.
-     * @param match model.Match
+     * @param game model.Match
      */
-    public GameViewImpl(final Match match) {
-        this.match = match;
+    public GameViewImpl(final Game game) {
+        this.game = game;
     }
     /**
      * The method to set up the Stage of the initial game.
@@ -91,7 +91,7 @@ public class GameViewImpl implements GameView {
       *setting the 4 ItalianCardsDeck: clockwise, starting from the bottom.
       */
      for (int i = 0; i < boxes.size(); i++) {
-         for (ItalianCard card: match.getPlayers().get(i).getHand().getCards()) {
+         for (ItalianCard card: game.getPlayers().get(i).getHand().getCards()) {
              ItalianCardViewFactory c = null;
              this.map.put(c.getCardRepresentation(card), card);
              ((Pane) boxes.get(i)).getChildren().add(c.getCardRepresentation(card));
@@ -99,7 +99,7 @@ public class GameViewImpl implements GameView {
      }
     }
     /**
-     * A method in order to set cards played durind a Round in the centre of the table.
+     * A method in order to set cards played during a Round in the centre of the table.
      * @param boxes list of the five region of boxes (where the cards are added)
      */
     private void setTableCards(final List<Node> boxes) {
@@ -117,7 +117,7 @@ public class GameViewImpl implements GameView {
         *sia piena e la ritorno.
         */
         //creo il nuovo thread che si occupa della giocata
-        UserPlay userPlay = new UserPlay(this.match, this.boxes, this.tableCards, this.map, this.primaryStage);
+        UserPlay userPlay = new UserPlay(this.game, this.boxes, this.tableCards, this.map, this.primaryStage);
         userPlay.start();
         //WAIT DEL MAIN THREAD
         try {
@@ -152,7 +152,7 @@ public class GameViewImpl implements GameView {
          * poi se è l'ultima giocata toglie le carte e le assegna a chi ha vinto il turno.
          * altrimenti si passa al prossimo.
          */
-        List<Play> p = this.match.getCurrentRound().getPlays();
+        List<Play> p = this.game.getCurrentRound().getPlays();
         Play lastPlay = p.get(p.size() - 1);
         this.tableCards.add(lastPlay.getCard());
         this.map.remove(lastPlay.getCard());
