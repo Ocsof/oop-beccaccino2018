@@ -2,6 +2,7 @@ package model.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import model.entities.Play;
 import model.entities.Player;
 
@@ -26,7 +27,7 @@ public abstract class RoundTemplate implements Round {
      * {@inheritDoc}
      */
     public Player getCurrentPlayer() {
-        this.checkIfOver(false);
+        this.checkIfNotOver();
         return this.currentPlayer;
     }
 
@@ -34,7 +35,8 @@ public abstract class RoundTemplate implements Round {
      * {@inheritDoc}
      */
     public void addPlay(final Play play) {
-        this.checkIfOver(false);
+        this.checkIfNotOver();
+        this.checkPlay(play);
         this.plays.add(play);
         this.currentPlayer = this.turnOrder.next();
     }
@@ -43,20 +45,33 @@ public abstract class RoundTemplate implements Round {
      * {@inheritDoc}
      */
     public List<Play> getPlays() {
-        return this.plays;
+        final List<Play> defensiveCopy = new ArrayList<>(this.plays);
+        return defensiveCopy;
     }
 
     /**
      * This is a protection method checking the state of this round.
      * 
-     * @param state - boolean representing what the {@link isOver()} method
-     * should return.
-     * @throws an IllegalStateException if this round state isn't how it was
-     * expected to be.
+     * @throws an IllegalStateException if this round is over
      */
-    protected void checkIfOver(final boolean state) {
-        if (state != this.isOver()) {
-            throw new IllegalStateException();
+    protected void checkIfNotOver() {
+        if (this.isOver()) {
+            throw new IllegalStateException("This method can be called only if the round isn't over");
         }
     }
+
+    /**
+     * An utility method checking if the round has no plays.
+     * @return true if the round has no plays yet, false otherwise
+     */
+    public boolean hasJustStarted() {
+        return this.plays.size() == 0;
+    }
+
+    /**
+     * Protection method checking if the play is legal.
+     * 
+     * @param play - the play to check
+     */
+    protected abstract void checkPlay(Play play);
 }

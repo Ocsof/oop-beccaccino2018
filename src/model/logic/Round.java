@@ -19,15 +19,17 @@ public interface Round {
      * the round isn't finished yet).
      * 
      * @param play - the play to be added to this round
+     * @throws IllegalStateException if the round is over.
      */
-    void addPlay(Play play); // TODO add exception
+    void addPlay(Play play);
 
     /**
      * Returns the player on the play, only if the round isn't finished yet.
      * 
      * @return the player on the play
+     * @throws IllegalStateException if the round is over.
      */
-    Player getCurrentPlayer(); // TODO add exception
+    Player getCurrentPlayer();
 
     /**
      * Returns plays already made this round.
