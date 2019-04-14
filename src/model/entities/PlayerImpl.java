@@ -1,14 +1,16 @@
 package model.entities;
 
 /**
- * Alessia Rocco
+ * Alessia Rocco 
  * Player Implementation.
  */
 public class PlayerImpl implements Player {
     private String name;
     private Hand hand;
+
     /**
      * Class constructor.
+     * 
      * @param name name of the player
      * @param hand hand of the player
      */
@@ -16,12 +18,14 @@ public class PlayerImpl implements Player {
         this.name = name;
         this.hand = hand;
     }
+
     /**
      * {@inheritDoc}
      */
     public String getName() {
         return this.name;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -29,7 +33,9 @@ public class PlayerImpl implements Player {
         return this.hand;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -37,7 +43,10 @@ public class PlayerImpl implements Player {
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
-    @Override
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean equals(final Object player) {
         if (this == player) {
             return true;
