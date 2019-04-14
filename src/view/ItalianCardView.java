@@ -28,7 +28,7 @@ public class ItalianCardView implements ItalianCardViewFactory {
     public ItalianCardView(final ItalianCard card) {
         this.suit = card.getSuit();
         this.value = card.getValue();
-        this.name = this.suit + "di" + this.value + ".jpg";
+        this.name = this.value + "di" + this.suit + ".jpg";
         this.image = new Image("res" + File.separator + this.name);
         this.cardView = new ImageView();
         this.cardView.setImage(image);
