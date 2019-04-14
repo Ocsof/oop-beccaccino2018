@@ -1,15 +1,18 @@
 package model.entities;
 
 import java.util.Optional;
+
 /**
- * Alessia Rocco
+ * Alessia Rocco 
  * Play Implementation.
  */
 public class PlayImpl implements Play {
     private ItalianCard card;
     private Optional<String> message;
+
     /**
      * Class constructor.
+     * 
      * @param card the card has been played
      * @param message the eventually message thrown with the card
      */
@@ -19,12 +22,14 @@ public class PlayImpl implements Play {
             this.message = message;
         }
     }
+
     /**
      * {@inheritDoc}
      */
     public ItalianCard getCard() {
         return this.card;
     }
+
     /**
      * {@inheritDoc}
      */
@@ -34,7 +39,10 @@ public class PlayImpl implements Play {
         }
         return Optional.empty();
     }
-    @Override
+
+    /**
+     * {@inheritDoc}
+     */
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -42,7 +50,10 @@ public class PlayImpl implements Play {
         result = prime * result + ((message == null) ? 0 : message.hashCode());
         return result;
     }
-    @Override
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean equals(final Object play) {
         if (this == play) {
             return true;
