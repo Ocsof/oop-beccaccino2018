@@ -1,14 +1,15 @@
 package util;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class SceneLauncherImpl implements SceneLauncher {
 	
-	FXMLLoader loader;
-	String scenePath;
+	private final FXMLLoader loader;
+	private final String scenePath;
 	String sceneName;
 	Parent root;
 	
@@ -22,13 +23,11 @@ public class SceneLauncherImpl implements SceneLauncher {
 	
 	@Override
 	public Parent launchScene() {
-		
-		loader.setLocation((this.getClass().getResource(scenePath + sceneName)));
+		loader.setLocation(this.getClass().getResource(scenePath + sceneName));
 		
 		try {
 			root = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 		    System.out.println("An Error Has Occurred While Attempting To Load An FXML Scene \nShutting Down...");
 			System.exit(1);
 		}
@@ -37,9 +36,7 @@ public class SceneLauncherImpl implements SceneLauncher {
 	}
 
 	@Override
-	public void setSceneName(String newStringName) {
-		
-		sceneName = newStringName;
-		
+	public void setSceneName(final String newStringName) {
+	    sceneName = newStringName;
 	}
 }
