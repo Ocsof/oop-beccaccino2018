@@ -81,15 +81,5 @@ public class PartecipantImpl implements Partecipant {
         return map;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cardsProbability == null) ? 0 : cardsProbability.hashCode());
-        result = prime * result + ((plays == null) ? 0 : plays.hashCode());
-        return result;
-    }
 
 }
