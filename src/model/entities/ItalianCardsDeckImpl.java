@@ -4,37 +4,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
-import model.entities.ItalianCard;
-
+/**
+ * Implementation of the interface ItalianCardDeck.
+ */
 public class ItalianCardsDeckImpl implements ItalianCardsDeck {
-    
     private List<ItalianCardImpl> cardDeck;
     private final int indexFirstCard = 0;
-    
+    /**
+     * Creates an instance of ItalianCardDeckImpl and populates it with all of the possible ItalianCards.
+     */
     public ItalianCardsDeckImpl() {
-        
         cardDeck = new ArrayList<ItalianCardImpl>();
         populateDeck();
         Collections.shuffle(cardDeck);
-        
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public ItalianCard drawCard() {
-        if(remainingCards() == 0) {
+        if (remainingCards() == 0) {
             throw new IllegalStateException("Cards cannot be drawn if the deck is empty.");
-        }else {
+        } else {
             return cardDeck.remove(indexFirstCard);
         }
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public int remainingCards() {
         return cardDeck.size();
-    }
-    
+    } 
     /**
-     * This private method populates a deck with all 40 possible ItalianCards.
+     * This private method populates a deck with all existing ItalianCards.
      * @return void
      */
     private void populateDeck() {
