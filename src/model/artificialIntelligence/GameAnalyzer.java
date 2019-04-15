@@ -41,7 +41,7 @@ public interface GameAnalyzer {
     /**
      * It serves the AI to remember the play made in this round.
      * 
-     * @param play made by the AI in the current round.
+     * @param play is the play made by the AI in the current round.
      */
     void addMyPlay(Play play);
 
@@ -62,7 +62,7 @@ public interface GameAnalyzer {
     /**
      * It checks the card passed as a parameter will definitely win the round.
      * 
-     * @param card is the to consider.
+     * @param card is the card to consider.
      * @return true if the card will win the round, false otherwise.
      */
     boolean willWinTheRound(ItalianCard card);
@@ -87,5 +87,12 @@ public interface GameAnalyzer {
      * @return true if the temporary winner "has tagliato", false otherwise.
      */
     boolean hasTempWinnerTaglio();
+
+    /**
+     * It allows to understand the Briscola called by other player.
+     * 
+     * @param briscola is the briscola of match
+     */
+    void setBriscola(Suit briscola);
 
 }

@@ -30,8 +30,8 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @param myHand is the player's hand.
      * @param briscola briscola of the game.
      */
-    public GameMediumAnalyzer(final List<ItalianCard> myHand, final Suit briscola) {
-        super(myHand, briscola);
+    public GameMediumAnalyzer(final List<ItalianCard> myHand) {
+        super(myHand);
         this.voliEachSuits = new HashMap<>();
         this.counter = new Counter();
     }

@@ -24,7 +24,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     protected Round currentRound;
     protected Round lastRound;
     protected final List<Round> roundPlayed;
-    protected final Suit briscola;
+    protected Suit briscola;
 
     protected final static int RIGHT = 0;
     protected final static int TEAMMATE = 1;
@@ -37,15 +37,14 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * Class constructor.
      * 
-     * @param myHand is the player's hand.
-     * @param briscola of the game.
+     * @param hand is the AI's hand.
      */
-    public GameBasicAnalyzer(final List<ItalianCard> myHand, final Suit briscola) {
+    public GameBasicAnalyzer(final List<ItalianCard> handCards) {
         this.allPlayers = this.initializePlayers();
-        this.remainingCards = this.initializeRemainingCards(myHand);
+        this.remainingCards = this.initializeRemainingCards(handCards);
         this.allPlays = new LinkedList<>();
         this.roundPlayed = new LinkedList<>();
-        this.briscola = briscola;
+        this.briscola = null;
     }
 
     /**
@@ -183,6 +182,15 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return false;
     }
 
+    /**
+     * It set the briscola once it was chosen.
+     * 
+     * @param briscola is the briscola of match.
+     */
+    public void setBriscola(final Suit briscola) {
+        this.briscola = briscola;
+    }
+
     // *** UTILITY *****/
     /**
      * It checks if a enemy player is the temporary winner of the round.
@@ -203,7 +211,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * It allows to evaluate the possibility that a card could win the round,
      * without considering the cards that were played in the current round.
      * 
-     * @param card to evaluate.
+     * @param card is the card to evaluate.
      * @return the probability of winning.
      */
     protected int getWinningProbabilityOf(final ItalianCard card) {
@@ -227,7 +235,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * 
      * @param cardsOf is a set of remaining cards with the same suit of the card
      * passed by parameter.
-     * @param card to calculate probability of winning round.
+     * @param card is the card to calculate probability of winning round.
      * @return the probability.
      */
     protected int calculateProbability(final List<ItalianCard> cardsOf, final ItalianCard card) {
@@ -246,7 +254,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It checks if a player has all the cards.
      * 
-     * @param player to consider.
+     * @param player is the player to consider.
      * @param cardWithMoreValue are the cards to evaluate.
      * @return true if player has all the cards, false otherwise.
      */
@@ -262,8 +270,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It checks if a player has a card.
      * 
-     * @param player to consider
-     * @param card to consider
+     * @param player is the player to consider
+     * @param card is the card to consider
      * @return true if player has the card
      */
     protected boolean hasPlayerCard(final int player, final ItalianCard card) {
@@ -323,8 +331,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It allows to understand if the teammate "has busso" in a specific suit.
      * 
-     * @param player to consider
-     * @param suit to consider
+     * @param player is the player to consider
+     * @param suit is the suit to consider
      * @return true if teammate "has busso" in the suit, false otherwise
      */
     protected boolean hasPlayerBussoIn(final int player, final Suit suit) {
@@ -342,7 +350,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It allows to update conditions of game after a "Busso".
      * 
-     * @param player that has "Busso".
+     * @param player is the player that has "Busso".
      */
     protected void playerHasBusso(final int player) {
         if (this.currentRound.hasJustStarted()) {
@@ -362,8 +370,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It allows to update the condition of match after a play done.
      * 
-     * @param player that have done the play.
-     * @param play done.
+     * @param player is the player that have done the play.
+     * @param play is the play done.
      */
     protected void removeAndAdd(final int player, final Play play) {
         this.remainingCards.remove(play.getCard());
@@ -377,8 +385,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It serves to understand the position in the round of the AI.
      * 
-     * @param position to check.
-     * @return true if the position in the round corresponds to that passed by
+     * @param position is the position to check.
+     * @return true if the position in the round is equal to that passed by
      * parameter.
      */
     protected boolean myRoundPositionIs(final int position) {
@@ -411,15 +419,15 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * It initializes playable cards from other players.
      * 
-     * @param myCards
+     * @param handCards is the AI's hand
      * @return a list of playable cards from other players
      */
-    private List<ItalianCard> initializeRemainingCards(final List<ItalianCard> myCards) {
+    private List<ItalianCard> initializeRemainingCards(final List<ItalianCard> handCards) {
         final List<ItalianCard> remainingCards = new LinkedList<>();
         final ItalianCardsDeck deck = new ItalianCardsDeckImpl();
         while (deck.remainingCards() > 0) {
             ItalianCard card = deck.drawCard();
-            if (!myCards.contains(card)) {
+            if (!handCards.contains(card)) {
                 remainingCards.add(card);
             }
         }

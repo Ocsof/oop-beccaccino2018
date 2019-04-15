@@ -11,13 +11,13 @@ import model.logic.Round;
 public class AIImpl implements AI {
 
     private final Player me;
-    private Suit briscola;
     private BriscolaSelector selector;
     private final GameAnalyzer game;
     private final BestPlaySelector chooser;
     private ConditionForTaglio conditionForTaglio;
 
-    // nel ruleset sarà inizializzato il tipo di game --> e' lui che definisce l'AI
+    // nel ruleset sarà inizializzato il tipo di game --> e' lui che definisce
+    // l'AI
     /**
      * Class constructor.
      * 
@@ -63,16 +63,17 @@ public class AIImpl implements AI {
      * {@inheritDoc}
      */
     public Suit selectBriscola() {
-        this.briscola = this.selector.getPreferredSuit();
-        this.conditionForTaglio = new ConditionForTaglioImpl(this.game, this.briscola);
-        return this.briscola;
+        final Suit briscola = this.selector.getPreferredSuit();
+        this.game.setBriscola(briscola);
+        this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
+        return briscola;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setBriscola(final Suit suit) {
-        this.briscola = suit;
+    public void setBriscola(final Suit briscola) {
+        this.game.setBriscola(briscola);
     }
 
 }
