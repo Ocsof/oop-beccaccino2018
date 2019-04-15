@@ -28,7 +28,6 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * Class constructor.
      * 
      * @param myHand is the player's hand.
-     * @param briscola briscola of the game.
      */
     public GameMediumAnalyzer(final List<ItalianCard> myHand) {
         super(myHand);
@@ -52,9 +51,9 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
                 final ItalianCard card = roundPlays.get(i).getCard();
                 final Suit suit = card.getSuit();
                 if (message.isPresent()) {
-                    if (message.equals("Busso")) {
+                    if (message.get().equals("Busso")) {
                         this.playerHasBusso(i);
-                    } else if (message.equals("Volo")) {
+                    } else if (message.get().equals("Volo")) {
                         this.finishedCardsOfSuit(i);
                     }
                 } else if (this.differentFromRoundSuit(suit)) {
@@ -94,8 +93,8 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * It checks if a player has played a card of a suit other than the suit of
      * round.
      * 
-     * @param suit of card played by the player
-     * @return true if the two suits are equals, false otherwise
+     * @param suit is the suit of card played.
+     * @return true if the two suits are equals, false otherwise.
      */
     protected boolean differentFromRoundSuit(final Suit suit) {
         if (this.currentRound.hasJustStarted()) {
@@ -149,8 +148,8 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
     /**
      * It checks if a player has finished cards in a suit.
      * 
-     * @param player to check.
-     * @param suit to check.
+     * @param player is the player to check.
+     * @param suit is the suit to check.
      * @return true if the player has finished cards in the suit, false
      * otherwise.
      */

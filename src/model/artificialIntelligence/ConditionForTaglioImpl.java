@@ -24,7 +24,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * Class constructor.
      * 
      * @param game is a game analyzer.
-     * @param briscola of the game.
+     * @param briscola is the briscola of the game.
      */
     public ConditionForTaglioImpl(final GameAnalyzer game, final Suit briscola) {
         this.game = game;
@@ -54,7 +54,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
     /**
      * It checks if the "asso" of a suit is still playable by other players.
      * 
-     * @param suit to consider.
+     * @param suit is the suit to consider.
      * @return true if the "asso" is still playable by others player, false
      * otherwise.
      */
@@ -68,7 +68,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
     /**
      * It checks if "tre" is my last card of a suit.
      * 
-     * @param suit to consider.
+     * @param suit is the suit to consider.
      * @return true if "tre" is my last card of the suit, false otherwise.
      */
     private boolean myLastCardOfIsTre(final Suit suit) {
@@ -88,7 +88,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
     /**
      * It verifies if "asso" of a suit is in the player's hand.
      * 
-     * @param suit to consider.
+     * @param suit is the to consider.
      * @return true if "asso" of the suit passed by parameters is in the
      * player's hand, false otherwise.
      */

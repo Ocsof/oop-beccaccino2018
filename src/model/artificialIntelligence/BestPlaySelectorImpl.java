@@ -94,7 +94,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      * It allows to play the best card from the set of cards passed by
      * parameter.
      * 
-     * @param list of cards.
+     * @param listOfCards is a list of cards.
      * @return the play i have done.
      */
     private Play playLiscio(final List<ItalianCard> listOfCards) {
