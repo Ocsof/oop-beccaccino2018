@@ -12,15 +12,22 @@ public interface AI {
      * Give the AI the opportunity to make its move.
      * 
      * @param currentRound - list of the plays made since this AI last turn,
-     * chronologically ordered
-     * @return the play this AI decides to make
+     * chronologically ordered.
+     * @return the play this AI decides to make.
      */
     Play makePlay(Round currentRound);
 
     /**
-     * Ask the AI which Suit it prefers.
+     * Ask the AI which suit it prefers.
      * 
-     * @return the suit selected by the AI
+     * @return the suit selected by the AI.
      */
     Suit selectBriscola();
+    
+    /**
+     * It sets the briscola chosen by the players for this match.
+     * 
+     * @param briscola is the briscola chosen for the match.
+     */
+    void setBriscola(final Suit briscola);
 }

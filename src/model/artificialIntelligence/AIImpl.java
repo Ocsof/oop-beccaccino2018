@@ -21,7 +21,7 @@ public class AIImpl implements AI {
     /**
      * Class constructor.
      * 
-     * @param player is the virtual player associated with the AI
+     * @param player is the virtual player associated with the AI.
      * @param game is a game analyzer useful to act in the best way in a game.
      */
     public AIImpl(final Player player, final GameBasicAnalyzer game) {
@@ -64,7 +64,6 @@ public class AIImpl implements AI {
      */
     public Suit selectBriscola() {
         final Suit briscola = this.selector.getPreferredSuit();
-        this.game.setBriscola(briscola);
         this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
         return briscola;
     }
