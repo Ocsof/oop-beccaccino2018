@@ -54,7 +54,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                     bunchOfMyBestCards.getCardsWithMostPoints());
             myCard = myCardsWithMostPoints.getLowestCards().get(0);
             if (iVoloIn(myCard.getSuit())) {
-                message = Optional.of("Volo");
+                message = Optional.of("VOLO");
             }
         } else {
             // listOfCards ora non puo'essere vuoto
@@ -108,9 +108,9 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                                         // busso cosi
                 final Suit suitBusso = listOfTwo.get(0).getSuit();
                 myCard = bunchOfCards.getLowestCardOfSuit(suitBusso).get();
-                message = Optional.of("Busso");
+                message = Optional.of("BUSSO");
             } else if (iVoloIn(myCard.getSuit())) {
-                message = Optional.of("Volo");
+                message = Optional.of("VOLO");
             }
         }
         return new PlayImpl(myCard, message);

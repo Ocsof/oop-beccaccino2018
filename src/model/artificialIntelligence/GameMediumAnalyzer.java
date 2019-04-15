@@ -51,9 +51,9 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
                 final ItalianCard card = roundPlays.get(i).getCard();
                 final Suit suit = card.getSuit();
                 if (message.isPresent()) {
-                    if (message.get().equals("Busso")) {
+                    if (message.get().equals("BUSSO")) {
                         this.playerHasBusso(i);
-                    } else if (message.get().equals("Volo")) {
+                    } else if (message.get().equals("VOLO")) {
                         this.finishedCardsOfSuit(i);
                     }
                 } else if (this.differentFromRoundSuit(suit)) {
