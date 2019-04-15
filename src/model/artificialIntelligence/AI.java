@@ -23,11 +23,11 @@ public interface AI {
      * @return the suit selected by the AI.
      */
     Suit selectBriscola();
-    
+
     /**
      * It sets the briscola chosen by the players for this match.
      * 
      * @param briscola is the briscola chosen for the match.
      */
-    void setBriscola(final Suit briscola);
+    void setBriscola(Suit briscola);
 }

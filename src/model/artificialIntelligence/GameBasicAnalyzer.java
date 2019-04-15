@@ -37,7 +37,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * Class constructor.
      * 
-     * @param hand is the AI's hand.
+     * @param handCards is the AI's hand.
      */
     public GameBasicAnalyzer(final List<ItalianCard> handCards) {
         this.allPlayers = this.initializePlayers();
