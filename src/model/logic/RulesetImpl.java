@@ -2,14 +2,17 @@ package model.logic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import model.artificialIntelligence.AI;
+import model.artificialIntelligence.AIImpl;
+import model.artificialIntelligence.GameBasicAnalyzer;
 import model.entities.BeccaccinoHand;
 import model.entities.Hand;
 import model.entities.Player;
 import model.entities.PlayerImpl;
 import model.entities.Team;
 import model.entities.TeamImpl;
-import view.GameView;
 import view.GameViewImpl;
 
 /**
@@ -30,8 +33,8 @@ public class RulesetImpl implements Ruleset {
     /**
      * {@inheritDoc}
      */
-    public GameView newGameView(final Game game) {
-        GameView gameView = new GameViewImpl(game);
+    public GameViewImpl newGameView(final Game game) {
+        GameViewImpl gameView = new GameViewImpl(game);
         return gameView;
     }
 
@@ -47,8 +50,11 @@ public class RulesetImpl implements Ruleset {
     /**
      * {@inheritDoc}
      */
-    public AIImpl newAI() {
-        return null;
+    public Optional<AI> newAI(final Player player) {
+        //QUANDO PRONTA QUI VA MESSA LA DISCRIMINAZIONE DELLA DIFFICOLTA' IN BASE ALLE OPZIONI DEL MENU
+        GameBasicAnalyzer analyzer = new GameBasicAnalyzer(player.getHand().getCards());
+        Optional<AI> ai = Optional.of(new AIImpl(player, analyzer));
+        return ai;
     }
     /**
      * This method creates two teams from a list of 4.
