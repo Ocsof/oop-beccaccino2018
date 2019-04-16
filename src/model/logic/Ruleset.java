@@ -1,8 +1,11 @@
 package model.logic;
 
 import java.util.List;
+import java.util.Optional;
+
+import model.artificialIntelligence.AI;
 import model.entities.Player;
-import view.GameView;
+import view.GameViewImpl;
 
 /**
  * The ruleset which creates all the entities and objects for a game.
@@ -20,7 +23,7 @@ public interface Ruleset {
      * @param game - the game for which the view has to be created.
      * @return The game view created.
      */
-    GameView newGameView(Game game);
+    GameViewImpl newGameView(Game game);
     /**
      * This method creates a new Game object.
      * @param name - the name of the player.
@@ -30,6 +33,7 @@ public interface Ruleset {
     /**
      * This method creates a new Game object.
      * @return The AI created.
+     * @param player - the player that is being controlled by the AI.
      */
-    AIImpl newAI();
+    Optional<AI> newAI(Player player);
 }
