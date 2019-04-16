@@ -25,7 +25,7 @@ import model.logic.Game;
 public class GameViewImpl implements GameView {
     private Game game;
     private final int size = 80;
-    private final BackgroundImage tavolo = new BackgroundImage(new Image("res/tavolo.jpg"),
+    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:tavolo.jpg"),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
     private List<Node> boxes = new LinkedList<>();
     private List<ItalianCard> tableCards = new LinkedList<>();
@@ -90,9 +90,9 @@ public class GameViewImpl implements GameView {
      /*
       *setting the 4 ItalianCardsDeck: clockwise, starting from the bottom.
       */
-     for (int i = 0; i < boxes.size(); i++) {
+     for (int i = 0; i < 4; i++) {
          for (ItalianCard card: game.getPlayers().get(i).getHand().getCards()) {
-             ItalianCardViewFactory c = null;
+             ItalianCardViewFactory c = new ItalianCardView(card);
              this.map.put(c.getCardRepresentation(card), card);
              ((Pane) boxes.get(i)).getChildren().add(c.getCardRepresentation(card));
          }
@@ -104,7 +104,7 @@ public class GameViewImpl implements GameView {
      */
     private void setTableCards(final List<Node> boxes) {
         for (ItalianCard card: this.tableCards) {
-            ItalianCardViewFactory c = null;
+            ItalianCardViewFactory c = new ItalianCardView(card);
             ((Pane) boxes.get(this.boxes.size() - 1)).getChildren().add(c.getCardRepresentation(card));
         }
     }
