@@ -39,7 +39,10 @@ public abstract class GameTemplate implements Game {
     /**
      * {@inheritDoc}
      */
-    public Round getCurrentRound() {
+    public Round getCurrentRound() {//TODO
+        if (this.currentRound == null) {
+            this.currentRound = this.newRound(this.turnOrder);
+        }
         return this.currentRound;
     }
 

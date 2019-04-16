@@ -8,6 +8,7 @@ import java.util.Map;
 import model.entities.BeccaccinoBunchOfCards;
 import model.entities.BunchOfCards;
 import model.entities.ItalianCard;
+import model.entities.ItalianCard.Suit;
 import model.entities.ItalianCard.Value;
 import model.entities.ItalianCardImpl;
 import model.entities.ItalianCardsDeck;
@@ -140,7 +141,7 @@ public class BeccaccinoGame extends GameTemplate {
      */
     protected Player selectFirstPlayer() {
         this.dealCards(new ItalianCardsDeckImpl());
-        final ItalianCard quattroDiDenari = null;
+        final ItalianCard quattroDiDenari = new ItalianCardImpl(Suit.DENARI, Value.QUATTRO);
         for (Player player : this.getPlayers()) {
             if (player.getHand().getCards().contains(quattroDiDenari)) {
                 this.getTurnOrder().setNext(player);
