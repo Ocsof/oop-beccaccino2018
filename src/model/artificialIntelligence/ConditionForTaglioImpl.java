@@ -36,7 +36,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      */
     public boolean areRespected() {
         final Round currentRound = this.game.getCurrentRound();
-        if (currentRound.hasJustStarted()) {
+        if (!currentRound.hasJustStarted()) {
             final Suit roundSuit = currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = currentRound.getWinningPlay().get().getCard();
             if ((!roundSuit.equals(briscola)) && ((!this.game.isTeammateTempWinner())

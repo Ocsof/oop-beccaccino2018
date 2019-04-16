@@ -102,7 +102,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         final Round currentRound = this.game.getCurrentRound();
         Optional<String> message = Optional.empty();
         ItalianCard myCard = bunchOfCards.getLowestCards().get(0);
-        if (!currentRound.hasJustStarted()) {
+        if (currentRound.hasJustStarted()) {
             final List<ItalianCard> listOfTwo = bunchOfCards.getCardsOfValue(Value.DUE);
             if (!listOfTwo.isEmpty()) { // sarebbe utile gestire il proprio
                                         // busso cosi
@@ -165,7 +165,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean iVoloIn(final Suit suit) {
         final Round currentRound = this.game.getCurrentRound();
-        if (!currentRound.hasJustStarted()) { // non deve essere iniziato il
+        if (currentRound.hasJustStarted()) { // non deve essere iniziato il
                                               // round volare
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
             return bunchOfCards.getCardsOfSuit(suit).size() == 1; // se e'

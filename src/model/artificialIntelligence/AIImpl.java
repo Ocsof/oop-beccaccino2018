@@ -9,7 +9,6 @@ import model.logic.Round;
  * It defines an implementation of the AI.
  */
 public class AIImpl implements AI {
-
     private final Player me;
     private BriscolaSelector selector;
     private final GameAnalyzer game;
@@ -74,5 +73,32 @@ public class AIImpl implements AI {
     public void setBriscola(final Suit briscola) {
         this.game.setBriscola(briscola);
     }
+    
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((me == null) ? 0 : me.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AIImpl other = (AIImpl) obj;
+        if (me == null) {
+            if (other.me != null)
+                return false;
+        } else if (!me.equals(other.me))
+            return false;
+        return true;
+    }
+
 
 }

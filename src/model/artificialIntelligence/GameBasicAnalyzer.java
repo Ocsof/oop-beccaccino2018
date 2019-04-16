@@ -32,7 +32,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     protected final static int ME = 3;
 
     protected final static int PRIMO = 0;
-    protected final static int SECONDO = 0;
+    protected final static int SECONDO = 1;
 
     /**
      * Class constructor.
@@ -40,8 +40,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param handCards is the AI's hand.
      */
     public GameBasicAnalyzer(final List<ItalianCard> handCards) {
-        this.allPlayers = this.initializePlayers();
         this.remainingCards = this.initializeRemainingCards(handCards);
+        this.allPlayers = this.initializePlayers();
         this.allPlays = new LinkedList<>();
         this.roundPlayed = new LinkedList<>();
         this.briscola = null;
@@ -132,7 +132,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * {@inheritDoc}
      */
     public boolean isTeammateTempWinner() {
-        if (this.currentRound.hasJustStarted()) {
+        if (!this.currentRound.hasJustStarted()) {
             return this.allPlayers.get(TEAMMATE).getPlays().contains(this.currentRound.getWinningPlay().get());
         }
         return false;
@@ -145,7 +145,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * {@inheritDoc}
      */
     public boolean willWinTheRound(final ItalianCard card) {
-        if (this.currentRound.hasJustStarted()) {
+        if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
             return card.equals(tempWinnerCard)
@@ -172,7 +172,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * {@inheritDoc}
      */
     public boolean hasTempWinnerTaglio() {
-        if (currentRound.hasJustStarted()) {
+        if (!currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
             final Suit suitOfWinner = this.currentRound.getWinningPlay().get().getCard().getSuit();
             if (!roundSuit.equals(suitOfWinner) && suitOfWinner.equals(briscola)) {
@@ -198,7 +198,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @return true if he is winning, false otherwise.
      */
     protected boolean isEnemyTempWinner() {
-        return this.currentRound.hasJustStarted() && !this.isTeammateTempWinner();
+        return !this.currentRound.hasJustStarted() && !this.isTeammateTempWinner();
     }
 
     // nuova versione in cui se la probabilita di prendere � meno di zero viene
@@ -353,7 +353,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param player is the player that has "Busso".
      */
     protected void playerHasBusso(final int player) {
-        if (this.currentRound.hasJustStarted()) {
+        if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(roundSuit);
