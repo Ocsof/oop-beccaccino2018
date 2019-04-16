@@ -19,6 +19,7 @@ public class UserPlay extends Thread {
     private HBox box;
     private List<ItalianCard> tableCards;
     private Map<Node, ItalianCard> map;
+    private Map<ItalianCard, Node> map2;
     private ItalianCard cardPlayed;
     private Optional<String> message;
     private PlayImpl play;
@@ -26,19 +27,21 @@ public class UserPlay extends Thread {
     private MessageView mess;
     /**
      * Class constructor.
-     * @param match the match 
+     * @param game the game 
      * @param boxes the boxes
      * @param tableCards the tableCards
      * @param map 
+     * @param map2 
      * @param primaryStage the initial stage
      */
     public UserPlay(final Game game, final List<Node> boxes, final List<ItalianCard> tableCards, 
-            final Map<Node, ItalianCard> map, final Stage primaryStage) {
+            final Map<ItalianCard, Node> map2, final Map<Node, ItalianCard> map, final Stage primaryStage) {
         this.game = game;
         //la box contenente le carte dello user è sempre in posizione 0 della lista boxes.
         this.box = (HBox) boxes.get(0);
         this.tableCards = tableCards;
         this.map = map;
+        this.map2 = map2;
         this.game.getPlayers().get(0).getHand().getCards();
         this.primaryStage = primaryStage;
         this.enableCards();

@@ -31,6 +31,7 @@ public class GameViewImpl implements GameView {
     private List<ItalianCard> tableCards = new LinkedList<>();
     private Stage primaryStage;
     private Map<Node, ItalianCard> map = new HashMap<>();
+    private Map<ItalianCard, Node> map2 = new HashMap<>();
     /**
      * Class constructor.
      * @param game model.Match
@@ -117,7 +118,7 @@ public class GameViewImpl implements GameView {
         *sia piena e la ritorno.
         */
         //creo il nuovo thread che si occupa della giocata
-        UserPlay userPlay = new UserPlay(this.game, this.boxes, this.tableCards, this.map, this.primaryStage);
+        UserPlay userPlay = new UserPlay(this.game, this.boxes, this.tableCards, this.map2, this.map, this.primaryStage);
         userPlay.start();
         //WAIT DEL MAIN THREAD
         try {
@@ -129,7 +130,9 @@ public class GameViewImpl implements GameView {
         //SVEGLIO IL MAINTHREAD
         PlayImpl play = userPlay.getPlay();
         this.tableCards.add(play.getCard());
-        this.map.remove(play.getCard());
+        Node lastPlayNode = this.map2.get(play.getCard());
+        this.map2.remove(play.getCard());
+        this.map.remove(lastPlayNode);
         this.setPlayersHand(this.boxes);
         this.setTableCards(this.boxes);
         return play;
@@ -155,6 +158,8 @@ public class GameViewImpl implements GameView {
         List<Play> p = this.game.getCurrentRound().getPlays();
         Play lastPlay = p.get(p.size() - 1);
         this.tableCards.add(lastPlay.getCard());
-        this.map.remove(lastPlay.getCard());
+        Node lastPlayNode = this.map2.get(lastPlay.getCard());
+        this.map2.remove(lastPlay.getCard());
+        this.map.remove(lastPlayNode);
     }
 }
