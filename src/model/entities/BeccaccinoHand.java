@@ -1,7 +1,7 @@
 package model.entities;
 
 /**
- * A generic hand, capable of holding a maximum number of {@value #MAX_HAND_SIZE} cards.
+ * A beccaccino hand, capable of holding a maximum number of {@value #MAX_HAND_SIZE} cards.
  */
 public class BeccaccinoHand extends HandTemplate {
     private static final int MAX_HAND_SIZE = 10;
@@ -23,4 +23,30 @@ public class BeccaccinoHand extends HandTemplate {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final BeccaccinoHand hand = (BeccaccinoHand) obj;
+        if (hand.getCards().equals(this.getCards())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        return this.getCards().hashCode();
+    }
 }
