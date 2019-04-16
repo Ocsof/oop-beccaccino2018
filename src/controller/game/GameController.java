@@ -1,9 +1,9 @@
 package controller.game;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 
 import model.artificialIntelligence.AI;
 import model.entities.Play;
@@ -40,7 +40,7 @@ public class GameController {
     }
 
     private Set<AI> getAllAI() {
-        final Set<AI> allAI = new TreeSet<>();
+        final Set<AI> allAI = new HashSet<>();
         for (Optional<AI> ai : this.playingEntities.values()) {
             if (ai.isPresent()) {
                 allAI.add(ai.get());
