@@ -18,9 +18,7 @@ public class PlayImpl implements Play {
      */
     public PlayImpl(final ItalianCard card, final Optional<String> message) {
         this.card = card;
-        if (message.isPresent()) {
-            this.message = message;
-        }
+        this.message = message;
     }
 
     /**
