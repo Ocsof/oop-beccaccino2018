@@ -11,12 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import menu.view.MainMenuView;
-import model.entities.AI;
+import model.artificialIntelligence.AI;
 import model.entities.Player;
 import model.logic.Game;
 import model.logic.Ruleset;
 import util.UtilityClass;
 import view.GameView;
+import view.GameViewImpl;
 /**
  * This is an Implementation of the Interface PreGameMenuControl.
  */
@@ -47,12 +48,13 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
         playerList.add(ruleset.newPlayer("Player3"));
         playerList.add(ruleset.newPlayer("Player4"));
         Game currentGame = ruleset.newGame(playerList);
-        GameView currentGameView = ruleset.newGameView(currentGame);
+        GameViewImpl currentGameView = ruleset.newGameView(currentGame);
+        currentGameView.initialGameSetUp(UtilityClass.returnStageOf(event));
         Map<Player, Optional<AI>> playerMap = new HashMap<Player, Optional<AI>>();
         playerMap.put(playerList.get(0), null);
-        playerMap.put(playerList.get(1), ruleset.newAI("easy"));
-        playerMap.put(playerList.get(2), ruleset.newAI("easy"));
-        playerMap.put(playerList.get(3), ruleset.newAI("easy"));
+        playerMap.put(playerList.get(1), ruleset.newAI(playerList.get(1)));
+        playerMap.put(playerList.get(2), ruleset.newAI(playerList.get(2)));
+        playerMap.put(playerList.get(3), ruleset.newAI(playerList.get(3)));
         GameController currentGameController = new GameController(playerMap, currentGame, currentGameView);
     }
 
