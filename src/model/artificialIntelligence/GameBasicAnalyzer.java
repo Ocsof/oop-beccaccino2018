@@ -74,7 +74,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     public void updateLastRound() {
         if (hastheMatchStarted()) { // se non e' il primo round della partita
             final List<Play> roundPlays = this.lastRound.getPlays();
-            final Play myLastPlay = this.allPlays.get(roundPlays.size() - 1);
+            final Play myLastPlay = this.allPlays.get(allPlays.size() - 1);
             final int rightPlayerPosition = roundPlays.indexOf(myLastPlay) + 1;
             final int numPlayer = roundPlays.size();
             for (int i = rightPlayerPosition; i < numPlayer; i++) {
@@ -106,7 +106,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
             final ItalianCard tempWinner = this.currentRound.getWinningPlay().get().getCard();
             if (!card.getSuit().equals(tempWinner.getSuit()) || comparator.compare(tempWinner, card) > 0) {
-                return -1;
+                return 0;
             }
         }
         // altrimenti

@@ -45,7 +45,7 @@ public class AIImpl implements AI {
         this.game.updateLastRound();
         this.game.observePlays(currentRound);
         final Play myPlay;
-        if (currentRound.hasJustStarted()) {
+        if (!currentRound.hasJustStarted()) {
             if (this.conditionForTaglio.areRespected()) { // posso tagliare
                 myPlay = this.chooser.doTheBestTaglio();
             } else {
@@ -72,6 +72,7 @@ public class AIImpl implements AI {
      */
     public void setBriscola(final Suit briscola) {
         this.game.setBriscola(briscola);
+        this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
     }
     
 

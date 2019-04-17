@@ -24,8 +24,11 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
      * 
      * @param setOfCards is a list of cards.
      */
-    public BeccaccinoBunchOfCards(final List<ItalianCard> setOfCards) {
-        this.listOfCards = setOfCards;
+    public BeccaccinoBunchOfCards(final List<ItalianCard> listOfCards) {
+        this.listOfCards = listOfCards;
+        if(this.listOfCards.size() == 0) {
+            throw new IllegalArgumentException("Can't have 0 cards");
+        }
         this.pointsMap = new HashMap<>();
         this.createPointsMap();
     }
@@ -100,7 +103,7 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
     public List<ItalianCard> getCardsWithMostPoints() {
         List<ItalianCard> cardsWithMorePoints = new LinkedList<>();
         int max = 0;
-        for (ItalianCard card : cardsWithMorePoints) {
+        for (ItalianCard card : this.listOfCards) {
             int temp = this.pointsMap.get(card.getValue());
             if (temp > max) {
                 max = temp;

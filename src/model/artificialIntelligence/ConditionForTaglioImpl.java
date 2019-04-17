@@ -37,6 +37,10 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
     public boolean areRespected() {
         final Round currentRound = this.game.getCurrentRound();
         if (!currentRound.hasJustStarted()) {
+            final BunchOfCards bunchofcards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
+            if (bunchofcards.getCardsOfSuit(this.briscola).isEmpty()) {
+                return false;
+            }
             final Suit roundSuit = currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = currentRound.getWinningPlay().get().getCard();
             if ((!roundSuit.equals(briscola)) && ((!this.game.isTeammateTempWinner())
@@ -75,8 +79,8 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
         final Round currentRound = this.game.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
-        final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
         if (!cardsOf.isEmpty()) {
+            final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
             if (cardsOf.size() == ONECARD && !bunchOfCardsOf.getCardsOfValue(Value.TRE).isEmpty()) {
                 return true; // se ho ancora una carta del seme e corrisponde al
                              // tre
