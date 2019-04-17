@@ -39,4 +39,11 @@ public abstract class HandTemplate implements Hand {
             this.cards.add(card);
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return this.getCards().toString();
+    }
 }
