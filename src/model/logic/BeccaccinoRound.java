@@ -70,7 +70,7 @@ public class BeccaccinoRound extends RoundTemplate {
         final List<ItalianCard> allCards = this.getCurrentPlayer().getHand().getCards();
         final List<ItalianCard> playableCards = new ArrayList<>();
 
-        if (!this.getSuit().isPresent()) {
+        if (this.hasJustStarted()) {
             return allCards;
         }
         for (ItalianCard card : allCards) {
@@ -78,7 +78,7 @@ public class BeccaccinoRound extends RoundTemplate {
                 playableCards.add(card);
             }
         }
-        if (playableCards.size() == 0) {
+        if (playableCards.isEmpty()) {
             return allCards;
         }
         return playableCards;
@@ -99,16 +99,16 @@ public class BeccaccinoRound extends RoundTemplate {
     }
 
     /**
-     * Only the first player of the round can send messagges.
+     * Only the first player of the round can send messages.
      * {@inheritDoc}
      */
     public List<Optional<String>> getSendableMessages(final ItalianCard card) {
         final List<Optional<String>> sendableMessages = new ArrayList<>();
         sendableMessages.add(Optional.empty());
         if (this.hasJustStarted()) {
-            sendableMessages.add(Optional.ofNullable("BUSSO"));
-            sendableMessages.add(Optional.ofNullable("STRISCIO"));
-            sendableMessages.add(Optional.ofNullable("VOLO"));
+            sendableMessages.add(Optional.of("BUSSO"));
+            sendableMessages.add(Optional.of("STRISCIO"));
+            sendableMessages.add(Optional.of("VOLO"));
         }
         return sendableMessages;
     }
@@ -117,13 +117,13 @@ public class BeccaccinoRound extends RoundTemplate {
      * {@inheritDoc}
      */
     protected void checkPlay(final Play play) {
-        ItalianCard card = play.getCard();
+        final ItalianCard card = play.getCard();
         if (!this.getPlayableCards().contains(card)) {
             throw new IllegalArgumentException("Can't play this card: " + card);
         }
         if (!this.getSendableMessages(card).contains(play.getMessage())) {
             throw new IllegalArgumentException("Can't send this message now: " + play.getMessage().get());
-        }
+         }
     }
 
     /**

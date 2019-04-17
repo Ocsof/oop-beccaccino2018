@@ -69,7 +69,6 @@ public abstract class GameTemplate implements Game {
             this.firstTurnRoutine(play);
         }
         this.currentRound.addPlay(play);
-        this.getCurrentPlayer().getHand().removeCard(play.getCard());
         if (this.currentRound.isOver()) {
             this.roundOverRoutine();
             if (!this.isOver()) {
