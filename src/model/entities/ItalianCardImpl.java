@@ -6,8 +6,10 @@ package model.entities;
 public class ItalianCardImpl implements ItalianCard {
     private final Suit cardSuit;
     private final Value cardValue;
+
     /**
      * Creates an instance of an ItalianCard.
+     * 
      * @param suit - the suit of the card to be created.
      * @param value - the value of the card to be created.
      */
@@ -62,6 +64,13 @@ public class ItalianCardImpl implements ItalianCard {
             return false;
         }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return this.cardValue + "di" + this.cardSuit;
     }
 
 }

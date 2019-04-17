@@ -32,10 +32,12 @@ public class MatchTest {
             final AI ai = playingEntities.get(currentPlayer);
             if (!game.getBriscola().isPresent()) {
                 game.setBriscola(ai.selectBriscola());
+                System.out.println("Briscola: " + game.getBriscola().get());
                 for (AI intelligence : playingEntities.values()) {
                     intelligence.setBriscola(game.getBriscola().get());
                 }
             }
+            System.out.println(game.getCurrentRound().getPlayableCards());
             final Play play = ai.makePlay(game.getCurrentRound());
             game.makeTurn(play);
             try {
