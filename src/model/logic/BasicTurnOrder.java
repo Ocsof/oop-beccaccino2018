@@ -26,12 +26,13 @@ public class BasicTurnOrder implements TurnOrder {
      * {@inheritDoc}
      */
     public Player next() {
+        final Player nextPlayer = this.players.get(index);
         if (this.index == this.players.size() - 1) {
             this.index = 0;
         } else {
             this.index++;
         }
-        return this.players.get(index);
+        return nextPlayer;
     }
 
     /**

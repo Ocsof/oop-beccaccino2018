@@ -26,7 +26,6 @@ public abstract class GameTemplate implements Game {
         this.turnOrder = turnOrder;
         this.briscola = Optional.empty();
         this.firstPlayer = this.selectFirstPlayer();
-        this.turnOrder.setNext(this.firstPlayer);
         this.currentRound = null;
     }
 
