@@ -36,7 +36,6 @@ public abstract class RoundTemplate implements Round {
      */
     public void addPlay(final Play play) {
         this.checkIfNotOver();
-        System.out.println("" + play.getCard().getSuit() + play.getCard().getValue());
         this.checkPlay(play);
         this.currentPlayer.getHand().removeCard(play.getCard());
         this.plays.add(play);

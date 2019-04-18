@@ -46,6 +46,7 @@ public class MatchTest {
             }
             System.out.println(game.getCurrentRound().getPlayableCards());
             final Play play = ai.makePlay(game.getCurrentRound());
+            System.out.println(play.toString());
             game.makeTurn(play);
             try {
                 Thread.sleep(1000);

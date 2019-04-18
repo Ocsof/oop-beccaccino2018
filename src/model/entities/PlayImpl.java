@@ -79,4 +79,11 @@ public class PlayImpl implements Play {
         }
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return card.toString() + " " + message;
+    }
 }
