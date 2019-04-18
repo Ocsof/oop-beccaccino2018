@@ -56,6 +56,7 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
             if (!bestSuit.contains(card.getSuit())) {
                 cardOf = bunchOfCards.getCardsOfSuit(card.getSuit());
                 if (cardOf.size() > max) {
+                    max = cardOf.size();
                     bestSuit = new LinkedList<>();
                     bestSuit.add(card.getSuit());
                 } else if (cardOf.size() == max) {
@@ -95,14 +96,15 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
      * cards.
      */
     private void maxValueOfSuit() {
-        ItalianCard max = new ItalianCardImpl(Suit.BASTONI, Value.QUATTRO); // a
-                                                                            // caso
+        // a caso
+        ItalianCard max = new ItalianCardImpl(Suit.BASTONI, Value.QUATTRO); 
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.myCards);
         for (Suit suit : this.preferredSuitList) {
             if (bunchOfCards.getHighestCardOfSuit(suit).isPresent()) {
                 ItalianCard maxOfSuit = bunchOfCards.getHighestCardOfSuit(suit).get();
                 if (comparator.compare(maxOfSuit, max) > 0) {
+                    max = maxOfSuit;
                     this.preferredSuitList = new LinkedList<>();
                     this.preferredSuitList.add(suit);
                 } else {
