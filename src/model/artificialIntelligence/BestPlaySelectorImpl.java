@@ -52,7 +52,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         if (areWinnerCard(myBestCards)) {
             final BunchOfCards myCardsWithMostPoints = new BeccaccinoBunchOfCards(
                     bunchOfMyBestCards.getCardsWithMostPoints());
-            myCard = myCardsWithMostPoints.getLowestCards().get(0);
+            myCard = myCardsWithMostPoints.getHighestCards().get(0); //meglio Highest o lowest??
             if (iVoloIn(myCard.getSuit())) {
                 message = Optional.of("VOLO");
             }
