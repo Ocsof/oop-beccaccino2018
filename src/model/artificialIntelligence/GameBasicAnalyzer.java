@@ -33,6 +33,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
 
     protected final static int PRIMO = 0;
     protected final static int SECONDO = 1;
+    protected final static int TERZO = 2;
 
     /**
      * Class constructor.
@@ -148,8 +149,8 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
-            return card.equals(tempWinnerCard)
-                    && (!roundSuit.equals(card.getSuit()) || this.getWinningProbabilityOf(card) == 100);
+            return (card.equals(tempWinnerCard)
+                    && (!roundSuit.equals(card.getSuit())) || this.getWinningProbabilityOf(card) == 100);
         }
         return false;
     }
@@ -287,14 +288,14 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * that is been considered
      * @return the probability of winning the round
      */
-    protected int observeProbabilityOfEnemies(final List<ItalianCard> cardsWithMoreValue) {
+    protected int observeProbabilityOfEnemies(final List<ItalianCard> cardsWithMoreValue) { // TODO
         int winProbability = 100;
-        int enemiesProbability;
+        int enemiesProbability = 0;
         for (ItalianCard card : cardsWithMoreValue) {
             if (myRoundPositionIs(PRIMO)) {
                 enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card)
                         + this.allPlayers.get(LEFT).getProbabilityOf(card);
-            } else {
+            } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
                 enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card);
             }
             winProbability = winProbability - enemiesProbability;
@@ -316,8 +317,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      */
     protected List<ItalianCard> remainingCardsWithMoreValue(final List<ItalianCard> cardsOf, final int indexCard) {
         final List<ItalianCard> remaining = new LinkedList<>();
-        final int indexMaxValue = cardsOf.size() - 1;
-        for (int i = indexCard + 1; i <= indexMaxValue; i++) {
+        for (int i = indexCard + 1; i < cardsOf.size(); i++) {
             remaining.add(cardsOf.get(i));
         }
         return remaining;
