@@ -101,5 +101,11 @@ public class AIImpl implements AI {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return this.me.toString();
+    }
 
 }
