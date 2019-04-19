@@ -54,17 +54,19 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     public void observePlays(final Round thisRound) {
         this.currentRound = thisRound;
         this.roundPlayed.add(this.currentRound);
-        if (currentRound.hasJustStarted()) { // se non sono il primo del round
-                                             // guardo le giocate fatte
+        // se non sono il primo del round guardo le giocate fatte
+        if (!currentRound.hasJustStarted()) { 
+            final Counter counter = new Counter();
             List<Play> roundPlays = this.currentRound.getPlays();
             final int alreadyPlayed = roundPlays.size();
             final int first = ME - alreadyPlayed;
-            for (int i = first; i < ME; i++) {
-                Optional<String> message = roundPlays.get(i).getMessage();
+            for (int indexPlayer = first; indexPlayer < ME; indexPlayer++) {
+                final Play playDone = roundPlays.get(counter.next());
+                final Optional<String> message = playDone.getMessage();
                 if (message.isPresent() && message.get().equals("Busso")) {
-                    this.playerHasBusso(i);
+                    this.playerHasBusso(indexPlayer);
                 }
-                this.removeAndAdd(i, roundPlays.get(i));
+                this.removeAndAdd(indexPlayer, playDone);
             }
         }
     }
@@ -74,12 +76,14 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      */
     public void updateLastRound() {
         if (hastheMatchStarted()) { // se non e' il primo round della partita
+            final Counter counter = new Counter();
             final List<Play> roundPlays = this.lastRound.getPlays();
             final Play myLastPlay = this.allPlays.get(allPlays.size() - 1);
-            final int rightPlayerPosition = roundPlays.indexOf(myLastPlay) + 1;
+            //play done by RIGHT player in last round
+            final int indexRightPlay = roundPlays.indexOf(myLastPlay) + 1; 
             final int numPlayer = roundPlays.size();
-            for (int i = rightPlayerPosition; i < numPlayer; i++) {
-                this.removeAndAdd(i, roundPlays.get(i));
+            for (int i = indexRightPlay; i < numPlayer; i++) {
+                this.removeAndAdd(counter.next(), roundPlays.get(i)); //counter = 0 --> RIGHT
             }
         }
     }
@@ -139,22 +143,36 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return false;
     }
 
-    // lo si chiama solo sulla carta che sta vincendo il round
+   
     // controllo anche se la carta che sta vincendo ha seme diverso da
     // roundSuit, se ha tagliato do per scontato che vinca
     /**
      * {@inheritDoc}
      */
+    
     public boolean willWinTheRound(final ItalianCard card) {
+        /*
         if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
             return (card.equals(tempWinnerCard)
-                    && (!roundSuit.equals(card.getSuit())) || this.getWinningProbabilityOf(card) == 100);
+                    && (!roundSuit.equals(card.getSuit()))) || (this.getWinningProbabilityOf(card) == 100);
         }
-        return false;
+        */
+        /*
+        if (!this.currentRound.hasJustStarted()) {
+            final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
+            if(card.equals(tempWinnerCard)) {
+                final Suit roundSuit = this.currentRound.getSuit().get();
+                if(!roundSuit.equals(card.getSuit())) {
+                    return true;
+                }
+            }
+        }
+        */
+        return this.getWinningProbabilityOf(card) == 100;
     }
-
+   
     /**
      * {@inheritDoc}
      */
@@ -215,15 +233,19 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param card is the card to evaluate.
      * @return the probability of winning.
      */
-    protected int getWinningProbabilityOf(final ItalianCard card) {
-        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
+    private int getWinningProbabilityOf(final ItalianCard card) {
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         int probability = 100;
-        final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(card.getSuit());
-        cardsOf.sort(comparator);
-        if (this.remainingCards.contains(card)) {
-            probability = this.calculateProbability(cardsOf, card);
-        } else { // e' una carta che e' nella mia mano
+        if (!this.currentRound.hasJustStarted()) {
+            final Suit roundSuit = this.currentRound.getSuit().get();
+            final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
+            if (card.equals(tempWinnerCard) && (!roundSuit.equals(card.getSuit()))) {
+                return probability;
+            }
+        }
+        if (!this.remainingCards.isEmpty()) {
+            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
+            final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(card.getSuit());
             cardsOf.add(card);
             cardsOf.sort(comparator);
             probability = this.calculateProbability(cardsOf, card);
