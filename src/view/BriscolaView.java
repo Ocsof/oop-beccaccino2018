@@ -11,17 +11,18 @@ import model.entities.ItalianCard.Suit;
 
 /**
  * Alessia Rocco
- * Class that implement, by an User Interface, the choice of the Match's Briscola.
- * Here implemented by a Choice Dialog.
+ * Class that implement, by an User Interface, the choice of the
+ * Match's Briscola. Here implemented by a Choice Dialog.
  */
 public class BriscolaView {
     private List<ItalianCard.Suit> choices;
     private ChoiceDialog<ItalianCard.Suit> dialog;
     private Optional<ItalianCard.Suit> suit;
     private Stage primaryStage;
+
     /**
      * Class Constructor.
-     * @param primaryStage 
+     * @param primaryStage the principal Stage
      */
     public BriscolaView(final Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -39,10 +40,12 @@ public class BriscolaView {
         this.suit = dialog.showAndWait();
         suit.ifPresent(suit -> System.out.println("Your choice: " + suit));
     }
+
     /**
      * Getter of the selected Suit, chosen by the User.
-     * @return an Optional.empty() if the Suit is not already set or the Suit value, if 
-     * Suit is present.
+     * 
+     * @return an Optional.empty() if the Suit is not already set or the Suit
+     * value, if Suit is present.
      */
     public final Optional<Suit> getSuit() {
         if (this.suit.isPresent()) {

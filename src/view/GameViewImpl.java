@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
@@ -20,7 +20,8 @@ import model.entities.PlayImpl;
 import model.logic.Game;
 
 /**
- * Alessia Rocco GameView Implementation.
+ * Alessia Rocco 
+ * GameView Implementation.
  */
 public class GameViewImpl implements GameView {
     private Game game;
@@ -32,7 +33,10 @@ public class GameViewImpl implements GameView {
     private Stage primaryStage;
     private Map<Node, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Node> map2 = new HashMap<>();
-    private boolean waitCondition;
+    private PlayImpl play;
+    private ItalianCard cardPlayed;
+    private Optional<String> message;
+    private MessageView mess;
 
     /**
      * Class constructor.
@@ -54,7 +58,7 @@ public class GameViewImpl implements GameView {
         HBox rootbottom = new HBox();
         VBox rootleft = new VBox();
         VBox rootright = new VBox();
-        Box rootcentre = new Box();
+        HBox rootcentre = new HBox();
         this.boxes.add(rootbottom);
         this.boxes.add(rootright);
         this.boxes.add(roottop);
@@ -118,7 +122,7 @@ public class GameViewImpl implements GameView {
     private void setTableCards(final List<Node> boxes) {
         for (ItalianCard card : this.tableCards) {
             ItalianCardViewFactory c = new ItalianCardView(card);
-            ((Pane) boxes.get(this.boxes.size() - 1)).getChildren().add(c.getCardRepresentation(card));
+            ((Pane) boxes.get(boxes.size() - 1)).getChildren().add(c.getCardRepresentation(card));
         }
     }
 
@@ -131,25 +135,27 @@ public class GameViewImpl implements GameView {
          * GameViewObserver) condwait su Playscelta quando verremo "svegliati"
          * abbiamo la play, controllo che la currentPlay sia piena e la ritorno.
          */
-        // creo il nuovo thread che si occupa della giocata
-        UserPlay userPlay = new UserPlay(this.game, this.boxes, this.tableCards, this.map2, this.map,
-                this.primaryStage, this.waitCondition);
-        userPlay.start();
-        // WAIT DEL MAIN THREAD
-        while (!this.waitCondition) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        for (Node card : ((Pane) this.boxes.get(1)).getChildren()) {
+            if (this.game.getCurrentRound().getPlayableCards().contains(this.map.get(card))) {
+                card.setOnMouseClicked(s -> {
+                    /*
+                     * add the choice of the message associated to the card (in
+                     * order to the card there are available messages.
+                     */
+                    this.cardPlayed = this.map.get(card);
+                    this.mess = new MessageView(this.primaryStage, this.game, this.cardPlayed);
+                    this.message = mess.getMessage();
+                });
             }
         }
-        // qui in teoria lascio la parola alla classe UserPlay che esegue tutto
-        // SVEGLIO IL MAINTHREAD
-        PlayImpl play = userPlay.getPlay();
-        this.tableCards.add(play.getCard());
+        this.play = new PlayImpl(cardPlayed, message);
+        this.game.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
+        this.tableCards.add(this.cardPlayed);
         Node lastPlayNode = this.map2.get(play.getCard());
         this.map2.remove(play.getCard());
         this.map.remove(lastPlayNode);
+        ItalianCardViewFactory c = new ItalianCardView(play.getCard());
+        ((Pane) this.boxes.get(this.boxes.size() - 1)).getChildren().add(c.getCardRepresentation(play.getCard()));
         this.setPlayersHand(this.boxes);
         this.setTableCards(this.boxes);
         return play;

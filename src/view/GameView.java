@@ -4,7 +4,7 @@ import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 
 /**
- * A GUI for a turn based italian card game.
+ * A GUI for a turn based Italian card game.
  */
 public interface GameView {
     /**

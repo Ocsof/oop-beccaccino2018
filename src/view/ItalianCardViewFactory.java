@@ -4,8 +4,9 @@ import javafx.scene.Node;
 import model.entities.ItalianCard;
 
 /**
- * Alessia Rocco
- * An interface to create the view implementation of a single card.
+ * Alessia Rocco 
+ * An interface to create the view implementation of a single
+ * card.
  */
 public interface ItalianCardViewFactory {
     /**

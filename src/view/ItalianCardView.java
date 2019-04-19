@@ -8,13 +8,12 @@ import javafx.scene.image.ImageView;
 import model.entities.ItalianCard;
 
 /**
- * Alessia Rocco
+ * Alessia Rocco 
  * ItalianCard view representation, by a rectangular Canvas and
  * the corresponding image.
  */
 public class ItalianCardView implements ItalianCardViewFactory {
-    private String name; // the name of the image corresponding to the
-                         // ItalianCard
+    private String name; /* the name of the image corresponding to the ItalianCard */
     private ImageView cardView;
     private Image image;
 
