@@ -53,7 +53,9 @@ public class PartecipantImpl implements Partecipant {
      * {@inheritDoc}
      */
     public void setProbabilityOf(final ItalianCard card, final int probability) {
-        this.cardsProbability.put(card, probability);
+        if (this.cardsProbability.containsKey(card)) {
+            this.cardsProbability.put(card, probability);
+        }
     }
 
     /**
