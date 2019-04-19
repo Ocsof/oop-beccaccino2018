@@ -48,7 +48,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
 
                 return isAssoOfSuitStillPlayable(roundSuit) && !myLastCardOfIsTre(this.briscola)
                         || haveIAssoOf(this.briscola) || twoPointInvolved() && !myLastCardOfIsTre(this.briscola)
-                        || moreOfTwoPointInvolve(); 
+                        || moreOfTwoPointInvolve();
                 // anche giocando il tre di briscola
             }
         }
@@ -64,11 +64,13 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      */
     private boolean isAssoOfSuitStillPlayable(final Suit suit) {
         final List<ItalianCard> remainingCards = this.game.getRemainingCards();
-        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(remainingCards);
-        final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
-        if (!cardsOf.isEmpty()) {
-            final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
-            return !bunchOfCardsOf.getCardsOfValue(Value.ASSO).isEmpty();
+        if (!remainingCards.isEmpty()) {
+            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(remainingCards);
+            final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
+            if (!cardsOf.isEmpty()) {
+                final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
+                return !bunchOfCardsOf.getCardsOfValue(Value.ASSO).isEmpty();
+            }
         }
         return false;
     }
@@ -86,8 +88,8 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
         if (!cardsOf.isEmpty()) {
             final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
             if (cardsOf.size() == ONECARD && !bunchOfCardsOf.getCardsOfValue(Value.TRE).isEmpty()) {
-                return true; 
-             // se ho ancora una carta del seme e corrisponde al tre
+                return true;
+                // se ho ancora una carta del seme e corrisponde al tre
             }
         }
         return false;
