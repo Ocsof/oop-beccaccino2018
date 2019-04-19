@@ -107,7 +107,7 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
                     max = maxOfSuit;
                     this.preferredSuitList = new LinkedList<>();
                     this.preferredSuitList.add(suit);
-                } else {
+                } else if (comparator.compare(maxOfSuit, max) == 0) {
                     this.preferredSuitList.add(suit);
                 }
             }

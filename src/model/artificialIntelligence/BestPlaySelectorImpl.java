@@ -104,11 +104,13 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         ItalianCard myCard = bunchOfCards.getLowestCards().get(0);
         if (currentRound.hasJustStarted()) {
             final List<ItalianCard> listOfTwo = bunchOfCards.getCardsOfValue(Value.DUE);
-            if (!listOfTwo.isEmpty()) { // sarebbe utile gestire il proprio
-                                        // busso cosi
+            // gestire il proprio busso cosi
+            if (!listOfTwo.isEmpty()) { 
                 final Suit suitBusso = listOfTwo.get(0).getSuit();
-                myCard = bunchOfCards.getLowestCardOfSuit(suitBusso).get();
-                message = Optional.of("BUSSO");
+                if (!iVoloIn(suitBusso)) {
+                    myCard = bunchOfCards.getLowestCardOfSuit(suitBusso).get();
+                    message = Optional.of("BUSSO");
+                }
             } else if (iVoloIn(myCard.getSuit())) {
                 message = Optional.of("VOLO");
             }
@@ -137,8 +139,8 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                 }
             }
         }
-        return myBetterCardThan; // potrebbe essere vuoto nel caso in cui nemico
-                                 // abbia tagliato e non posso tagliare
+        // potrebbe essere vuoto nel caso in cui nemico abbia tagliato e non posso tagliare
+        return myBetterCardThan; 
     }
 
     /**
@@ -165,13 +167,11 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean iVoloIn(final Suit suit) {
         final Round currentRound = this.game.getCurrentRound();
-        if (currentRound.hasJustStarted()) { // non deve essere iniziato il
-                                              // round volare
+        // non deve essere iniziato il round volare
+        if (currentRound.hasJustStarted()) { 
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
-            return bunchOfCards.getCardsOfSuit(suit).size() == 1; // se e'
-                                                                  // l'ultima
-                                                                  // che ho in
-                                                                  // mano
+            // se e' l'ultima che ho in mano
+            return bunchOfCards.getCardsOfSuit(suit).size() == 1; 
         }
         return false;
     }
