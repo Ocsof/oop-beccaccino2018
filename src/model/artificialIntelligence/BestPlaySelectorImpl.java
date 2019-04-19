@@ -52,13 +52,16 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         if (areWinnerCard(myBestCards)) {
             final BunchOfCards myCardsWithMostPoints = new BeccaccinoBunchOfCards(
                     bunchOfMyBestCards.getCardsWithMostPoints());
-            myCard = myCardsWithMostPoints.getHighestCards().get(0); //meglio Highest o lowest??
+            myCard = myCardsWithMostPoints.getHighestCards().get(0); // meglio
+                                                                     // Highest
+                                                                     // o
+                                                                     // lowest??
             if (iVoloIn(myCard.getSuit())) {
                 message = Optional.of("VOLO");
             }
         } else {
             // listOfCards ora non puo'essere vuoto
-            return this.playLiscio(listOfCards); 
+            return this.playLiscio(listOfCards);
         }
         return new PlayImpl(myCard, message);
     }
@@ -105,7 +108,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         if (currentRound.hasJustStarted()) {
             final List<ItalianCard> listOfTwo = bunchOfCards.getCardsOfValue(Value.DUE);
             // gestire il proprio busso cosi
-            if (!listOfTwo.isEmpty()) { 
+            if (!listOfTwo.isEmpty()) {
                 final Suit suitBusso = listOfTwo.get(0).getSuit();
                 if (!iVoloIn(suitBusso)) {
                     myCard = bunchOfCards.getLowestCardOfSuit(suitBusso).get();
@@ -139,8 +142,9 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                 }
             }
         }
-        // potrebbe essere vuoto nel caso in cui nemico abbia tagliato e non posso tagliare
-        return myBetterCardThan; 
+        // potrebbe essere vuoto nel caso in cui nemico abbia tagliato e non
+        // posso tagliare
+        return myBetterCardThan;
     }
 
     /**
@@ -152,7 +156,10 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean areWinnerCard(final List<ItalianCard> cards) {
         for (ItalianCard card : cards) {
-            if (!this.game.willWinTheRound(card)) {
+            /*
+             * if (!this.game.willWinTheRound(card)) { return false; }
+             */
+            if (this.game.getWinningTeamProbability(card) != 100) {
                 return false;
             }
         }
@@ -168,10 +175,10 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
     private boolean iVoloIn(final Suit suit) {
         final Round currentRound = this.game.getCurrentRound();
         // non deve essere iniziato il round volare
-        if (currentRound.hasJustStarted()) { 
+        if (currentRound.hasJustStarted()) {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
             // se e' l'ultima che ho in mano
-            return bunchOfCards.getCardsOfSuit(suit).size() == 1; 
+            return bunchOfCards.getCardsOfSuit(suit).size() == 1;
         }
         return false;
     }

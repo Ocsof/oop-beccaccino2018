@@ -74,9 +74,10 @@ public class AIImpl implements AI {
         this.game.setBriscola(briscola);
         this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
     }
-    
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -84,8 +85,10 @@ public class AIImpl implements AI {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

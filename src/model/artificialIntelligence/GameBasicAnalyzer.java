@@ -18,6 +18,7 @@ import model.logic.Round;
  */
 public class GameBasicAnalyzer implements GameAnalyzer {
 
+    protected final List<ItalianCard> handCard;
     protected final List<Partecipant> allPlayers;
     protected final List<ItalianCard> remainingCards;
     protected final List<Play> allPlays;
@@ -41,6 +42,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param handCards is the AI's hand.
      */
     public GameBasicAnalyzer(final List<ItalianCard> handCards) {
+        this.handCard = handCards;
         this.remainingCards = this.initializeRemainingCards(handCards);
         this.allPlayers = this.initializePlayers();
         this.allPlays = new LinkedList<>();
@@ -55,7 +57,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         this.currentRound = thisRound;
         this.roundPlayed.add(this.currentRound);
         // se non sono il primo del round guardo le giocate fatte
-        if (!currentRound.hasJustStarted()) { 
+        if (!currentRound.hasJustStarted()) {
             final Counter counter = new Counter();
             List<Play> roundPlays = this.currentRound.getPlays();
             final int alreadyPlayed = roundPlays.size();
@@ -63,7 +65,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             for (int indexPlayer = first; indexPlayer < ME; indexPlayer++) {
                 final Play playDone = roundPlays.get(counter.next());
                 final Optional<String> message = playDone.getMessage();
-                if (message.isPresent() && message.get().equals("Busso")) {
+                if (message.isPresent() && message.get().equals("BUSSO")) {
                     this.playerHasBusso(indexPlayer);
                 }
                 this.removeAndAdd(indexPlayer, playDone);
@@ -79,20 +81,16 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             final Counter counter = new Counter();
             final List<Play> roundPlays = this.lastRound.getPlays();
             final Play myLastPlay = this.allPlays.get(allPlays.size() - 1);
-            //play done by RIGHT player in last round
-            final int indexRightPlay = roundPlays.indexOf(myLastPlay) + 1; 
+            // play done by RIGHT player in last round
+            final int indexRightPlay = roundPlays.indexOf(myLastPlay) + 1;
             final int numPlayer = roundPlays.size();
             for (int i = indexRightPlay; i < numPlayer; i++) {
-                this.removeAndAdd(counter.next(), roundPlays.get(i)); //counter = 0 --> RIGHT
+                this.removeAndAdd(counter.next(), roundPlays.get(i)); 
+             // counter = 0 --> RIGHT
             }
         }
     }
 
-    /*
-     * nuova versione in cui ritorna: - -1 se sta prendendo il nemico e la carta
-     * parametro � piu piccola; - -1 se il nemico ha tagliato e la carta non �
-     * di briscola - la getWinningProbabilityOf pu� restituire come minimo 0
-     */
     /**
      * {@inheritDoc}
      */
@@ -103,9 +101,9 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             if (willWinTheRound(cardTeammate)) {
                 return probability; // 100
             }
-        } else if (myRoundPositionIs(PRIMO) && hasPlayerBussoIn(TEAMMATE, card.getSuit())) {
+        } else if (myRoundPositionIs(PRIMO) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())) {
             return probability;
-        } else if (myRoundPositionIs(SECONDO) && hasPlayerBussoIn(TEAMMATE, this.currentRound.getSuit().get())) {
+        } else if (myRoundPositionIs(SECONDO) && hasPlayerTheBestCardOf(TEAMMATE, this.currentRound.getSuit().get())) {
             return probability;
         } else if (isEnemyTempWinner()) { // se sta prendendo il nemico
             final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
@@ -143,36 +141,34 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return false;
     }
 
-   
     // controllo anche se la carta che sta vincendo ha seme diverso da
     // roundSuit, se ha tagliato do per scontato che vinca
     /**
      * {@inheritDoc}
      */
-    
-    public boolean willWinTheRound(final ItalianCard card) {
-        /*
+
+    public boolean willWinTheRound(final ItalianCard tempWinnerCard) {
         if (!this.currentRound.hasJustStarted()) {
-            final Suit roundSuit = this.currentRound.getSuit().get();
-            final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
-            return (card.equals(tempWinnerCard)
-                    && (!roundSuit.equals(card.getSuit()))) || (this.getWinningProbabilityOf(card) == 100);
-        }
-        */
-        /*
-        if (!this.currentRound.hasJustStarted()) {
-            final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
-            if(card.equals(tempWinnerCard)) {
-                final Suit roundSuit = this.currentRound.getSuit().get();
-                if(!roundSuit.equals(card.getSuit())) {
+            final ItalianCard winnerCard = this.currentRound.getWinningPlay().get().getCard();
+            if (tempWinnerCard.equals(winnerCard)) {
+                if (isTaglio(tempWinnerCard)) {
                     return true;
                 }
             }
         }
-        */
-        return this.getWinningProbabilityOf(card) == 100;
+        return this.getWinningProbabilityOf(tempWinnerCard) == 100;
     }
-   
+
+    private boolean isTaglio(final ItalianCard card) {
+        if (!this.currentRound.hasJustStarted()) {
+            final Suit roundSuit = this.currentRound.getSuit().get();
+            if (card.getSuit().equals(briscola) && !roundSuit.equals(card.getSuit())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -220,12 +216,6 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return !this.currentRound.hasJustStarted() && !this.isTeammateTempWinner();
     }
 
-    // nuova versione in cui se la probabilita di prendere � meno di zero viene
-    // messa a zero
-    // non viene piu chiamato se c'e' una tempWinnerCard che ha seme diverso da
-    // card, viene intercettato prima
-    // solo su carte con value piu alto e dello stesso seme di quella che sta
-    // eventualmente vincendo il round
     /**
      * It allows to evaluate the possibility that a card could win the round,
      * without considering the cards that were played in the current round.
@@ -236,13 +226,6 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     private int getWinningProbabilityOf(final ItalianCard card) {
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         int probability = 100;
-        if (!this.currentRound.hasJustStarted()) {
-            final Suit roundSuit = this.currentRound.getSuit().get();
-            final ItalianCard tempWinnerCard = this.currentRound.getWinningPlay().get().getCard();
-            if (card.equals(tempWinnerCard) && (!roundSuit.equals(card.getSuit()))) {
-                return probability;
-            }
-        }
         if (!this.remainingCards.isEmpty()) {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(card.getSuit());
@@ -310,7 +293,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * that is been considered
      * @return the probability of winning the round
      */
-    protected int observeProbabilityOfEnemies(final List<ItalianCard> cardsWithMoreValue) { // TODO
+    protected int observeProbabilityOfEnemies(final List<ItalianCard> cardsWithMoreValue) { 
         int winProbability = 100;
         int enemiesProbability = 0;
         for (ItalianCard card : cardsWithMoreValue) {
@@ -345,11 +328,6 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return remaining;
     }
 
-    // considero la bussata del teammate se ha la carta piu' alta del seme, se
-    // non ce l'ha non lo considero il busso
-    // ad esempio se nel turno precedente quando aveva bussato non e' stato
-    // giocato il tre allora non ha senso considerare
-    // il busso
     /**
      * It allows to understand if the teammate "has busso" in a specific suit.
      * 
@@ -357,18 +335,17 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param suit is the suit to consider
      * @return true if teammate "has busso" in the suit, false otherwise
      */
-    protected boolean hasPlayerBussoIn(final int player, final Suit suit) {
+    protected boolean hasPlayerTheBestCardOf(final int player, final Suit suit) {
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
         if ((bunchOfCards.getHighestCardOfSuit(suit).isPresent())) {
-            if (hasPlayerCard(player, bunchOfCards.getHighestCardOfSuit(suit).get())) {
+            final ItalianCard bestCardOf = bunchOfCards.getHighestCardOfSuit(suit).get();
+            if (hasPlayerCard(player, bestCardOf)) {
                 return true;
             }
         }
         return false;
     }
 
-    // lascio aperta la possibilita che possa bussare se ha la seconda carta piu
-    // alta di un seme tra le rimanenti
     /**
      * It allows to update conditions of game after a "Busso".
      * 
@@ -377,13 +354,19 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     protected void playerHasBusso(final int player) {
         if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
-            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
+            final List<ItalianCard> allRemainingCard = new LinkedList<>();
+            allRemainingCard.addAll(this.remainingCards);
+            allRemainingCard.addAll(this.handCard);
+            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(allRemainingCard);
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(roundSuit);
             if (cardsOf.size() >= 2) {
-                cardsOf.remove(bunchOfCards.getHighestCardOfSuit(roundSuit).get());
-                ItalianCard card = cardsOf.get(cardsOf.size() - 1);
-                final int probability = 100;
-                this.allPlayers.get(player).setProbabilityOf(card, probability);
+                final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
+                cardsOf.sort(comparator);
+                ItalianCard card = cardsOf.get(cardsOf.size() - 2);
+                for (Partecipant partecipant : this.allPlayers) {
+                    partecipant.setProbabilityOf(card, 0);
+                }
+                this.allPlayers.get(player).setProbabilityOf(card, 100);
             }
             // altrimenti non fa niente perche' il giocatore ha bussato a caso
         }
