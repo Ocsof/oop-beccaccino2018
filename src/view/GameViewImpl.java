@@ -1,20 +1,25 @@
 package view;
 
 import java.awt.Toolkit;
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import controller.game.CardController;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
+import model.entities.ItalianCard.Value;
+import model.entities.ItalianCardImpl;
 import model.entities.Play;
 import model.entities.PlayImpl;
 import model.logic.Game;
@@ -26,22 +31,19 @@ import model.logic.Game;
 public class GameViewImpl implements GameView {
     private Game game;
     private final int size = 80;
-    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:tavolo.jpg"), BackgroundRepeat.NO_REPEAT,
-            BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-    private List<Node> boxes = new LinkedList<>();
+    private final String sep = File.separator;
+    private final BackgroundImage tavolo = new BackgroundImage(new Image("res" + sep + "tavolo.jpg"),
+            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+    private List<Pane> boxes = new LinkedList<>();
     private List<ItalianCard> tableCards = new LinkedList<>();
     private Stage primaryStage;
-    private Map<Node, ItalianCard> map = new HashMap<>();
-    private Map<ItalianCard, Node> map2 = new HashMap<>();
-    private PlayImpl play;
-    private ItalianCard cardPlayed;
-    private Optional<String> message;
-    private MessageView mess;
+    private Map<Button, ItalianCard> map = new HashMap<>();
+    private Map<ItalianCard, Button> map2 = new HashMap<>();
 
     /**
      * Class constructor.
      * 
-     * @param game model.Match
+     * @param game model.logic.Game
      */
     public GameViewImpl(final Game game) {
         this.game = game;
@@ -79,7 +81,7 @@ public class GameViewImpl implements GameView {
         rootleft.setPadding(new Insets(this.size, 0, 0, 0));
         rootright.setPadding(new Insets(this.size, 0, 0, 0));
         rootbottom.setPadding(new Insets(10, 10, 10, this.size * 5));
-        // aggiunta al pane esterno tutte le mani delle carte
+        // add at extern pane all the hands of the 4 players
         externalPane.setBottom(this.boxes.get(0));
         externalPane.setRight(this.boxes.get(1));
         externalPane.setTop(this.boxes.get(2));
@@ -100,15 +102,21 @@ public class GameViewImpl implements GameView {
      * @param boxes: list of the five region of boxes (where the cards are
      * added)
      */
-    private void setPlayersHand(final List<Node> boxes) {
+    private void setPlayersHand(final List<Pane> boxes) {
         /*
          * setting the 4 ItalianCardsDeck: clockwise, starting from the bottom.
          */
-        for (int i = 0; i < 4; i++) {
+        for (ItalianCard card : game.getPlayers().get(0).getHand().getCards()) {
+            ItalianCardViewFactory c = new ItalianCardView(card);
+            this.map2.put(card, c.getCardRepresentation(card));
+            this.map.put(c.getCardRepresentation(card), card);
+            boxes.get(0).getChildren().add(c.getBackCardRepresentation());
+        }
+
+        for (int i = 1; i < 4; i++) {
             for (ItalianCard card : game.getPlayers().get(i).getHand().getCards()) {
                 ItalianCardViewFactory c = new ItalianCardView(card);
-                this.map.put(c.getCardRepresentation(card), card);
-                ((Pane) boxes.get(i)).getChildren().add(c.getCardRepresentation(card));
+                boxes.get(i).getChildren().add(c.getBackCardRepresentation());
             }
         }
     }
@@ -119,7 +127,7 @@ public class GameViewImpl implements GameView {
      * 
      * @param boxes list of the five region of boxes (where the cards are added)
      */
-    private void setTableCards(final List<Node> boxes) {
+    private void setTableCards(final List<Pane> boxes) {
         for (ItalianCard card : this.tableCards) {
             ItalianCardViewFactory c = new ItalianCardView(card);
             ((Pane) boxes.get(boxes.size() - 1)).getChildren().add(c.getCardRepresentation(card));
@@ -129,7 +137,7 @@ public class GameViewImpl implements GameView {
     /**
      * {@inheritDoc}
      */
-    public Play getUserPlay() {
+    public synchronized Play getUserPlay() {
         /*
          * aggancio action listener: attivo le carte giocabili (vedi metodo in
          * GameViewObserver) condwait su Playscelta quando verremo "svegliati"
@@ -142,35 +150,25 @@ public class GameViewImpl implements GameView {
                      * add the choice of the message associated to the card (in
                      * order to the card there are available messages.
                      */
-                    this.cardPlayed = this.map.get(card);
-                    this.mess = new MessageView(this.primaryStage, this.game, this.cardPlayed);
-                    this.message = mess.getMessage();
+                    CardController cardController = new CardController();
+                    cardController.action();
                 });
             }
         }
-        this.play = new PlayImpl(cardPlayed, message);
-        this.game.getCurrentPlayer().getHand().getCards().remove(this.cardPlayed);
-        this.tableCards.add(this.cardPlayed);
-        Node lastPlayNode = this.map2.get(play.getCard());
-        this.map2.remove(play.getCard());
-        this.map.remove(lastPlayNode);
-        ItalianCardViewFactory c = new ItalianCardView(play.getCard());
-        ((Pane) this.boxes.get(this.boxes.size() - 1)).getChildren().add(c.getCardRepresentation(play.getCard()));
-        this.setPlayersHand(this.boxes);
-        this.setTableCards(this.boxes);
-        return play;
+//
+//        try {
+//            wait();
+//        } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+        return null;
     }
 
     /**
      * {@inheritDoc}
      */
     public Suit getSelectedBriscola() {
-        /*
-         * fare in modo di selezionare una briscola in modo view, settare un
-         * campo briscola e poi ritornarlo. come getUserPlay, una nuova finestra
-         * con 4 bottoni da selezionare, non si deve oscurare la roba sotto (una
-         * DIALOG).
-         */
         BriscolaView briscola = new BriscolaView(this.primaryStage);
         return briscola.getSuit().get();
     }
@@ -190,5 +188,19 @@ public class GameViewImpl implements GameView {
         Node lastPlayNode = this.map2.get(lastPlay.getCard());
         this.map2.remove(lastPlay.getCard());
         this.map.remove(lastPlayNode);
+
+        if (this.boxes.get(0).getChildren().contains(lastPlayNode)) {
+            this.boxes.get(0).getChildren().remove(lastPlayNode);
+        } else if (this.boxes.get(1).getChildren().contains(lastPlayNode)) {
+            this.boxes.get(1).getChildren().remove(lastPlayNode);
+        } else if (this.boxes.get(2).getChildren().contains(lastPlayNode)) {
+            this.boxes.get(2).getChildren().remove(lastPlayNode);
+        } else if (this.boxes.get(3).getChildren().contains(lastPlayNode)) {
+            this.boxes.get(3).getChildren().remove(lastPlayNode);
+        }
+
+//        this.boxes.get(4).getChildren().add(lastPlayNode);
+        this.setPlayersHand(this.boxes);
+        this.setTableCards(this.boxes);
     }
 }
