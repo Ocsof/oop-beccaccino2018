@@ -2,7 +2,7 @@ package view;
 
 import java.io.File;
 
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.entities.ItalianCard;
@@ -14,8 +14,9 @@ import model.entities.ItalianCard;
  */
 public class ItalianCardView implements ItalianCardViewFactory {
     private String name; /* the name of the image corresponding to the ItalianCard */
-    private ImageView cardView;
-    private Image image;
+    private Button cardView = new Button();
+    private ImageView image;
+    private String sep = File.separator;
 
     /**
      * Class constructor.
@@ -24,16 +25,29 @@ public class ItalianCardView implements ItalianCardViewFactory {
      */
     public ItalianCardView(final ItalianCard card) {
         this.name = card.toString() + ".jpg";
-        this.image = new Image("file:res" + File.separator + this.name);
-        this.cardView = new ImageView();
-        this.cardView.setImage(image);
+        System.out.println(card.toString());
+        System.out.println(this.name);
+        System.out.println(sep + "res" + sep + "cards" + sep + this.name);
+        this.image = new ImageView(new Image("file:" + sep + "res" + sep + "cards" + sep + card.getValue() 
+        + "di" + card.getSuit() + ".jpg"));
+
+        image.setFitWidth(15);
+        image.setFitHeight(30);
+        cardView.setGraphic(image);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Node getCardRepresentation(final ItalianCard card) {
+    public Button getCardRepresentation(final ItalianCard card) {
         return this.cardView;
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    public Button getBackCardRepresentation() {
+        Button back = new Button();
+        back.setGraphic(new ImageView(new Image("res" + sep + "cards" + sep + "retro.jpg")));
+        return back;
+    }
 }

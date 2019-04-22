@@ -1,6 +1,6 @@
 package view;
 
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import model.entities.ItalianCard;
 
 /**
@@ -10,9 +10,15 @@ import model.entities.ItalianCard;
  */
 public interface ItalianCardViewFactory {
     /**
-     * 
+     * The method to represent a card, with its corresponding image.
      * @param card an ItalianCard
-     * @return a Node for every Card, in order to view it on the table.
+     * @return a Button for every Card, in order to view it on the table.
      */
-    Node getCardRepresentation(ItalianCard card);
+    Button getCardRepresentation(ItalianCard card);
+
+    /**
+     * The method to represent the back of a card.
+     * @return a Button for every Card, the back.
+     */
+    Button getBackCardRepresentation();
 }
