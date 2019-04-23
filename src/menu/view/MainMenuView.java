@@ -1,6 +1,7 @@
 package menu.view;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -22,7 +23,11 @@ public class MainMenuView extends Application{
 		SceneLauncherImpl launcher = new SceneLauncherImpl("MainMenuScene.fxml");
 		root = launcher.launchScene();
 		UtilityClass.setScene(primaryStage, root);
+		primaryStage.hide();
+                primaryStage.setFullScreen(true);
+                primaryStage.setFullScreen(false);
                 primaryStage.show();
+
         
 	}
 
