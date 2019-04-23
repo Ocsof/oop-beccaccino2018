@@ -8,14 +8,12 @@ import model.entities.Play;
  */
 public interface GameView {
     /**
-     * Allows the players to make is play and returns it.
-     * 
-     * @return the play made by the user
+     * Allows the user to make its play.
      */
-    Play getUserPlay();
+    void allowUserPlay();
 
     /**
-     * Allows the players to select a Briscola suit and returns it.
+     * Allows the user to select a Briscola suit and returns it.
      * 
      * @return the suit selected by the user
      */
@@ -24,6 +22,6 @@ public interface GameView {
     /**
      * Renders a play made by other entities.
      */
-    void renderPlay();
+    void update();
 }
 

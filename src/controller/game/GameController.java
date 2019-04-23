@@ -14,29 +14,50 @@ import view.GameView;
 public class GameController {
     private final Map<Player, Optional<AI>> playingEntities;
     private final Game game;
+    private final GameView view;
 
     public GameController(final Map<Player, Optional<AI>> playingEntities, final Game game, final GameView view) {
+        this.view = view;
         this.game = game;
         this.playingEntities = playingEntities;
-        while (!game.isOver()) {
-            final Player currentPlayer = game.getCurrentPlayer();
-            final Optional<AI> ai = playingEntities.get(currentPlayer);
+        this.handleBriscola();
+        this.proceed(null);
+    }
+
+    public void notifyUserHasPlayed(final Play play) {
+        this.proceed(play);
+    }
+
+    private void proceed(final Play play) {
+        if (!this.game.isOver()) {
+            final Player currentPlayer = this.game.getCurrentPlayer();
+            final Optional<AI> ai = this.playingEntities.get(currentPlayer);
             if (ai.isPresent()) {
-                if (!game.getBriscola().isPresent()) {
-                    game.setBriscola(ai.get().selectBriscola());
-                    this.updateAI();
-                }
-                final Play play = ai.get().makePlay(game.getCurrentRound());
-                game.makeTurn(play);
-                view.renderPlay();
+                this.game.makeTurn(ai.get().makePlay(this.game.getCurrentRound()));
+                view.update();
+                this.proceed(null);
             } else {
-                if (!game.getBriscola().isPresent()) {
-                    game.setBriscola(view.getSelectedBriscola());
-                    this.updateAI();
+                if (play == null) {
+                    this.view.allowUserPlay();
+                } else {
+                    game.makeTurn(play);
+                    view.update();
                 }
-                game.makeTurn(view.getUserPlay());
             }
         }
+    }
+
+    private void handleBriscola() {
+        final Player currentPlayer = this.game.getCurrentPlayer();
+        final Optional<AI> ai = this.playingEntities.get(currentPlayer);
+        if (ai.isPresent()) {
+            if (!this.game.getBriscola().isPresent()) {
+                this.game.setBriscola(ai.get().selectBriscola());
+            }
+        } else {
+            this.game.setBriscola(view.getSelectedBriscola());
+        }
+        this.updateAI();
     }
 
     private Set<AI> getAllAI() {
