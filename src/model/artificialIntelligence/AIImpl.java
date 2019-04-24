@@ -23,7 +23,7 @@ public class AIImpl implements AI {
      * @param player is the virtual player associated with the AI.
      * @param game is a game analyzer useful to act in the best way in a game.
      */
-    public AIImpl(final Player player, final GameBasicAnalyzer game) {
+    public AIImpl(final Player player, final GameAnalyzer game) {
         this.me = player;
         this.selector = new BriscolaSelectorImpl(this.me.getHand().getCards());
         this.game = game;
@@ -89,18 +89,23 @@ public class AIImpl implements AI {
      * {@inheritDoc}
      */
     public boolean equals(final Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         AIImpl other = (AIImpl) obj;
         if (me == null) {
-            if (other.me != null)
+            if (other.me != null) {
                 return false;
-        } else if (!me.equals(other.me))
+            }
+        } else if (!me.equals(other.me)) {
             return false;
+        }
         return true;
     }
 
