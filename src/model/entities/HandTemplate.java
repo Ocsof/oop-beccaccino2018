@@ -39,7 +39,7 @@ public abstract class HandTemplate implements Hand {
             this.cards.add(card);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */

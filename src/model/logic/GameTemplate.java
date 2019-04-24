@@ -1,5 +1,6 @@
 package model.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public abstract class GameTemplate implements Game {
     private final TurnOrder turnOrder;
     private final Player firstPlayer;
     private Optional<Suit> briscola;
-    private Round currentRound;
+    private List<Round> rounds;
 
     /**
      * 
@@ -26,7 +27,7 @@ public abstract class GameTemplate implements Game {
         this.turnOrder = turnOrder;
         this.briscola = Optional.empty();
         this.firstPlayer = this.selectFirstPlayer();
-        this.currentRound = null;
+        this.rounds = new ArrayList<>();
     }
 
     /**
@@ -39,39 +40,34 @@ public abstract class GameTemplate implements Game {
     /**
      * {@inheritDoc}
      */
-    public Round getCurrentRound() {//TODO
-        if (this.currentRound == null) {
-            this.currentRound = this.newRound(this.turnOrder);
-        }
-        return this.currentRound;
+    public Round getCurrentRound() {
+        this.checkBriscolaIsPresent();
+        return this.rounds.get(this.rounds.size() - 1);
     }
 
     /**
      * {@inheritDoc}
      */
     public Player getCurrentPlayer() {
-        if (this.currentRound == null) {
+        if (this.rounds.isEmpty()) {
             return this.firstPlayer;
         }
-        return this.currentRound.getCurrentPlayer();
+        return this.getCurrentRound().getCurrentPlayer();
     }
 
     /**
      * {@inheritDoc}
      */
     public void makeTurn(final Play play) {
-        if (!this.briscola.isPresent()) {
-            throw new IllegalStateException("Can't make a turn if a briscola suit hasn't been set yet");
-        }
-        if (this.currentRound == null) {
-            this.currentRound = this.newRound(this.turnOrder);
+        this.checkBriscolaIsPresent();
+        if (this.rounds.size() == 1) {
             this.firstTurnRoutine(play);
         }
-        this.currentRound.addPlay(play);
-        if (this.currentRound.isOver()) {
+        this.getCurrentRound().addPlay(play);
+        if (this.getCurrentRound().isOver()) {
             this.roundOverRoutine();
             if (!this.isOver()) {
-                this.currentRound = this.newRound(this.turnOrder);
+                this.rounds.add(this.newRound(this.turnOrder));
             }
         }
     }
@@ -110,6 +106,21 @@ public abstract class GameTemplate implements Game {
     protected void dealCards(final ItalianCardsDeck deck) {
         for (Player player : this.getPlayers()) {
             player.getHand().addCard(deck.drawCard());
+        }
+    }
+
+    /**
+     * Protection method checking the briscola has already been set.
+     * If this game has no rounds yet, create the first one.
+     * 
+     * @throws IllegalStateException if no briscola has been set yet.
+     */
+    protected void checkBriscolaIsPresent() {
+        if (!this.briscola.isPresent()) {
+            throw new IllegalStateException("Set briscola first");
+        }
+        if (this.rounds.isEmpty()) {
+            this.rounds.add(this.newRound(this.turnOrder));
         }
     }
 
