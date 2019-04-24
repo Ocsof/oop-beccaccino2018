@@ -10,7 +10,6 @@ import model.entities.BunchOfCards;
 import model.entities.ItalianCard;
 import model.entities.Play;
 import model.entities.ItalianCard.Suit;
-import model.logic.Round;
 
 /**
  * It defines a medium analyzer of a game. The AI remembers the suits in which
@@ -18,7 +17,6 @@ import model.logic.Round;
  */
 public class GameMediumAnalyzer extends GameBasicAnalyzer {
 
-    private final Counter counter;
     private final Map<Suit, Integer> voliEachSuits;
 
     private static final int NUMOTHERPLAYER = 3;
@@ -32,61 +30,111 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
     public GameMediumAnalyzer(final List<ItalianCard> myHand) {
         super(myHand);
         this.voliEachSuits = new HashMap<>();
-        this.counter = new Counter();
     }
 
     /**
      * {@inheritDoc}
      */
-    public void observePlays(final Round thisRound) {
-        this.currentRound = thisRound;
-        this.roundPlayed.add(this.currentRound);
-        if (!myRoundPositionIs(PRIMO)) { // se non sono il primo del round
-                                         // guardo le giocate fatte
-            List<Play> roundPlays = this.currentRound.getPlays();
-            final int alreadyPlayed = roundPlays.size();
-            final int first = ME - alreadyPlayed;
-            for (int i = first; i < ME; i++) {
-                Optional<String> message = roundPlays.get(i).getMessage();
-                final ItalianCard card = roundPlays.get(i).getCard();
-                final Suit suit = card.getSuit();
-                if (message.isPresent()) {
-                    if (message.get().equals("BUSSO")) {
-                        this.playerHasBusso(i);
-                    } else if (message.get().equals("VOLO")) {
-                        this.finishedCardsOfSuit(i);
-                    }
-                } else if (this.differentFromRoundSuit(suit)) {
-                    this.finishedCardsOfSuit(i);
-                }
-                this.removeAndAdd(i, roundPlays.get(i));
+    public int getWinningTeamProbability(final ItalianCard card) {
+        final int probability = 100;
+        if (isTeammateTempWinner()) {
+            final ItalianCard cardTeammate = this.getCurrentRound().getWinningPlay().get().getCard();
+            if (willWinTheRound(cardTeammate)) {
+                return probability; // 100
             }
+        } else if (myRoundPositionIs(PRIMO) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())
+                && !couldEnemiesTaglio(card.getSuit())) {
+            return probability;
+        } else if (myRoundPositionIs(SECONDO)) {
+            final Suit roundSuit = this.getCurrentRound().getSuit().get();
+            if (hasPlayerTheBestCardOf(TEAMMATE, roundSuit) || couldTeammateTaglio(roundSuit)) {
+                if (!couldEnemiesTaglio(roundSuit)) {
+                    return probability;
+                }
+            }
+        } else if (isEnemyTempWinner()) { // se sta prendendo il nemico
+            final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
+            final ItalianCard tempWinner = this.getCurrentRound().getWinningPlay().get().getCard();
+            if (!card.getSuit().equals(tempWinner.getSuit()) || comparator.compare(tempWinner, card) > 0) {
+                return 0;
+            }
+        }
+        return this.getWinningProbabilityOf(card);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean willWinTheRound(final ItalianCard tempWinnerCard) {
+        if (!getCurrentRound().hasJustStarted()) {
+            final Suit roundSuit = this.getCurrentRound().getSuit().get();
+            final ItalianCard winnerCard = this.getCurrentRound().getWinningPlay().get().getCard();
+            if (tempWinnerCard.equals(winnerCard)) {
+                if (isTaglio(tempWinnerCard) && !couldEnemiesTaglio(roundSuit)) {
+                    return true;
+                }
+            }
+        }
+        return this.getWinningProbabilityOf(tempWinnerCard) == 100;
+    }
+
+    // ********UTILITY**************
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void observePlaysCurrentRound(final int firstPlay, final int lastPlay) {
+        final Counter counter = new Counter();
+        final List<Play> roundPlays = this.getCurrentRound().getPlays();
+        for (int indexPlayer = firstPlay; indexPlayer <= lastPlay; indexPlayer++) {
+            final Play playDone = roundPlays.get(counter.next());
+            final Optional<String> message = playDone.getMessage();
+            final Suit suit = playDone.getCard().getSuit();
+            if (message.isPresent()) {
+                if (message.get().equals("BUSSO")) {
+                    this.playerHasBusso(indexPlayer);
+                } else if (message.get().equals("VOLO")) {
+                    this.finishedCardsOfSuit(indexPlayer);
+                }
+            } else if (this.differentFromRoundSuit(suit)) {
+                this.finishedCardsOfSuit(indexPlayer);
+            }
+            this.removeAndAdd(indexPlayer, playDone);
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public void updateLastRound() {
-        // se non e' il primo round della partita
-        if (!this.hastheMatchStarted()) {
-            final List<Play> roundPlays = this.currentRound.getPlays();
-            final Play myLastPlay = this.allPlays.get(roundPlays.size() - 1);
-            // indice giocatore a destra
-            final int index = roundPlays.indexOf(myLastPlay) + 1;
-            final int numPlayer = roundPlays.size();
-            for (int i = index; i < numPlayer; i++) {
-                // i messaggi non vanno gestiti perche' al massimo sono io ad
-                // aver fatto
-                // la prima giocata
-                ItalianCard card = roundPlays.get(i).getCard();
-                if (this.differentFromRoundSuit(card.getSuit())) {
-                    // servirebbe un contatore, oppure: int c = RIGHT poi c++
-                    this.finishedCardsOfSuit(this.counter.next());
-                }
-                this.removeAndAdd(i, roundPlays.get(i));
+    protected void observePlaysLastRound(final int rightPlay, final int lastPlay) {
+        // counter = 0 --> RIGHT
+        final Counter counter = new Counter();
+        final List<Play> roundPlays = this.getLastRound().getPlays();
+        for (int i = rightPlay; i < lastPlay; i++) {
+            final ItalianCard card = roundPlays.get(i).getCard();
+            int cont = counter.next();
+            if (this.differentFromRoundSuit(card.getSuit())) {
+                cont++;
+                this.finishedCardsOfSuit(cont);
             }
+            this.removeAndAdd(cont, roundPlays.get(i));
         }
+    }
+
+    /**
+     * {@inheritDoc} It consider as better cards also those that have the
+     * briscola suit that could be played by enemies.
+     */
+    protected List<ItalianCard> remainingBetterCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
+        if (!couldEnemiesTaglio(card.getSuit())) {
+            return super.remainingBetterCard(card, cardsOf);
+        }
+        final List<ItalianCard> remainingBetterCard = super.remainingBetterCard(card, cardsOf);
+        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
+        for (ItalianCard cardOfBriscola : bunchOfCards.getCardsOfSuit(getBriscola())) {
+            remainingBetterCard.add(cardOfBriscola);
+        }
+        return remainingBetterCard;
     }
 
     /**
@@ -97,8 +145,8 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @return true if the two suits are equals, false otherwise.
      */
     protected boolean differentFromRoundSuit(final Suit suit) {
-        if (this.currentRound.hasJustStarted()) {
-            final Suit roundSuit = this.currentRound.getSuit().get();
+        if (!this.getCurrentRound().hasJustStarted()) {
+            final Suit roundSuit = this.getCurrentRound().getSuit().get();
             return !roundSuit.equals(suit);
         }
         return false;
@@ -113,31 +161,38 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      */
     protected void finishedCardsOfSuit(final int indexPlayer) {
         int probability = 0;
-        if (this.currentRound.hasJustStarted()) {
-            final Suit suit = this.currentRound.getSuit().get();
-            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
-            final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
-            for (ItalianCard card : cardsOf) {
-                this.allPlayers.get(indexPlayer).setProbabilityOf(card, probability);
-            }
-            // per aumentare la prob delle carte del seme negli altri giocatori
-            if (!this.voliEachSuits.containsKey(suit)) {
-                this.voliEachSuits.put(suit, FIRSTVOLO);
-            } else {
-                final int numVoli = this.voliEachSuits.get(suit) + 1;
-                this.voliEachSuits.put(suit, numVoli);
-            }
-            probability = 100;
-            // numero giocatori che non hanno volato
-            final int other = NUMOTHERPLAYER - this.voliEachSuits.get(suit);
-            for (Partecipant player : this.allPlayers) {
-                // non devo considerarmi
-                if (this.allPlayers.indexOf(player) != ME) {
-                    // se il giocatore non ha volato
-                    if (!this.hasFinishedCardsOf(this.allPlayers.indexOf(player), suit)) {
-                        for (ItalianCard card : cardsOf) {
-                            // 100 : num giocatori che hanno volato
-                            player.setProbabilityOf(card, probability / other);
+        if (!this.getCurrentRound().hasJustStarted()) {
+            final Suit roundSuit = this.getCurrentRound().getSuit().get();
+            // solo se non aveva volato nel seme in precedenza rifattorizzo le
+            // probabilità delle carte
+            if (!hadAlreadyFinishedCardsOf(indexPlayer, roundSuit)) {
+                final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
+                final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(roundSuit);
+                for (ItalianCard card : cardsOf) {
+                    this.getAllPlayer().get(indexPlayer).setProbabilityOf(card, probability);
+                }
+                // per aumentare la probabilità delle carte del seme negli altri
+                // giocatori
+                if (!this.voliEachSuits.containsKey(roundSuit)) {
+                    this.voliEachSuits.put(roundSuit, FIRSTVOLO);
+                } else {
+                    final int numVoli = this.voliEachSuits.get(roundSuit) + 1;
+                    this.voliEachSuits.put(roundSuit, numVoli);
+                }
+                probability = 100;
+                // numero giocatori che non hanno volato
+                final int other = NUMOTHERPLAYER - this.voliEachSuits.get(roundSuit);
+                for (Partecipant player : this.getAllPlayer()) {
+                    // non devo considerarmi
+                    if (this.getAllPlayer().indexOf(player) != ME) {
+                        // se il giocatore non ha volato
+                        if (!this.hadAlreadyFinishedCardsOf(this.getAllPlayer().indexOf(player), roundSuit)) {
+                            if (other != 0) {
+                                for (ItalianCard card : cardsOf) {
+                                    // 100 : num giocatori che non hanno volato
+                                    player.setProbabilityOf(card, probability / other);
+                                }
+                            }
                         }
                     }
                 }
@@ -153,17 +208,71 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @return true if the player has finished cards in the suit, false
      * otherwise.
      */
-    protected boolean hasFinishedCardsOf(final int player, final Suit suit) {
-        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
+    protected boolean hadAlreadyFinishedCardsOf(final int player, final Suit suit) {
+        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
         final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
-        if (cardsOf.isEmpty()) { // se tutte le carte del seme son gia state
-                                 // giocate ha volato
+        // se tutte le carte del seme son gia state giocate ha volato
+        if (cardsOf.isEmpty()) {
             return true;
         }
         for (ItalianCard card : cardsOf) {
-            return this.allPlayers.get(player).getProbabilityOf(card) == 0;
+            return this.getAllPlayer().get(player).getProbabilityOf(card) == 0;
         }
         return false; // non ci arrivera' mai
+    }
+
+    /**
+     * It checks whether the enemies could "taglio" a suit.
+     * 
+     * @param suit is the suit to evaluate.
+     * @return true if enemies could "taglio" the suit evaluated.
+     */
+    protected boolean couldEnemiesTaglio(final Suit suit) {
+        if (myRoundPositionIs(PRIMO)) {
+            return couldPlayerTaglio(LEFT, suit) || couldPlayerTaglio(RIGHT, suit);
+        } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
+            return couldPlayerTaglio(RIGHT, suit);
+        }
+        return false;
+    }
+
+    /**
+     * It checks whether the teammate could "taglio" a suit.
+     * 
+     * @param suit is the suit to evaluate.
+     * @return true if teammate could "taglio" the suit evaluated.
+     */
+    protected boolean couldTeammateTaglio(final Suit suit) {
+        if (myRoundPositionIs(PRIMO) || myRoundPositionIs(SECONDO)) {
+            return couldPlayerTaglio(TEAMMATE, suit);
+        }
+        return false;
+    }
+
+    /**
+     * It checks whether a player could "taglio" a suit.
+     * 
+     * @param indexPlayer is the player to evaluate.
+     * @param suit is the suit to evaluate.
+     * @return true if the player could "taglio" the suit evaluated.
+     */
+    protected boolean couldPlayerTaglio(final int indexPlayer, final Suit suit) {
+        if (!suit.equals(this.getBriscola())) {
+            if (!this.getRemainingCards().isEmpty()) {
+                final BunchOfCards bunchOfRemaininCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
+                final List<ItalianCard> cardsOf = bunchOfRemaininCards.getCardsOfSuit(suit);
+                if (!cardsOf.isEmpty()) {
+                    final ItalianCard cardOf = cardsOf.get(0);
+                    final List<ItalianCard> cardsOfBriscola = bunchOfRemaininCards.getCardsOfSuit(this.getBriscola());
+                    if (!cardsOfBriscola.isEmpty()) {
+                        final ItalianCard cardOfBriscola = cardsOfBriscola.get(0);
+                        return (this.getAllPlayer().get(indexPlayer).getProbabilityOf(cardOf) == 0
+                                && this.getAllPlayer().get(indexPlayer).getProbabilityOf(cardOfBriscola) > 0);
+                    }
+                } 
+            }
+        }
+        return false;
     }
 
 }

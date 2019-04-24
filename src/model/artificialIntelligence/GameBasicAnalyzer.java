@@ -18,14 +18,14 @@ import model.logic.Round;
  */
 public class GameBasicAnalyzer implements GameAnalyzer {
 
-    protected final List<ItalianCard> handCard;
-    protected final List<Partecipant> allPlayers;
-    protected final List<ItalianCard> remainingCards;
-    protected final List<Play> allPlays;
-    protected Round currentRound;
-    protected Round lastRound;
-    protected final List<Round> roundPlayed;
-    protected Suit briscola;
+    private final List<ItalianCard> handCard;
+    private final List<Partecipant> allPlayers;
+    private final List<ItalianCard> remainingCards;
+    private final List<Play> allPlays;
+    private Round currentRound;
+    private Round lastRound;
+    private final List<Round> roundPlayed;
+    private Suit briscola;
 
     protected final static int RIGHT = 0;
     protected final static int TEAMMATE = 1;
@@ -53,23 +53,15 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * {@inheritDoc}
      */
-    public void observePlays(final Round thisRound) {
-        this.currentRound = thisRound;
+    public void observePlays(final Round currentRound) {
+        this.currentRound = currentRound;
         this.roundPlayed.add(this.currentRound);
         // se non sono il primo del round guardo le giocate fatte
         if (!currentRound.hasJustStarted()) {
-            final Counter counter = new Counter();
             List<Play> roundPlays = this.currentRound.getPlays();
             final int alreadyPlayed = roundPlays.size();
-            final int first = ME - alreadyPlayed;
-            for (int indexPlayer = first; indexPlayer < ME; indexPlayer++) {
-                final Play playDone = roundPlays.get(counter.next());
-                final Optional<String> message = playDone.getMessage();
-                if (message.isPresent() && message.get().equals("BUSSO")) {
-                    this.playerHasBusso(indexPlayer);
-                }
-                this.removeAndAdd(indexPlayer, playDone);
-            }
+            final int firstPlay = ME - alreadyPlayed;
+            this.observePlaysCurrentRound(firstPlay, LEFT);
         }
     }
 
@@ -78,16 +70,12 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      */
     public void updateLastRound() {
         if (hastheMatchStarted()) { // se non e' il primo round della partita
-            final Counter counter = new Counter();
             final List<Play> roundPlays = this.lastRound.getPlays();
-            final Play myLastPlay = this.allPlays.get(allPlays.size() - 1);
+            final Play myLastPlay = this.allPlays.get(this.allPlays.size() - 1);
             // play done by RIGHT player in last round
-            final int indexRightPlay = roundPlays.indexOf(myLastPlay) + 1;
-            final int numPlayer = roundPlays.size();
-            for (int i = indexRightPlay; i < numPlayer; i++) {
-                this.removeAndAdd(counter.next(), roundPlays.get(i)); 
-             // counter = 0 --> RIGHT
-            }
+            final int rightPlay = roundPlays.indexOf(myLastPlay) + 1;
+            final int lastPlay = roundPlays.size();
+            this.observePlaysLastRound(rightPlay, lastPlay);
         }
     }
 
@@ -112,7 +100,6 @@ public class GameBasicAnalyzer implements GameAnalyzer {
                 return 0;
             }
         }
-        // altrimenti
         return this.getWinningProbabilityOf(card);
     }
 
@@ -141,12 +128,9 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         return false;
     }
 
-    // controllo anche se la carta che sta vincendo ha seme diverso da
-    // roundSuit, se ha tagliato do per scontato che vinca
     /**
      * {@inheritDoc}
      */
-
     public boolean willWinTheRound(final ItalianCard tempWinnerCard) {
         if (!this.currentRound.hasJustStarted()) {
             final ItalianCard winnerCard = this.currentRound.getWinningPlay().get().getCard();
@@ -157,16 +141,6 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             }
         }
         return this.getWinningProbabilityOf(tempWinnerCard) == 100;
-    }
-
-    private boolean isTaglio(final ItalianCard card) {
-        if (!this.currentRound.hasJustStarted()) {
-            final Suit roundSuit = this.currentRound.getSuit().get();
-            if (card.getSuit().equals(briscola) && !roundSuit.equals(card.getSuit())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -186,11 +160,10 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     /**
      * {@inheritDoc}
      */
-    public boolean hasTempWinnerTaglio() {
-        if (!currentRound.hasJustStarted()) {
+    public boolean isTaglio(final ItalianCard card) {
+        if (!this.currentRound.hasJustStarted()) {
             final Suit roundSuit = this.currentRound.getSuit().get();
-            final Suit suitOfWinner = this.currentRound.getWinningPlay().get().getCard().getSuit();
-            if (!roundSuit.equals(suitOfWinner) && suitOfWinner.equals(briscola)) {
+            if (card.getSuit().equals(briscola) && !roundSuit.equals(card.getSuit())) {
                 return true;
             }
         }
@@ -206,7 +179,42 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         this.briscola = briscola;
     }
 
-    // *** UTILITY *****/
+    // ***** UTILITY *********************//
+
+    /**
+     * It allows to watch the plays made in the current round.
+     * 
+     * @param firstPlay is the first play of round
+     * @param lastPlay is the last play made in the current round
+     */
+    protected void observePlaysCurrentRound(final int firstPlay, final int lastPlay) {
+        List<Play> roundPlays = this.currentRound.getPlays();
+        final Counter counter = new Counter();
+        for (int indexPlay = firstPlay; indexPlay <= lastPlay; indexPlay++) {
+            final Play playDone = roundPlays.get(counter.next());
+            final Optional<String> message = playDone.getMessage();
+            if (message.isPresent() && message.get().equals("BUSSO")) {
+                this.playerHasBusso(indexPlay);
+            }
+            this.removeAndAdd(indexPlay, playDone);
+        }
+    }
+
+    /**
+     * It allows to watch the plays made in the current round.
+     * 
+     * @param rightPlay is the first play of round
+     * @param lastPlay is the last play made in the current round
+     */
+    protected void observePlaysLastRound(final int rightPlay, final int lastPlay) {
+        // counter = 0 --> RIGHT
+        final Counter counter = new Counter();
+        final List<Play> roundPlays = this.lastRound.getPlays();
+        for (int i = rightPlay; i < lastPlay; i++) {
+            this.removeAndAdd(counter.next(), roundPlays.get(i));
+        }
+    }
+
     /**
      * It checks if a enemy player is the temporary winner of the round.
      * 
@@ -223,7 +231,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * @param card is the card to evaluate.
      * @return the probability of winning.
      */
-    private int getWinningProbabilityOf(final ItalianCard card) {
+    protected int getWinningProbabilityOf(final ItalianCard card) {
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         int probability = 100;
         if (!this.remainingCards.isEmpty()) {
@@ -231,119 +239,33 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(card.getSuit());
             cardsOf.add(card);
             cardsOf.sort(comparator);
-            probability = this.calculateProbability(cardsOf, card);
-        }
-        return probability;
-    }
-
-    /**
-     * It allows to calculate the probability that a card has to win the round.
-     * 
-     * @param cardsOf is a set of remaining cards with the same suit of the card
-     * passed by parameter.
-     * @param card is the card to calculate probability of winning round.
-     * @return the probability.
-     */
-    protected int calculateProbability(final List<ItalianCard> cardsOf, final ItalianCard card) {
-        int probability = 100;
-        int maxOfSuit = cardsOf.size() - 1;
-        final int indexCard = cardsOf.indexOf(card);
-        if (maxOfSuit != indexCard) {
-            final List<ItalianCard> cardWithMoreValue = this.remainingCardsWithMoreValue(cardsOf, indexCard);
-            if (!havePlayerAllCards(TEAMMATE, cardWithMoreValue)) { // teammate
-                probability = this.observeProbabilityOfEnemies(cardWithMoreValue);
+            final List<ItalianCard> remainingCardsWithMoreValue = this.remainingBetterCard(card, cardsOf);
+            if (!havePlayerAllCards(TEAMMATE, remainingCardsWithMoreValue)) { // teammate
+                probability = this.observeProbabilityOfEnemies(remainingCardsWithMoreValue);
             }
         }
         return probability;
     }
 
     /**
-     * It checks if a player has all the cards.
      * 
-     * @param player is the player to consider.
-     * @param cardWithMoreValue are the cards to evaluate.
-     * @return true if player has all the cards, false otherwise.
+     * It is used to understand the cards that are better than the card passed
+     * as a parameter and that could be played this turn.
+     * 
+     * @param card is the card to evaluate
+     * @param cardsOf are cards of the same suit as the one passed as a
+     * parameter
+     * @return a list of better card than than the card passed as parameter
      */
-    protected boolean havePlayerAllCards(final int player, final List<ItalianCard> cardWithMoreValue) {
-        for (ItalianCard card : cardWithMoreValue) {
-            if (!hasPlayerCard(player, card)) {
-                return false;
+    protected List<ItalianCard> remainingBetterCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
+        final List<ItalianCard> remainingCardsWithMoreValue = new LinkedList<>();
+        final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
+        for (ItalianCard cardOf : cardsOf) {
+            if (comparator.compare(cardOf, card) > 0) {
+                remainingCardsWithMoreValue.add(cardOf);
             }
         }
-        return true;
-    }
-
-    /**
-     * It checks if a player has a card.
-     * 
-     * @param player is the player to consider
-     * @param card is the card to consider
-     * @return true if player has the card
-     */
-    protected boolean hasPlayerCard(final int player, final ItalianCard card) {
-        return this.allPlayers.get(player).getProbabilityOf(card) == 100;
-    }
-
-    /**
-     * It allows to evaluate the probabiity of winning the round consider the
-     * probability of a card that is part of a set of cards better than the card
-     * that is been calculated now the probability of winning.
-     * 
-     * @param cardsWithMoreValue is a list of card with a better value than card
-     * that is been considered
-     * @return the probability of winning the round
-     */
-    protected int observeProbabilityOfEnemies(final List<ItalianCard> cardsWithMoreValue) { 
-        int winProbability = 100;
-        int enemiesProbability = 0;
-        for (ItalianCard card : cardsWithMoreValue) {
-            if (myRoundPositionIs(PRIMO)) {
-                enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card)
-                        + this.allPlayers.get(LEFT).getProbabilityOf(card);
-            } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
-                enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card);
-            }
-            winProbability = winProbability - enemiesProbability;
-        }
-        if (winProbability < 0) {
-            winProbability = 0;
-        }
-        return winProbability;
-    }
-
-    /**
-     * It is useful to understand the number and which cards still have a higher
-     * value than a card.
-     * 
-     * @param cardsOf - the list of remaining cards, ordered by value, with the
-     * same suit as the evaluated card
-     * @param indexCard - index of card into cardsOf
-     * @return a list of cards with higher value
-     */
-    protected List<ItalianCard> remainingCardsWithMoreValue(final List<ItalianCard> cardsOf, final int indexCard) {
-        final List<ItalianCard> remaining = new LinkedList<>();
-        for (int i = indexCard + 1; i < cardsOf.size(); i++) {
-            remaining.add(cardsOf.get(i));
-        }
-        return remaining;
-    }
-
-    /**
-     * It allows to understand if the teammate "has busso" in a specific suit.
-     * 
-     * @param player is the player to consider
-     * @param suit is the suit to consider
-     * @return true if teammate "has busso" in the suit, false otherwise
-     */
-    protected boolean hasPlayerTheBestCardOf(final int player, final Suit suit) {
-        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
-        if ((bunchOfCards.getHighestCardOfSuit(suit).isPresent())) {
-            final ItalianCard bestCardOf = bunchOfCards.getHighestCardOfSuit(suit).get();
-            if (hasPlayerCard(player, bestCardOf)) {
-                return true;
-            }
-        }
-        return false;
+        return remainingCardsWithMoreValue;
     }
 
     /**
@@ -405,6 +327,96 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      */
     protected boolean hastheMatchStarted() {
         return !this.roundPlayed.isEmpty();
+    }
+
+    /**
+     * It allows to understand if the teammate "has busso" in a specific suit.
+     * 
+     * @param player is the player to consider
+     * @param suit is the suit to consider
+     * @return true if teammate "has busso" in the suit, false otherwise
+     */
+    protected boolean hasPlayerTheBestCardOf(final int player, final Suit suit) {
+        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.remainingCards);
+        if ((bunchOfCards.getHighestCardOfSuit(suit).isPresent())) {
+            final ItalianCard bestCardOf = bunchOfCards.getHighestCardOfSuit(suit).get();
+            if (hasPlayerCard(player, bestCardOf)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * It returns the last round.
+     * 
+     * @return the last round.
+     */
+    protected Round getLastRound() {
+        return this.lastRound;
+    }
+
+    /**
+     * It returns all players.
+     * 
+     * @return all players.
+     */
+    protected List<Partecipant> getAllPlayer() {
+        return this.allPlayers;
+    }
+
+    /**
+     * It checks if a player has all the cards.
+     * 
+     * @param player is the player to consider.
+     * @param cardsWithMoreValue are the cards to evaluate.
+     * @return true if player has all the cards, false otherwise.
+     */
+    private boolean havePlayerAllCards(final int player, final List<ItalianCard> cardsWithMoreValue) {
+        for (ItalianCard card : cardsWithMoreValue) {
+            if (!hasPlayerCard(player, card)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * It checks if a player has a card.
+     * 
+     * @param player is the player to consider
+     * @param card is the card to consider
+     * @return true if player has the card
+     */
+    private boolean hasPlayerCard(final int player, final ItalianCard card) {
+        return this.allPlayers.get(player).getProbabilityOf(card) == 100;
+    }
+
+    /**
+     * It allows to evaluate the probabiity of winning the round consider the
+     * probability of a card that is part of a set of cards better than the card
+     * that is been calculated now the probability of winning.
+     * 
+     * @param betterCards is a list of card with a better value than card that
+     * is been considered
+     * @return the probability of winning the round
+     */
+    private int observeProbabilityOfEnemies(final List<ItalianCard> betterCards) {
+        int winProbability = 100;
+        int enemiesProbability = 0;
+        for (ItalianCard card : betterCards) {
+            if (myRoundPositionIs(PRIMO)) {
+                enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card)
+                        + this.allPlayers.get(LEFT).getProbabilityOf(card);
+            } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
+                enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card);
+            }
+            winProbability = winProbability - enemiesProbability;
+        }
+        if (winProbability < 0) {
+            winProbability = 0;
+        }
+        return winProbability;
     }
 
     /**

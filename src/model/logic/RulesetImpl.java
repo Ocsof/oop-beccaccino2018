@@ -6,7 +6,9 @@ import java.util.Optional;
 
 import model.artificialIntelligence.AI;
 import model.artificialIntelligence.AIImpl;
+import model.artificialIntelligence.GameAnalyzer;
 import model.artificialIntelligence.GameBasicAnalyzer;
+import model.artificialIntelligence.GameMediumAnalyzer;
 import model.entities.BeccaccinoHand;
 import model.entities.Hand;
 import model.entities.Player;
@@ -52,7 +54,7 @@ public class RulesetImpl implements Ruleset {
      */
     public Optional<AI> newAI(final Player player) {
         //QUANDO PRONTA QUI VA MESSA LA DISCRIMINAZIONE DELLA DIFFICOLTA' IN BASE ALLE OPZIONI DEL MENU
-        GameBasicAnalyzer analyzer = new GameBasicAnalyzer(player.getHand().getCards());
+        GameAnalyzer analyzer = new GameMediumAnalyzer(player.getHand().getCards());
         Optional<AI> ai = Optional.of(new AIImpl(player, analyzer));
         return ai;
     }

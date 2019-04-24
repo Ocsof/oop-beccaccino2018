@@ -46,8 +46,8 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
             if ((!roundSuit.equals(briscola)) && ((!this.game.isTeammateTempWinner())
                     || (this.game.isTeammateTempWinner() && !this.game.willWinTheRound(tempWinnerCard)))) {
 
-                return isAssoOfSuitStillPlayable(roundSuit) && !myLastCardOfIsTre(this.briscola)
-                        || haveIAssoOf(this.briscola) || twoPointInvolved() && !myLastCardOfIsTre(this.briscola)
+                return (isAssoOfSuitStillPlayable(roundSuit) && !myLastCardOfIsTre(this.briscola))
+                        || haveIAssoOf(this.briscola) || (twoPointInvolved() && !myLastCardOfIsTre(this.briscola))
                         || moreOfTwoPointInvolve();
                 // anche giocando il tre di briscola
             }
