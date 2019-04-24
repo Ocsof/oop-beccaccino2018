@@ -36,10 +36,15 @@ public class BriscolaView {
         this.dialog = new ChoiceDialog<>(ItalianCard.Suit.BASTONI, this.choices);
         this.dialog.initOwner(this.primaryStage);
         this.dialog.setTitle("Briscola");
-        this.dialog.setContentText("Choose your Briscola:");
+        this.dialog.setHeaderText("Choose your Briscola");
+        this.dialog.setContentText("Briscola:");
+        // rename button "annulla"
+        // ((Button)
+        // dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Not
+        // Cancel Anymore");
 
         this.suit = dialog.showAndWait();
-        suit.ifPresent(suit -> System.out.println("Your choice: " + suit));
+        suit.ifPresent(suit -> System.out.println("Your Briscola choice: " + suit));
         if (!this.suit.isPresent()) {
             this.suit = Optional.of(this.dialog.getDefaultChoice());
         }
