@@ -48,14 +48,15 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
         playerList.add(ruleset.newPlayer("Player3"));
         playerList.add(ruleset.newPlayer("Player4"));
         Game currentGame = ruleset.newGame(playerList);
-        GameViewImpl currentGameView = ruleset.newGameView(currentGame);
-        currentGameView.initialGameSetUp(UtilityClass.returnStageOf(event));
+        GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));
+
         Map<Player, Optional<AI>> playerMap = new HashMap<Player, Optional<AI>>();
         playerMap.put(playerList.get(0), Optional.empty());
         playerMap.put(playerList.get(1), ruleset.newAI(playerList.get(1)));
         playerMap.put(playerList.get(2), ruleset.newAI(playerList.get(2)));
         playerMap.put(playerList.get(3), ruleset.newAI(playerList.get(3)));
         GameController currentGameController = new GameController(playerMap, currentGame, currentGameView);
+        currentGameView.setController(currentGameController);
     }
 
 }
