@@ -52,10 +52,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         if (areWinnerCard(myBestCards)) {
             final BunchOfCards myCardsWithMostPoints = new BeccaccinoBunchOfCards(
                     bunchOfMyBestCards.getCardsWithMostPoints());
-            myCard = myCardsWithMostPoints.getHighestCards().get(0); // meglio
-                                                                     // Highest
-                                                                     // o
-                                                                     // lowest??
+            myCard = myCardsWithMostPoints.getHighestCards().get(0); 
             if (iVoloIn(myCard.getSuit())) {
                 message = Optional.of("VOLO");
             }
@@ -78,7 +75,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         List<ItalianCard> myBriscole = bunchOfCards.getCardsOfSuit(briscola);
         final BunchOfCards setOfBriscole = new BeccaccinoBunchOfCards(myBriscole);
-        if (game.hasTempWinnerTaglio()) {
+        if (hasTempWinnerTaglio()) {
             final ItalianCard winningCard = currentRound.getWinningPlay().get().getCard();
             myBriscole = this.compareWithMyCards(winningCard);
         }
@@ -179,6 +176,17 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
             // se e' l'ultima che ho in mano
             return bunchOfCards.getCardsOfSuit(suit).size() == 1;
+        }
+        return false;
+    }
+
+    private boolean hasTempWinnerTaglio() {
+        final Round currentRound = this.game.getCurrentRound();
+        if (!currentRound.hasJustStarted()) {
+            final ItalianCard tempWinner = currentRound.getWinningPlay().get().getCard();
+            if (this.game.isTaglio(tempWinner)) {
+                return true;
+            }
         }
         return false;
     }
