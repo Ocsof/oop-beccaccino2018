@@ -18,9 +18,9 @@ public interface GameAnalyzer {
      * It allows the AI to observe the plays already played in the current round
      * before playing his card.
      * 
-     * @param thisRound is the current round.
+     * @param currentRound is the current round.
      */
-    void observePlays(Round thisRound);
+    void observePlays(Round currentRound);
 
     /**
      * it allows the AI to memorize the plays already played in the last round
@@ -82,11 +82,12 @@ public interface GameAnalyzer {
     Round getCurrentRound();
 
     /**
-     * It verifies if the temporary winner of round has "tagliato".
+     * It checks whether a "taglio" is made with a card.
      * 
-     * @return true if the temporary winner "has tagliato", false otherwise.
+     * @param card is the card to evaluate
+     * @return true if a "taglio" is made with the card, false otherwise
      */
-    boolean hasTempWinnerTaglio();
+    boolean isTaglio(ItalianCard card);
 
     /**
      * It allows to understand the Briscola called by other player.
