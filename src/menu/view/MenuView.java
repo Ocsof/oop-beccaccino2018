@@ -6,54 +6,29 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import util.SceneLauncherImpl;
 import util.UtilityClass;
-
-public class MenuViews extends Application{
-	
-	@Override
-	public void start(Stage primaryStage) throws IOException {
-		
-		mainMenuSetup(primaryStage);
-	
-	}
-	
-	public static void mainMenuSetup(Stage primaryStage) {
-		
-		Parent root;
-		SceneLauncherImpl launcher = new SceneLauncherImpl("MainMenuScene.fxml");
-		root = launcher.launchScene();
-		UtilityClass.setScene(primaryStage, root);
+/**
+ * This Class is responsible for the overriding of the Application.start method and the creation 
+ * and setup of the Stage for all Menu Scenes.
+ */
+public class MenuView extends Application {
+    @Override
+    public void start(final Stage primaryStage) throws IOException {
+        menuSetup(primaryStage, "MainMenuScene.fxml");
+    }
+    /**
+     * This method loads and sets every Menu Scene onto the Stage, also making sure visuals are updated properly.
+     * @param primaryStage - the Stage on which to set the Scene.
+     * @param sceneName -the name of he Scene to be loaded and set onto the Stage.
+     */
+    public static void menuSetup(final Stage primaryStage, final String sceneName) {
+        Parent root;
+        SceneLauncherImpl launcher = new SceneLauncherImpl(sceneName);
+        root = launcher.launchScene();
+        UtilityClass.setScene(primaryStage, root);
+        primaryStage.hide();
+        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(false);
         primaryStage.show();
-        
-	}
-
-	public static void preGameMenuSetup(Stage primaryStage) {
-	
-		Parent root;
-		SceneLauncherImpl launcher = new SceneLauncherImpl("PreGameScene.fxml");
-		root = launcher.launchScene();
-		UtilityClass.setScene(primaryStage, root);
-		primaryStage.show();
-	
-	}
-	
-	static public void profileMenuSetup(Stage primaryStage) {
-		
-		Parent root;
-		SceneLauncherImpl launcher = new SceneLauncherImpl("ProfileMenuScene.fxml");
-		root = launcher.launchScene();
-		UtilityClass.setScene(primaryStage, root);
-        primaryStage.show();
-
-	}
-	
-	public static void settingsMenuSetup(Stage primaryStage) {
-		
-		Parent root;
-		SceneLauncherImpl launcher = new SceneLauncherImpl("SettingsMenuScene.fxml");
-		root = launcher.launchScene();
-		UtilityClass.setScene(primaryStage, root);
-        primaryStage.show();
-		
-	}
+    }
 
 }
