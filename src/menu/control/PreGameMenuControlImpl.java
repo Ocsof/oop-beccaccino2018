@@ -1,5 +1,6 @@
 package menu.control;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,7 @@ import controller.game.GameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import menu.view.MainMenuView;
+import menu.view.MenuView;
 import model.artificialIntelligence.AI;
 import model.entities.Player;
 import model.logic.Game;
@@ -23,20 +24,19 @@ import view.GameViewImpl;
  */
 public class PreGameMenuControlImpl implements PreGameMenuControl {
     @FXML
-    private ComboBox<String> boxPlayer1;
-    @FXML
-    private ComboBox<String> boxPlayer2;
-    @FXML
-    private ComboBox<String> boxPlayer3;
-    @FXML
-    private ComboBox<String> boxPlayer4;
-
+    private ComboBox<String> profilesComboBox;
     /**
      * {@inheritDoc}
      */
-    public void backClicked(final ActionEvent event) {
-        MainMenuView.mainMenuSetup(UtilityClass.returnStageOf(event));
+    public void initialize() {
+        File folder = new File("res/profiles");
+        File files[] = folder.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].isFile()) {
+                profilesComboBox.getItems().add(files[i].getName());
+            }
         }
+    }
     /**
      * {@inheritDoc}
      */
@@ -56,6 +56,12 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
         playerMap.put(playerList.get(2), ruleset.newAI(playerList.get(2)));
         playerMap.put(playerList.get(3), ruleset.newAI(playerList.get(3)));
         GameController currentGameController = new GameController(playerMap, currentGame, currentGameView);
+        currentGameView.setController(currentGameController);
     }
-
+    /**
+     * {@inheritDoc}
+     */
+    public void backClicked(final ActionEvent event) {
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "MainMenuScene.fxml");
+    }
 }
