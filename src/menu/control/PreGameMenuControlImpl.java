@@ -30,7 +30,7 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
      */
     public void initialize() {
         File folder = new File("res/profiles");
-        File files[] = folder.listFiles();
+        File[] files = folder.listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].isFile()) {
                 profilesComboBox.getItems().add(files[i].getName());
@@ -48,8 +48,8 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
         playerList.add(ruleset.newPlayer("Player3"));
         playerList.add(ruleset.newPlayer("Player4"));
         Game currentGame = ruleset.newGame(playerList);
-        GameViewImpl currentGameView = ruleset.newGameView(currentGame);
-        currentGameView.initialGameSetUp(UtilityClass.returnStageOf(event));
+        GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));
+
         Map<Player, Optional<AI>> playerMap = new HashMap<Player, Optional<AI>>();
         playerMap.put(playerList.get(0), Optional.empty());
         playerMap.put(playerList.get(1), ruleset.newAI(playerList.get(1)));

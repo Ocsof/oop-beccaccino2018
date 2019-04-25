@@ -33,45 +33,37 @@ public class PlayerImpl implements Player {
         return this.hand;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((hand == null) ? 0 : hand.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean equals(final Object player) {
-        if (this == player) {
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
             return true;
-        }
-        if (player == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != player.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        PlayerImpl other = (PlayerImpl) player;
-        if (hand == null) {
-            if (other.hand != null) {
-                return false;
-            }
-        } else if (!hand.equals(other.hand)) {
-            return false;
-        }
+        PlayerImpl other = (PlayerImpl) obj;
         if (name == null) {
-            if (other.name != null) {
+            if (other.name != null)
                 return false;
-            }
-        } else if (!name.equals(other.name)) {
+        } else if (!name.equals(other.name))
             return false;
-        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
+    
 }

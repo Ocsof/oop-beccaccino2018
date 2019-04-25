@@ -1,7 +1,7 @@
 package view;
 
 import model.entities.ItalianCard.Suit;
-import model.entities.Play;
+import controller.game.GameController;
 
 /**
  * A GUI for a turn based Italian card game.
@@ -23,5 +23,11 @@ public interface GameView {
      * Renders a play made by other entities.
      */
     void update();
-}
 
+    /**
+     * Setter of the GameController.
+     * 
+     * @param gameController GameController
+     */
+    void setController(GameController gameController);
+}

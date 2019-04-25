@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.stage.Stage;
 import model.artificialIntelligence.AI;
 import model.artificialIntelligence.AIImpl;
 import model.artificialIntelligence.GameAnalyzer;
@@ -35,8 +36,8 @@ public class RulesetImpl implements Ruleset {
     /**
      * {@inheritDoc}
      */
-    public GameViewImpl newGameView(final Game game) {
-        GameViewImpl gameView = new GameViewImpl(game);
+    public GameViewImpl newGameView(final Game game, final Stage stage) {
+        GameViewImpl gameView = new GameViewImpl(game, stage);
         return gameView;
     }
 

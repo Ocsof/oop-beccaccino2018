@@ -42,6 +42,7 @@ public class GameController {
                 } else {
                     game.makeTurn(play);
                     view.update();
+                    this.proceed(null);
                 }
             }
         }

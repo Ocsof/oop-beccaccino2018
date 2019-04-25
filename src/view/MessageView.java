@@ -20,8 +20,9 @@ public class MessageView {
     private Game game;
     private ItalianCard card;
     private Stage primaryStage;
-    private List<Optional<String>> choice;
-    private Dialog dialog;
+    private List<String> choice;
+    private Dialog<String> dialog;
+    private String defaultMessage = "NO MESSAGE";
 
     /**
      * Class constructor.
@@ -35,26 +36,43 @@ public class MessageView {
         this.game = game;
         this.card = card;
         this.choice = new LinkedList<>();
-        choice.addAll(this.game.getCurrentRound().getSendableMessages(this.card));
+
+        List<Optional<String>> sm = this.game.getCurrentRound().getSendableMessages(this.card);
+
+        for (Optional<String> s : sm) {
+            if (!s.isPresent()) {
+                this.choice.add(this.defaultMessage);
+            } else {
+                this.choice.add(s.get());
+            }
+        }
 
         this.dialog = new ChoiceDialog<>(this.choice.get(0), this.choice);
         this.dialog.initOwner(this.primaryStage);
-        this.dialog.setTitle("Briscola");
-        this.dialog.setContentText("Choose your Briscola:");
-
+        this.dialog.setTitle("Message");
+        this.dialog.setHeaderText("Choose your Message");
+        this.dialog.setContentText("Message: ");
         this.message = dialog.showAndWait();
         message.ifPresent(m -> System.out.println("Your message: " + m));
     }
 
+    public boolean isOperationCanceled() {
+        if(!this.message.isPresent()) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Getter of the message.
      * 
      * @return the message is it's present, otherwise an empty message.
      */
     public Optional<String> getMessage() {
-        if (this.message.isPresent()) {
+        if (this.message.isPresent() && !this.message.get().equals(this.defaultMessage)) {
             return this.message;
+        } else {
+            return Optional.empty();
         }
-        return Optional.empty();
     }
 }
