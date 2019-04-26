@@ -22,11 +22,11 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
     /**
      * Class constructor.
      * 
-     * @param setOfCards is a list of cards.
+     * @param listOfCards is a list of cards.
      */
     public BeccaccinoBunchOfCards(final List<ItalianCard> listOfCards) {
         this.listOfCards = listOfCards;
-        if(this.listOfCards.size() == 0) {
+        if (this.listOfCards.size() == 0) {
             throw new IllegalArgumentException("Can't have 0 cards");
         }
         this.pointsMap = new HashMap<>();
