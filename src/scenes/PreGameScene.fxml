@@ -23,6 +23,6 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ComboBox fx:id="boxPlayer1" layoutX="237.0" layoutY="230.0" prefWidth="150.0" promptText="Human Player" />
+      <ComboBox fx:id="profilesComboBox" layoutX="237.0" layoutY="230.0" prefWidth="150.0" promptText="Human Player" />
    </children>
 </AnchorPane>
