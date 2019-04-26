@@ -1,6 +1,7 @@
 package model.artificialIntelligence;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,10 +18,9 @@ import model.entities.ItalianCard.Suit;
  */
 public class GameMediumAnalyzer extends GameBasicAnalyzer {
 
-    private final Map<Suit, Integer> voliEachSuits;
+    private final Map<Integer, List<Suit>> voliEachPlayer;
 
     private static final int NUMOTHERPLAYER = 3;
-    private static final int FIRSTVOLO = 1;
 
     /**
      * Class constructor.
@@ -29,7 +29,11 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      */
     public GameMediumAnalyzer(final List<ItalianCard> myHand) {
         super(myHand);
-        this.voliEachSuits = new HashMap<>();
+        this.voliEachPlayer = new HashMap<>();
+        this.voliEachPlayer.put(ME, new LinkedList<>());
+        this.voliEachPlayer.put(RIGHT, new LinkedList<>());
+        this.voliEachPlayer.put(TEAMMATE, new LinkedList<>());
+        this.voliEachPlayer.put(LEFT, new LinkedList<>());
     }
 
     /**
@@ -45,7 +49,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
         } else if (myRoundPositionIs(PRIMO) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())
                 && !couldEnemiesTaglio(card.getSuit())) {
             return probability;
-        } else if (myRoundPositionIs(SECONDO)) {
+        } else if (myRoundPositionIs(SECOND)) {
             final Suit roundSuit = this.getCurrentRound().getSuit().get();
             if (hasPlayerTheBestCardOf(TEAMMATE, roundSuit) || couldTeammateTaglio(roundSuit)) {
                 if (!couldEnemiesTaglio(roundSuit)) {
@@ -86,20 +90,20 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
     protected void observePlaysCurrentRound(final int firstPlay, final int lastPlay) {
         final Counter counter = new Counter();
         final List<Play> roundPlays = this.getCurrentRound().getPlays();
-        for (int indexPlayer = firstPlay; indexPlayer <= lastPlay; indexPlayer++) {
+        for (int indexPlay = firstPlay; indexPlay <= lastPlay; indexPlay++) {
             final Play playDone = roundPlays.get(counter.next());
             final Optional<String> message = playDone.getMessage();
             final Suit suit = playDone.getCard().getSuit();
             if (message.isPresent()) {
                 if (message.get().equals("BUSSO")) {
-                    this.playerHasBusso(indexPlayer);
+                    this.playerHasBusso(indexPlay);
                 } else if (message.get().equals("VOLO")) {
-                    this.finishedCardsOfSuit(indexPlayer);
+                    this.finishedCardsOfSuit(indexPlay);
                 }
             } else if (this.differentFromRoundSuit(suit)) {
-                this.finishedCardsOfSuit(indexPlayer);
+                this.finishedCardsOfSuit(indexPlay);
             }
-            this.removeAndAdd(indexPlayer, playDone);
+            this.removeAndAdd(indexPlay, playDone);
         }
     }
 
@@ -114,7 +118,6 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
             final ItalianCard card = roundPlays.get(i).getCard();
             int cont = counter.next();
             if (this.differentFromRoundSuit(card.getSuit())) {
-                cont++;
                 this.finishedCardsOfSuit(cont);
             }
             this.removeAndAdd(cont, roundPlays.get(i));
@@ -166,22 +169,22 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
             // solo se non aveva volato nel seme in precedenza rifattorizzo le
             // probabilità delle carte
             if (!hadAlreadyFinishedCardsOf(indexPlayer, roundSuit)) {
+                final List<Suit> voliPlayer = this.voliEachPlayer.get(indexPlayer);
+                voliPlayer.add(roundSuit);
                 final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
                 final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(roundSuit);
                 for (ItalianCard card : cardsOf) {
                     this.getAllPlayer().get(indexPlayer).setProbabilityOf(card, probability);
                 }
-                // per aumentare la probabilità delle carte del seme negli altri
-                // giocatori
-                if (!this.voliEachSuits.containsKey(roundSuit)) {
-                    this.voliEachSuits.put(roundSuit, FIRSTVOLO);
-                } else {
-                    final int numVoli = this.voliEachSuits.get(roundSuit) + 1;
-                    this.voliEachSuits.put(roundSuit, numVoli);
+                int numVoliRoundSuit = 0;
+                for (int player : this.voliEachPlayer.keySet()) {
+                    if (this.voliEachPlayer.get(player).contains(roundSuit)) {
+                        numVoliRoundSuit++;
+                    }
                 }
                 probability = 100;
                 // numero giocatori che non hanno volato
-                final int other = NUMOTHERPLAYER - this.voliEachSuits.get(roundSuit);
+                final int other = NUMOTHERPLAYER - numVoliRoundSuit;
                 for (Partecipant player : this.getAllPlayer()) {
                     // non devo considerarmi
                     if (this.getAllPlayer().indexOf(player) != ME) {
@@ -209,16 +212,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * otherwise.
      */
     protected boolean hadAlreadyFinishedCardsOf(final int player, final Suit suit) {
-        final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
-        final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
-        // se tutte le carte del seme son gia state giocate ha volato
-        if (cardsOf.isEmpty()) {
-            return true;
-        }
-        for (ItalianCard card : cardsOf) {
-            return this.getAllPlayer().get(player).getProbabilityOf(card) == 0;
-        }
-        return false; // non ci arrivera' mai
+        return this.voliEachPlayer.get(player).contains(suit);
     }
 
     /**
@@ -230,7 +224,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
     protected boolean couldEnemiesTaglio(final Suit suit) {
         if (myRoundPositionIs(PRIMO)) {
             return couldPlayerTaglio(LEFT, suit) || couldPlayerTaglio(RIGHT, suit);
-        } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
+        } else if (myRoundPositionIs(SECOND) || myRoundPositionIs(THIRD)) {
             return couldPlayerTaglio(RIGHT, suit);
         }
         return false;
@@ -243,7 +237,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @return true if teammate could "taglio" the suit evaluated.
      */
     protected boolean couldTeammateTaglio(final Suit suit) {
-        if (myRoundPositionIs(PRIMO) || myRoundPositionIs(SECONDO)) {
+        if (myRoundPositionIs(PRIMO) || myRoundPositionIs(SECOND)) {
             return couldPlayerTaglio(TEAMMATE, suit);
         }
         return false;
@@ -262,17 +256,14 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
                 final BunchOfCards bunchOfRemaininCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
                 final List<ItalianCard> cardsOf = bunchOfRemaininCards.getCardsOfSuit(suit);
                 if (!cardsOf.isEmpty()) {
-                    final ItalianCard cardOf = cardsOf.get(0);
                     final List<ItalianCard> cardsOfBriscola = bunchOfRemaininCards.getCardsOfSuit(this.getBriscola());
                     if (!cardsOfBriscola.isEmpty()) {
-                        final ItalianCard cardOfBriscola = cardsOfBriscola.get(0);
-                        return (this.getAllPlayer().get(indexPlayer).getProbabilityOf(cardOf) == 0
-                                && this.getAllPlayer().get(indexPlayer).getProbabilityOf(cardOfBriscola) > 0);
+                        return (!this.voliEachPlayer.get(indexPlayer).contains(suit))
+                                && (this.voliEachPlayer.get(indexPlayer).contains(this.getBriscola()));
                     }
-                } 
+                }
             }
         }
         return false;
     }
-
 }
