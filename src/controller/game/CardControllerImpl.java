@@ -10,7 +10,7 @@ import model.entities.PlayImpl;
  * Alessia Rocco 
  * CardController implementation, contains the controller of the cardView.
  */
-public class CardControllerImpl {
+public class CardControllerImpl implements CardController {
     private Play play;
 
     /**

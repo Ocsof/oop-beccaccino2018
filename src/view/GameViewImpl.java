@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-
-import controller.game.CardController;
+import controller.game.CardControllerImpl;
 import controller.game.GameController;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,7 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
@@ -38,12 +35,11 @@ import model.logic.Game;
 public class GameViewImpl implements GameView {
     private Game game;
     private GameController controller;
-    private CardController cardController = new CardController();
+    private CardControllerImpl cardController = new CardControllerImpl();
     private Stage primaryStage;
     private final String sep = File.separator;
     private final BackgroundImage tavolo = new BackgroundImage(new Image("res" + sep + "tavolo.jpg"),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-    private Text briscola;
     private List<Pane> boxes = new ArrayList<>();
     private Map<Button, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Button> map2 = new HashMap<>();
@@ -83,7 +79,6 @@ public class GameViewImpl implements GameView {
         rootbottom.setAlignment(Pos.BOTTOM_CENTER);
         rootcentre.setAlignment(Pos.CENTER);
 
-        
         // add at external pane all the hands of the 4 players
         externalPane.setBottom(this.boxes.get(0));
         externalPane.setRight(this.boxes.get(1));
@@ -115,7 +110,7 @@ public class GameViewImpl implements GameView {
                 card.setOnMouseClicked(s -> {
                     Button b = (Button) s.getSource();
                     MessageView m = new MessageView(primaryStage, game, this.map.get(b));
-                    if(!m.isOperationCanceled()) {
+                    if (!m.isOperationCanceled()) {
                         this.cardController.action(this.map.get(b), m.getMessage());
                         this.disableButtons();
                         this.controller.notifyUserHasPlayed(cardController.getPlay());
@@ -227,6 +222,6 @@ public class GameViewImpl implements GameView {
      * @param suit Suit
      */
     private void setBriscolaOnStage(final Suit suit) {
-        
+
     }
 }
