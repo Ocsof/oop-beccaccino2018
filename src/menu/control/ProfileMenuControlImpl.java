@@ -44,5 +44,6 @@ public class ProfileMenuControlImpl implements ProfileMenuControl {
             alert.setContentText("The profile was created successfully.");
             alert.showAndWait();
         }
+        nameField.setText("");
     }
 }
