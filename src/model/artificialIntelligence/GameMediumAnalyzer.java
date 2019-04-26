@@ -46,7 +46,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
             if (willWinTheRound(cardTeammate)) {
                 return probability; // 100
             }
-        } else if (myRoundPositionIs(PRIMO) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())
+        } else if (myRoundPositionIs(FIRST) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())
                 && !couldEnemiesTaglio(card.getSuit())) {
             return probability;
         } else if (myRoundPositionIs(SECOND)) {
@@ -222,7 +222,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @return true if enemies could "taglio" the suit evaluated.
      */
     protected boolean couldEnemiesTaglio(final Suit suit) {
-        if (myRoundPositionIs(PRIMO)) {
+        if (myRoundPositionIs(FIRST)) {
             return couldPlayerTaglio(LEFT, suit) || couldPlayerTaglio(RIGHT, suit);
         } else if (myRoundPositionIs(SECOND) || myRoundPositionIs(THIRD)) {
             return couldPlayerTaglio(RIGHT, suit);
@@ -237,7 +237,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * @return true if teammate could "taglio" the suit evaluated.
      */
     protected boolean couldTeammateTaglio(final Suit suit) {
-        if (myRoundPositionIs(PRIMO) || myRoundPositionIs(SECOND)) {
+        if (myRoundPositionIs(FIRST) || myRoundPositionIs(SECOND)) {
             return couldPlayerTaglio(TEAMMATE, suit);
         }
         return false;
