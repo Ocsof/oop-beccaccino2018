@@ -24,10 +24,10 @@ public class MatchTest {
         Game game = ruleset.newGame(playerList);
         Map<Player, AI> playingEntities = new HashMap<>();
         List<AI> ais = new ArrayList<>();
-        ais.add(ruleset.newAI(playerList.get(0)).get());
-        ais.add(ruleset.newAI(playerList.get(1)).get());
-        ais.add(ruleset.newAI(playerList.get(2)).get());
-        ais.add(ruleset.newAI(playerList.get(3)).get());
+        ais.add(ruleset.newAI(playerList.get(0), "Basic AI").get());
+        ais.add(ruleset.newAI(playerList.get(1), "Basic AI").get());
+        ais.add(ruleset.newAI(playerList.get(2), "Basic AI").get());
+        ais.add(ruleset.newAI(playerList.get(3), "Basic AI").get());
         /**con le mappe NON FUNZIONA
         playingEntities.put(playerList.get(0), ruleset.newAI(playerList.get(0)).get());
         playingEntities.put(playerList.get(1), ruleset.newAI(playerList.get(1)).get());
