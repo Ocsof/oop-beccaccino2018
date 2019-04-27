@@ -23,6 +23,9 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <ComboBox fx:id="profilesComboBox" layoutX="237.0" layoutY="230.0" prefWidth="150.0" promptText="Human Player" />
+      <ComboBox fx:id="profilesComboBox" layoutX="237.0" layoutY="221.0" prefWidth="150.0" promptText="Human Player" />
+      <ComboBox fx:id="leftmostAIComboBox" layoutX="49.0" layoutY="150.0" prefWidth="150.0" promptText="Basic AI" />
+      <ComboBox fx:id="rightmostAIComboBox" layoutX="422.0" layoutY="150.0" prefWidth="150.0" promptText="Basic AI" />
+      <ComboBox fx:id="upperAIComboBox" layoutX="237.0" layoutY="73.0" prefWidth="150.0" promptText="Basic AI" />
    </children>
 </AnchorPane>
