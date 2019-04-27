@@ -11,7 +11,9 @@ import util.UtilityClass;
  * and setup of the Stage for all Menu Scenes.
  */
 public class MenuView extends Application {
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void start(final Stage primaryStage) throws IOException {
         menuSetup(primaryStage, "MainMenuScene.fxml");
     }
