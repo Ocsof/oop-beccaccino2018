@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.ProfileMenuControlImpl">
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="249.0" layoutY="60.0" text="Profile Creation" />
-      <TextField fx:id="nameField" layoutX="62.0" layoutY="169.0" promptText="New Profile Name">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-      </TextField>
-      <Button layoutX="399.0" layoutY="169.0" mnemonicParsing="false" onAction="#createClicked" text="Create New Profile">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="226.0" layoutY="304.0" mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.ProfileMenuControlImpl">
+   <center>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="277.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Profile Creation" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Button mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu" />
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="234.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="nameField" prefHeight="31.0" prefWidth="228.0" promptText="New Profile Name" />
+         </children>
+         <padding>
+            <Insets left="25.0" right="25.0" />
+         </padding>
+      </VBox>
+   </left>
+   <right>
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="207.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#createClicked" text="Create New Profile" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

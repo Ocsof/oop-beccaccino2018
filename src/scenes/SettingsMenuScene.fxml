@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.SettingsMenuControlImpl">
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="270.0" layoutY="35.0" text="SETTINGS" />
-      <Label layoutX="101.0" layoutY="82.0" text="GAME" />
-      <Label layoutX="96.0" layoutY="190.0" text="SOUND" />
-      <CheckBox layoutX="76.0" layoutY="237.0" mnemonicParsing="false" text="Music" />
-      <CheckBox layoutX="76.0" layoutY="281.0" mnemonicParsing="false" text="Voice" />
-      <CheckBox layoutX="76.0" layoutY="321.0" mnemonicParsing="false" text="SFX" />
-      <Button layoutX="403.0" layoutY="327.0" mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu" />
-      <CheckBox layoutX="76.0" layoutY="130.0" mnemonicParsing="false" text="Points Reward for Cricca" />
-   </children>
-</AnchorPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.SettingsMenuControlImpl">
+   <left>
+      <VBox prefHeight="329.0" prefWidth="284.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="SOUND" />
+            <CheckBox mnemonicParsing="false" text="Music" />
+            <CheckBox mnemonicParsing="false" text="Voice" />
+            <CheckBox mnemonicParsing="false" text="SFX" />
+            <ImageView fitHeight="15.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
+            <Label text="GAME" />
+            <CheckBox mnemonicParsing="false" text="Points Reward for &quot;Cricca&quot;" />
+         </children>
+         <padding>
+            <Insets left="75.0" />
+         </padding>
+      </VBox>
+   </left>
+   <top>
+      <Label text="Settings" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="50.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <right>
+      <Button mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets right="25.0" top="225.0" />
+         </BorderPane.margin>
+      </Button>
+   </right>
+</BorderPane>
