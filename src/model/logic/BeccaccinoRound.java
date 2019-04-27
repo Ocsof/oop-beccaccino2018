@@ -37,14 +37,16 @@ public class BeccaccinoRound extends RoundTemplate {
 
     /**
      * {@inheritDoc}
-     * If the round isn't over, returns the play that would win if the round was over now.
+     * If the round isn't over yet, returns the play that is currently winning the round.
      * The hierarchy that determines which card wins is the following:
      * 1)Card with greatest value among cards of briscola suit.
      * 2)Card with greatest value among cards of this round dominant suit.
      */
     public Optional<Play> getWinningPlay() {
-        final BunchOfCards playedCards = new BeccaccinoBunchOfCards(this.getPlayedCards()); //TODO new BUNCH(this.getPlayedCards);
-
+        if (this.hasJustStarted()) {
+            return Optional.empty();
+        }
+        final BunchOfCards playedCards = new BeccaccinoBunchOfCards(this.getPlayedCards());
         if (this.hasJustStarted()) {
             return Optional.empty();
         }
