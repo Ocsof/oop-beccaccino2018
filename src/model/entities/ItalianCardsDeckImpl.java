@@ -38,7 +38,6 @@ public class ItalianCardsDeckImpl implements ItalianCardsDeck {
     } 
     /**
      * This private method populates a deck with all existing ItalianCards.
-     * @return void
      */
     private void populateDeck() {
         EnumSet<ItalianCard.Suit> suitList = EnumSet.allOf(ItalianCard.Suit.class);
