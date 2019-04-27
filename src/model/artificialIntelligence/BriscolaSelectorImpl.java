@@ -2,6 +2,7 @@ package model.artificialIntelligence;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import model.entities.BeccaccinoBunchOfCards;
 import model.entities.BunchOfCards;
@@ -72,23 +73,24 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
      */
     private void selector() {
         int cont = 0;
+        final Random rnd = new Random();
         // pensare di aggiungere un random
         while (this.preferredSuitList.size() != UNACARTA) { 
             cont++;
-            this.maxValueOfSuit();
+            this.maxValueOfSuit();           
             if (cont == DUECARTE && this.preferredSuitList.size() == QUATTROCARTE) { 
-                this.preferredSuit = this.preferredSuitList.get(0);
+                this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
             } else if (cont == TRECARTE && this.preferredSuitList.size() == TRECARTE) { 
-                this.preferredSuit = this.preferredSuitList.get(0);
+                this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
             } else if ((cont == CINQUECARTE || cont == QUATTROCARTE || cont == TRECARTE) && this.preferredSuitList.size() == DUECARTE) { 
-                this.preferredSuit = this.preferredSuitList.get(0);
+                this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
             }
         }
         // se continua a non uscire dal while vuol dire che ho dei semi con lo
         // stesso numero di carte e con lo stesso valore di calte alte
 
         // perche' ce ne e' uno solo in lista
-        this.preferredSuit = this.preferredSuitList.get(0); 
+        this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size())); 
     }
 
     /**

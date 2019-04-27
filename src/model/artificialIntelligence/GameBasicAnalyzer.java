@@ -32,9 +32,9 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     protected final static int LEFT = 2;
     protected final static int ME = 3;
 
-    protected final static int PRIMO = 0;
-    protected final static int SECONDO = 1;
-    protected final static int TERZO = 2;
+    protected final static int FIRST = 0;
+    protected final static int SECOND = 1;
+    protected final static int THIRD = 2;
 
     /**
      * Class constructor.
@@ -89,9 +89,9 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             if (willWinTheRound(cardTeammate)) {
                 return probability; // 100
             }
-        } else if (myRoundPositionIs(PRIMO) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())) {
+        } else if (myRoundPositionIs(FIRST) && hasPlayerTheBestCardOf(TEAMMATE, card.getSuit())) {
             return probability;
-        } else if (myRoundPositionIs(SECONDO) && hasPlayerTheBestCardOf(TEAMMATE, this.currentRound.getSuit().get())) {
+        } else if (myRoundPositionIs(SECOND) && hasPlayerTheBestCardOf(TEAMMATE, this.currentRound.getSuit().get())) {
             return probability;
         } else if (isEnemyTempWinner()) { // se sta prendendo il nemico
             final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
@@ -405,10 +405,10 @@ public class GameBasicAnalyzer implements GameAnalyzer {
         int winProbability = 100;
         int enemiesProbability = 0;
         for (ItalianCard card : betterCards) {
-            if (myRoundPositionIs(PRIMO)) {
+            if (myRoundPositionIs(FIRST)) {
                 enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card)
                         + this.allPlayers.get(LEFT).getProbabilityOf(card);
-            } else if (myRoundPositionIs(SECONDO) || myRoundPositionIs(TERZO)) {
+            } else if (myRoundPositionIs(SECOND) || myRoundPositionIs(THIRD)) {
                 enemiesProbability = this.allPlayers.get(RIGHT).getProbabilityOf(card);
             }
             winProbability = winProbability - enemiesProbability;

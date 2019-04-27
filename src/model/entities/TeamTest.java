@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import model.entities.ItalianCard.Suit;
 import model.entities.ItalianCard.Value;
 
@@ -15,15 +18,16 @@ public class TeamTest {
      * Check the tests below to understand which parameters to pass to the
      * constructors
      */
-    private ItalianCard fanteDiSpade = null;
-    private ItalianCard cavalloDiDenari = null;
-    private ItalianCard assoDiBastoni = null;
-    private ItalianCard treDiCoppe = null;
-    private ItalianCard dueDiSpade = null;
-    private ItalianCard setteDiDenari = null;
-    private Player tizio = null;
-    private Player caio = null;
-    private Team lakers = null;
+    private ItalianCard fanteDiSpade = new ItalianCardImpl(Suit.SPADE, Value.FANTE);
+    private ItalianCard cavalloDiDenari = new ItalianCardImpl(Suit.DENARI, Value.CAVALLO);
+    private ItalianCard assoDiBastoni = new ItalianCardImpl(Suit.BASTONI, Value.ASSO);
+    private ItalianCard treDiCoppe = new ItalianCardImpl(Suit.COPPE, Value.TRE);
+    private ItalianCard dueDiSpade = new ItalianCardImpl(Suit.SPADE, Value.DUE);
+    private ItalianCard setteDiDenari = new ItalianCardImpl(Suit.DENARI, Value.SETTE);
+    private Player tizio = new PlayerImpl("Tizio", new BeccaccinoHand());
+    private Player caio = new PlayerImpl("Caio", new BeccaccinoHand());
+    private List<Player> team = new LinkedList<>();
+    private Team lakers = new TeamImpl(team);
 
     /**
      * Tests basic card functionalities.
