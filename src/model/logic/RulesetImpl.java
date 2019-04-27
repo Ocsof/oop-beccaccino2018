@@ -53,9 +53,13 @@ public class RulesetImpl implements Ruleset {
     /**
      * {@inheritDoc}
      */
-    public Optional<AI> newAI(final Player player) {
-        //QUANDO PRONTA QUI VA MESSA LA DISCRIMINAZIONE DELLA DIFFICOLTA' IN BASE ALLE OPZIONI DEL MENU
-        GameAnalyzer analyzer = new GameMediumAnalyzer(player.getHand().getCards());
+    public Optional<AI> newAI(final Player player, final String difficulty) {
+        GameAnalyzer analyzer;
+        if (difficulty == null || difficulty == "Basic AI") {
+            analyzer = new GameBasicAnalyzer(player.getHand().getCards());
+        } else {
+            analyzer = new GameMediumAnalyzer(player.getHand().getCards());
+        }
         Optional<AI> ai = Optional.of(new AIImpl(player, analyzer));
         return ai;
     }

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 /**
  * This class contains various utility methods used throughout the project.
@@ -51,6 +52,14 @@ public final class UtilityClass {
             }
             return true;
         }
+    }
+    /**
+     * This method populates the ComboBox for one of the AIs with the possible difficulty choices.
+     * @param comboBox - the name of the new profile to be created.
+     */
+    public static void populateAIComboBox(final ComboBox<String> comboBox) {
+        comboBox.getItems().add("Basic AI");
+        comboBox.getItems().add("Medium AI");
     }
     private UtilityClass() {
     }

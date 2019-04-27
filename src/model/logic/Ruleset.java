@@ -34,8 +34,9 @@ public interface Ruleset {
     Player newPlayer(String name);
     /**
      * This method creates a new Game object.
-     * @return The AI created.
      * @param player - the player that is being controlled by the AI.
+     * @param difficulty - the difficulty of the AI to be created.
+     * @return The AI created.
      */
-    Optional<AI> newAI(Player player);
+    Optional<AI> newAI(Player player, String difficulty);
 }

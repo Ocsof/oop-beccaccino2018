@@ -10,6 +10,8 @@ import java.util.Optional;
 import controller.game.GameController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import menu.view.MenuView;
 import model.artificialIntelligence.AI;
@@ -25,6 +27,12 @@ import view.GameViewImpl;
 public class PreGameMenuControlImpl implements PreGameMenuControl {
     @FXML
     private ComboBox<String> profilesComboBox;
+    @FXML
+    private ComboBox<String> leftmostAIComboBox;
+    @FXML
+    private ComboBox<String> upperAIComboBox;
+    @FXML
+    private ComboBox<String> rightmostAIComboBox;
     /**
      * {@inheritDoc}
      */
@@ -36,27 +44,37 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
                 profilesComboBox.getItems().add(files[i].getName());
             }
         }
+        UtilityClass.populateAIComboBox(rightmostAIComboBox);
+        UtilityClass.populateAIComboBox(upperAIComboBox);
+        UtilityClass.populateAIComboBox(leftmostAIComboBox);
     }
     /**
      * {@inheritDoc}
      */
     public void startClicked(final ActionEvent event) {
-        Ruleset ruleset = new RulesetImpl();
-        List<Player> playerList = new ArrayList<Player>();
-        playerList.add(ruleset.newPlayer("Player1"));
-        playerList.add(ruleset.newPlayer("Player2"));
-        playerList.add(ruleset.newPlayer("Player3"));
-        playerList.add(ruleset.newPlayer("Player4"));
-        Game currentGame = ruleset.newGame(playerList);
-        GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));
-
-        Map<Player, Optional<AI>> playerMap = new HashMap<Player, Optional<AI>>();
-        playerMap.put(playerList.get(0), Optional.empty());
-        playerMap.put(playerList.get(1), ruleset.newAI(playerList.get(1)));
-        playerMap.put(playerList.get(2), ruleset.newAI(playerList.get(2)));
-        playerMap.put(playerList.get(3), ruleset.newAI(playerList.get(3)));
-        GameController currentGameController = new GameController(playerMap, currentGame, currentGameView);
-        currentGameView.setController(currentGameController);
+        if (profilesComboBox.getValue() == null) {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Profile not Selected");
+            alert.setContentText("A profile has to be selected in order to play a match.\nYou can create profiles in the Create new Profile section of the Main Menu.");
+            alert.showAndWait();
+        } else {
+            Ruleset ruleset = new RulesetImpl();
+            List<Player> playerList = new ArrayList<Player>();
+            playerList.add(ruleset.newPlayer(profilesComboBox.getValue()));
+            playerList.add(ruleset.newPlayer("Player 2"));
+            playerList.add(ruleset.newPlayer("Player 3"));
+            playerList.add(ruleset.newPlayer("Player 4"));
+            Game currentGame = ruleset.newGame(playerList);
+            GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));
+            Map<Player, Optional<AI>> playerMap = new HashMap<Player, Optional<AI>>();
+            playerMap.put(playerList.get(0), Optional.empty());
+            playerMap.put(playerList.get(1), ruleset.newAI(playerList.get(1), rightmostAIComboBox.getValue()));
+            playerMap.put(playerList.get(2), ruleset.newAI(playerList.get(2), upperAIComboBox.getValue()));
+            playerMap.put(playerList.get(3), ruleset.newAI(playerList.get(3), leftmostAIComboBox.getValue()));
+            GameController currentGameController = new GameController(playerMap, currentGame, currentGameView);
+            currentGameView.setController(currentGameController);
+        }
     }
     /**
      * {@inheritDoc}
