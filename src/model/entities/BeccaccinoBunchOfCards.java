@@ -38,11 +38,13 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
      */
     public List<ItalianCard> getCardsOfSuit(final Suit suit) {
         final List<ItalianCard> cardsOfSuit = new LinkedList<>();
+        final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         for (ItalianCard card : this.listOfCards) {
             if (card.getSuit().equals(suit)) {
                 cardsOfSuit.add(card);
             }
         }
+        cardsOfSuit.sort(comparator);
         return cardsOfSuit;
     }
 
@@ -102,14 +104,14 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
      */
     public List<ItalianCard> getCardsWithMostPoints() {
         List<ItalianCard> cardsWithMorePoints = new LinkedList<>();
-        int max = 0;
+        int min = 0;
         for (ItalianCard card : this.listOfCards) {
             int temp = this.pointsMap.get(card.getValue());
-            if (temp > max) {
-                max = temp;
+            if (temp > min) {
+                min = temp;
                 cardsWithMorePoints = new LinkedList<>();
                 cardsWithMorePoints.add(card);
-            } else if (temp == max) {
+            } else if (temp == min) {
                 cardsWithMorePoints.add(card);
             }
         }
@@ -121,14 +123,14 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
      */
     public List<ItalianCard> getCardsWithLeastPoints() {
         List<ItalianCard> cardsWithLeastPoint = new LinkedList<>();
-        int min = 0;
-        for (ItalianCard card : cardsWithLeastPoint) {
+        int max = this.pointsMap.get(Value.ASSO);
+        for (ItalianCard card : listOfCards) {
             int temp = this.pointsMap.get(card.getValue());
-            if (temp < min) {
-                min = temp;
+            if (temp < max) {
+                max = temp;
                 cardsWithLeastPoint = new LinkedList<>();
                 cardsWithLeastPoint.add(card);
-            } else if (temp == min) {
+            } else if (temp == max) {
                 cardsWithLeastPoint.add(card);
             }
         }
