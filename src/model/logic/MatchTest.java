@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import model.artificialIntelligence.AI;
+import model.entities.BeccaccinoBunchOfCards;
+import model.entities.BunchOfCards;
+import model.entities.ItalianCard.Suit;
 import model.entities.Play;
 import model.entities.Player;
 
@@ -45,6 +48,12 @@ public class MatchTest {
                 }
             }
             System.out.println(game.getCurrentRound().getPlayableCards());
+            final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(game.getCurrentRound().getPlayableCards());
+            System.out.println("CardsOfSuit: " + bunchOfCards.getCardsOfSuit(Suit.BASTONI));
+            System.out.println("leastPointCard: " + bunchOfCards.getCardsWithLeastPoints());
+            System.out.println("MostPointCard: " + bunchOfCards.getCardsWithMostPoints());
+            System.out.println("highCard: " + bunchOfCards.getHighestCards());
+            System.out.println("lowestCard: " + bunchOfCards.getLowestCards());
             final Play play = ai.makePlay(game.getCurrentRound());
             System.out.println(play.toString());
             game.makeTurn(play);

@@ -6,7 +6,7 @@ import java.util.Optional;
 import model.entities.ItalianCard.Suit;
 import model.entities.ItalianCard.Value;
 
-/** 
+/**
  * A simple card container with utility methods.
  */
 public interface BunchOfCards {
@@ -14,7 +14,7 @@ public interface BunchOfCards {
      * Returns contained cards of specified suit.
      * 
      * @param suit - the suit you want to get cards of
-     * @return a list of cards of specified suit, ordered by ascending value 
+     * @return a list of cards of specified suit, ordered by ascending value
      */
     List<ItalianCard> getCardsOfSuit(Suit suit);
 
@@ -22,7 +22,7 @@ public interface BunchOfCards {
      * Returns contained cards of specified value.
      * 
      * @param value - the value you want to get cards of
-     * @return a list of cards of specified value 
+     * @return a list of cards of specified value
      */
     List<ItalianCard> getCardsOfValue(Value value);
 
@@ -54,26 +54,35 @@ public interface BunchOfCards {
     /**
      * Returns contained cards associated with the highest points.
      * 
-     * @return a list of cards with highest points associated. 
+     * @return a list of cards with highest points associated.
      */
     List<ItalianCard> getCardsWithMostPoints();
 
     /**
      * Returns contained cards associated with the lowest points.
      * 
-     * @return a list of cards with lowest points associated. 
+     * @return a list of cards with lowest points associated.
      */
     List<ItalianCard> getCardsWithLeastPoints();
 
     /**
      * Returns contained cards associated with the highest value.
-     * @return a list of cards with highest value. 
+     * 
+     * @return a list of cards with highest value.
      */
     List<ItalianCard> getHighestCards();
 
     /**
      * Returns contained cards associated with the highest value.
+     * 
      * @return a list of cards with lowest value.
      */
     List<ItalianCard> getLowestCards();
+
+    /**
+     * Returns contained cards ordered by ascending value.
+     * 
+     * @return a list of cards ordered by ascending value
+     */
+    List<ItalianCard> getOrderedCards();
 }
