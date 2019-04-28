@@ -61,6 +61,18 @@ public final class UtilityClass {
         comboBox.getItems().add("Basic AI");
         comboBox.getItems().add("Medium AI");
     }
+    /**
+     * This method checks whether or not the profiles folder and the options file exist, and creates them if they don't.
+     */
+    public static void initialSetup() {
+        File profilesPath = new File(System.getProperty("user.dir") + System.getProperty("file.separator") 
+                                    + "res" + System.getProperty("file.separator") + "profiles");
+        File settingsFilePath = new File(System.getProperty("user.dir") + System.getProperty("file.separator") 
+        + "res" + System.getProperty("file.separator") + "settings.txt");
+        if (!profilesPath.isDirectory()) {
+            profilesPath.mkdirs();
+        }
+    }
     private UtilityClass() {
     }
 }
