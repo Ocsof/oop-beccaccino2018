@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import controller.game.CardControllerImpl;
 import controller.game.GameController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -30,7 +33,8 @@ import model.logic.Game;
 import model.logic.Round;
 
 /**
- * Alessia Rocco GameView Implementation.
+ * Alessia Rocco 
+ * GameView Implementation.
  */
 public class GameViewImpl implements GameView {
     private Game game;
@@ -44,6 +48,7 @@ public class GameViewImpl implements GameView {
     private Map<Button, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Button> map2 = new HashMap<>();
     private Round currentRound;
+    private static final int SPACING_BETWEEN_CARDS = 20;
 
     /**
      * Class constructor.
@@ -183,11 +188,15 @@ public class GameViewImpl implements GameView {
     private boolean putCardOnTheTable() {
         ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
         ItalianCardView c = new ItalianCardView(card);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int) screenSize.getHeight() / GameViewImpl.SPACING_BETWEEN_CARDS;
+        int weight = (int) screenSize.getWidth() / GameViewImpl.SPACING_BETWEEN_CARDS;
 
         if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
             hbox.setAlignment(Pos.CENTER);
+            hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
             this.boxes.get(0).getChildren().remove(this.map2.get(card));
             return false;
@@ -196,6 +205,7 @@ public class GameViewImpl implements GameView {
             VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
             vbox.setAlignment(Pos.CENTER);
+            vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
             this.boxes.get(1).getChildren().remove(this.map2.get(card));
             return true;
@@ -204,6 +214,7 @@ public class GameViewImpl implements GameView {
             HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
             hbox.setAlignment(Pos.BOTTOM_CENTER);
+            hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
             this.boxes.get(2).getChildren().remove(this.map2.get(card));
             return true;
@@ -212,6 +223,7 @@ public class GameViewImpl implements GameView {
             VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
             vbox.setAlignment(Pos.CENTER);
+            vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
             this.boxes.get(3).getChildren().remove(this.map2.get(card));
             return true;
