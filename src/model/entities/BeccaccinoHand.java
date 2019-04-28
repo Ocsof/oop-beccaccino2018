@@ -16,6 +16,17 @@ public class BeccaccinoHand extends HandTemplate {
     /**
      * {@inheritDoc}
      */
+    public void addCard(final ItalianCard card) {
+        super.addCard(card);
+        if (this.isFull()) {
+            final BeccaccinoBunchOfCards sorter = new BeccaccinoBunchOfCards(this.getCards());
+            this.setCards(sorter.getOrderedCards());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean isFull() {
         if (this.getCards().size() == MAX_HAND_SIZE) {
             return true;
