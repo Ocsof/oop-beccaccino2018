@@ -115,7 +115,9 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
             }
         }
         for (Suit suit : this.preferredSuitList) {
-            this.myCards.remove(bunchOfCards.getHighestCardOfSuit(suit).get()); 
+            if (bunchOfCards.getHighestCardOfSuit(suit).isPresent()) {
+                this.myCards.remove(bunchOfCards.getHighestCardOfSuit(suit).get()); 
+            }
         } // dopo si guarda la seconda carta di value + alto
     }
 
