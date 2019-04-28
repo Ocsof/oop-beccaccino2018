@@ -11,12 +11,12 @@
       <VBox prefHeight="329.0" prefWidth="284.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="SOUND" />
-            <CheckBox mnemonicParsing="false" text="Music" />
-            <CheckBox mnemonicParsing="false" text="Voice" />
-            <CheckBox mnemonicParsing="false" text="SFX" />
+            <CheckBox fx:id="musicBox" mnemonicParsing="false" text="Music" />
+            <CheckBox fx:id="voiceBox" mnemonicParsing="false" text="Voice" />
+            <CheckBox fx:id="soundFXBox" mnemonicParsing="false" text="SFX" />
             <ImageView fitHeight="15.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
             <Label text="GAME" />
-            <CheckBox mnemonicParsing="false" text="Points Reward for &quot;Cricca&quot;" />
+            <CheckBox fx:id="criccaBox" mnemonicParsing="false" text="Points Reward for &quot;Cricca&quot;" />
          </children>
          <padding>
             <Insets left="75.0" />
