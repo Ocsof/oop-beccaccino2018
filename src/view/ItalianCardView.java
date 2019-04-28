@@ -20,9 +20,10 @@ public class ItalianCardView implements ItalianCardViewFactory {
     private ImageView image;
     private String sep = File.separator;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private int width = (int) screenSize.getWidth() / 40;
-    private int height = (int) screenSize.getWidth() / 30;
-
+    private static final int WIDTH_CARDS = 40;
+    private static final int HEIGTH_CARDS = 30;
+    private int width = (int) screenSize.getWidth() / ItalianCardView.WIDTH_CARDS;
+    private int heigth = (int) screenSize.getWidth() / ItalianCardView.HEIGTH_CARDS;
     /**
      * Class constructor.
      * 
@@ -49,7 +50,7 @@ public class ItalianCardView implements ItalianCardViewFactory {
         Button back = new Button();
         this.image = new ImageView(new Image("res" + sep + "cards" + sep + "retro.jpg"));
         image.setFitWidth(this.width);
-        image.setFitHeight(this.height);
+        image.setFitHeight(this.heigth);
         back.setGraphic(image);
         return back;
     }
