@@ -1,6 +1,7 @@
 package model.logic;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class RulesetImpl implements Ruleset {
                                                                         + System.getProperty("file.separator") 
                                                                         + "res" + System.getProperty("file.separator") + "settings.txt"));
             String line = reader.readLine();
+            if (line == null) {
+                reader.close();
+                throw new FileNotFoundException();
+            }
             if (line.equals("pints_for_cricca: TRUE")) {
                 game = new BeccaccinoGameWithCricca(turnOrder, teams.get(0), teams.get(1));
             } else {
@@ -73,7 +78,7 @@ public class RulesetImpl implements Ruleset {
      */
     public Optional<AI> newAI(final Player player, final String difficulty) {
         GameAnalyzer analyzer;
-        if (difficulty.equals(null) || difficulty.equals("Basic AI")) {
+        if (difficulty == null || difficulty.equals("Basic AI")) {
             analyzer = new GameBasicAnalyzer(player.getHand().getCards());
         } else {
             analyzer = new GameMediumAnalyzer(player.getHand().getCards());
