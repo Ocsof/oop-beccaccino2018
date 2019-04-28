@@ -239,7 +239,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(card.getSuit());
             cardsOf.add(card);
             cardsOf.sort(comparator);
-            final List<ItalianCard> remainingCardsWithMoreValue = this.remainingBetterCard(card, cardsOf);
+            final List<ItalianCard> remainingCardsWithMoreValue = this.betterRemainingCard(card, cardsOf);
             if (!havePlayerAllCards(TEAMMATE, remainingCardsWithMoreValue)) { // teammate
                 probability = this.observeProbabilityOfEnemies(remainingCardsWithMoreValue);
             }
@@ -257,7 +257,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * parameter
      * @return a list of better card than than the card passed as parameter
      */
-    protected List<ItalianCard> remainingBetterCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
+    protected List<ItalianCard> betterRemainingCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
         final List<ItalianCard> remainingCardsWithMoreValue = new LinkedList<>();
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         for (ItalianCard cardOf : cardsOf) {

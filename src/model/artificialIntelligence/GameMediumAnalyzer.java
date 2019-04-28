@@ -128,11 +128,11 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
      * {@inheritDoc} It consider as better cards also those that have the
      * briscola suit that could be played by enemies.
      */
-    protected List<ItalianCard> remainingBetterCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
+    protected List<ItalianCard> betterRemainingCard(final ItalianCard card, final List<ItalianCard> cardsOf) {
         if (!couldEnemiesTaglio(card.getSuit())) {
-            return super.remainingBetterCard(card, cardsOf);
+            return super.betterRemainingCard(card, cardsOf);
         }
-        final List<ItalianCard> remainingBetterCard = super.remainingBetterCard(card, cardsOf);
+        final List<ItalianCard> remainingBetterCard = super.betterRemainingCard(card, cardsOf);
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.getRemainingCards());
         for (ItalianCard cardOfBriscola : bunchOfCards.getCardsOfSuit(getBriscola())) {
             remainingBetterCard.add(cardOfBriscola);
