@@ -41,7 +41,7 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
         File[] files = folder.listFiles();
         for (int i = 0; i < files.length; i++) {
             if (files[i].isFile()) {
-                profilesComboBox.getItems().add(files[i].getName());
+                profilesComboBox.getItems().add(files[i].getName().replaceFirst("[.][^.]+$", ""));
             }
         }
         UtilityClass.populateAIComboBox(rightmostAIComboBox);

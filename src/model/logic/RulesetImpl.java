@@ -1,5 +1,8 @@
 package model.logic;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +32,22 @@ public class RulesetImpl implements Ruleset {
     public Game newGame(final List<Player> players) {
         TurnOrder turnOrder = new BasicTurnOrder(players);
         List<Team> teams = createTeams(players);
-        Game game = new BeccaccinoGame(turnOrder, teams.get(0), teams.get(1));
+        Game game = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") 
+                                                                        + System.getProperty("file.separator") 
+                                                                        + "res" + System.getProperty("file.separator") + "settings.txt"));
+            String line = reader.readLine();
+            if (line.equals("pints_for_cricca: TRUE")) {
+                game = new BeccaccinoGameWithCricca(turnOrder, teams.get(0), teams.get(1));
+            } else {
+                game = new BeccaccinoGame(turnOrder, teams.get(0), teams.get(1));
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error in reading Settings file.\nShutting down...");
+            System.exit(1);
+        }
         return game;
     }
 
@@ -55,7 +73,7 @@ public class RulesetImpl implements Ruleset {
      */
     public Optional<AI> newAI(final Player player, final String difficulty) {
         GameAnalyzer analyzer;
-        if (difficulty == null || difficulty == "Basic AI") {
+        if (difficulty.equals(null) || difficulty.equals("Basic AI")) {
             analyzer = new GameBasicAnalyzer(player.getHand().getCards());
         } else {
             analyzer = new GameMediumAnalyzer(player.getHand().getCards());

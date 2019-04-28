@@ -2,6 +2,7 @@ package util;
 
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -62,7 +63,7 @@ public final class UtilityClass {
         comboBox.getItems().add("Medium AI");
     }
     /**
-     * This method checks whether or not the profiles folder and the options file exist, and creates them if they don't.
+     * This method checks whether or not the profiles folder and the settings file exist, and creates them if they don't.
      */
     public static void initialSetup() {
         File profilesPath = new File(System.getProperty("user.dir") + System.getProperty("file.separator") 
@@ -71,6 +72,25 @@ public final class UtilityClass {
         + "res" + System.getProperty("file.separator") + "settings.txt");
         if (!profilesPath.isDirectory()) {
             profilesPath.mkdirs();
+        }
+        if (!settingsFilePath.exists() || settingsFilePath.isDirectory()) {
+            try {
+                settingsFilePath.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Cannot proceed without a Settings file\n Shutting down...");
+                System.exit(1);
+            }
+            try {
+                FileWriter writer = new FileWriter(settingsFilePath);
+                writer.write("points_for_cricca: FALSE\n");
+                writer.write("music: TRUE\n");
+                writer.write("voices: TRUE\n");
+                writer.write("sfx: TRUE");
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("A problem has occurred while writing in the Settings file\n Shutting down...");
+                System.exit(1);
+            }
         }
     }
     private UtilityClass() {
