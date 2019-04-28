@@ -56,13 +56,17 @@ public class MessageView {
         message.ifPresent(m -> System.out.println("Your message: " + m));
     }
 
-    public boolean isOperationCanceled() {
-        if(!this.message.isPresent()) {
+    /**
+     * A method to control if the operation has been canceled.
+     * @return a boolean if the operation has been canceled
+     */
+    public final boolean isOperationCanceled() {
+        if (!this.message.isPresent()) {
             return true;
         }
         return false;
     }
-    
+
     /**
      * Getter of the message.
      * 

@@ -5,12 +5,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import controller.game.CardController;
 import controller.game.CardControllerImpl;
 import controller.game.GameController;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -20,13 +28,17 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
 import model.entities.Play;
+import model.entities.Player;
 import model.logic.Game;
+import model.logic.Round;
+import javafx.stage.Popup;
 
 /**
  * Alessia Rocco 
@@ -43,6 +55,7 @@ public class GameViewImpl implements GameView {
     private List<Pane> boxes = new ArrayList<>();
     private Map<Button, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Button> map2 = new HashMap<>();
+    private Round currentRound;
 
     /**
      * Class constructor.
@@ -58,33 +71,32 @@ public class GameViewImpl implements GameView {
         HBox rootbottom = new HBox();
         VBox rootleft = new VBox();
         VBox rootright = new VBox();
-        HBox rootcentre = new HBox();
-        StackPane briscolaArea = new StackPane();
+        BorderPane rootcentre = new BorderPane();
+
         this.boxes.add(rootbottom);
         this.boxes.add(rootright);
         this.boxes.add(roottop);
         this.boxes.add(rootleft);
         this.boxes.add(rootcentre);
-        this.boxes.add(briscolaArea);
 
         BorderPane externalPane = new BorderPane();
         Background backGround = new Background(tavolo);
         externalPane.setBackground(backGround);
 
         setPlayersHand(boxes);
+        setPlayersName(this.game.getPlayers());
 
         roottop.setAlignment(Pos.TOP_CENTER);
         rootleft.setAlignment(Pos.CENTER_LEFT);
         rootright.setAlignment(Pos.CENTER_RIGHT);
         rootbottom.setAlignment(Pos.BOTTOM_CENTER);
-        rootcentre.setAlignment(Pos.CENTER);
 
         // add at external pane all the hands of the 4 players
         externalPane.setBottom(this.boxes.get(0));
         externalPane.setRight(this.boxes.get(1));
         externalPane.setTop(this.boxes.get(2));
         externalPane.setLeft(this.boxes.get(3));
-        externalPane.setCenter(this.boxes.get(4));
+        externalPane.setCenter(this.boxes.get(this.boxes.size() - 1));
 
         Scene scene = new Scene(externalPane);
         this.primaryStage.setScene(scene);
@@ -153,17 +165,29 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void update() {
+        if(this.game.getCurrentRound().getPlays().size() == 1) {
+            this.currentRound = this.game.getCurrentRound();
+        }
+        
+        this.setTableCards(this.boxes);
         this.setBriscolaOnStage(this.game.getBriscola().get());
-        if (!this.game.getCurrentRound().getPlays().isEmpty()) {
-            Play lastPlay = this.game.getCurrentRound().getPlays()
-                    .get(this.game.getCurrentRound().getPlays().size() - 1);
-            Button lastCard = this.map2.get(lastPlay.getCard());
-
-            if (this.boxes.get(0).getChildren().contains(lastCard)) {
-                this.boxes.get(0).getChildren().remove(lastCard);
-            }
-
-            this.setTableCards(this.boxes);
+        
+        Alert fineround = new Alert(AlertType.INFORMATION);
+        fineround.initOwner(primaryStage);
+        fineround.setTitle("AI ha giocato");
+        fineround.setHeaderText(null);
+        fineround.setContentText(null);
+        fineround.showAndWait();
+        
+        if (this.game.getCurrentRound().hasJustStarted()) {
+            System.out.println("match finito");
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.initOwner(primaryStage);
+            alert.setTitle("Match finished");
+            alert.setHeaderText("Match win b: " /*+ this.game.getCurrentRound().getWinningPlay().get().getCard().toString()*/);
+            alert.setContentText(null);
+            alert.showAndWait();
+            this.clearTable();
         }
     }
 
@@ -174,16 +198,45 @@ public class GameViewImpl implements GameView {
      * @param boxes list of the five region of boxes (where the cards are added)
      */
     private void setTableCards(final List<Pane> boxes) {
-        this.boxes.get(4).getChildren().clear();
-//        try {
-//            Thread.sleep(10);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        for (ItalianCard card : this.game.getCurrentRound().getPlayedCards()) {
-            ItalianCardViewFactory c = new ItalianCardView(card);
-            ((Pane) this.boxes.get(4)).getChildren().add(c.getCardRepresentation(card));
+        ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
+        ItalianCardView c = new ItalianCardView(card);
+        if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
+            HBox hbox = new HBox();
+            hbox.getChildren().add(c.getCardRepresentation(card));
+            hbox.setAlignment(Pos.CENTER);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
+            this.boxes.get(0).getChildren().remove(this.map2.get(card));
+            System.out.println("carta di UserPlay");
         }
+        if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
+            VBox vbox = new VBox();
+            vbox.getChildren().add(c.getCardRepresentation(card));
+            vbox.setAlignment(Pos.CENTER);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
+            this.boxes.get(1).getChildren().remove(this.map2.get(card));
+            System.out.println("carta di Ai destra");
+        }
+        if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
+            HBox hbox = new HBox();
+            hbox.getChildren().add(c.getCardRepresentation(card));
+            hbox.setAlignment(Pos.BOTTOM_CENTER);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
+            this.boxes.get(2).getChildren().remove(this.map2.get(card));
+            System.out.println("carta di Ai top");
+        }
+        if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
+            VBox vbox = new VBox();
+            vbox.getChildren().add(c.getCardRepresentation(card));
+            vbox.setAlignment(Pos.CENTER);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
+            this.boxes.get(3).getChildren().remove(this.map2.get(card));
+            System.out.println("carta di Ai sinistra");
+        }
+
+    }
+    
+    private void clearTable() {
+        this.boxes.get(4).getChildren().clear();
     }
 
     /**
@@ -193,10 +246,6 @@ public class GameViewImpl implements GameView {
      * added)
      */
     private void setPlayersHand(final List<Pane> boxes) {
-        for (Pane b : this.boxes) {
-            b.getChildren().clear();
-        }
-
         for (ItalianCard card : game.getPlayers().get(0).getHand().getCards()) {
             ItalianCardViewFactory c = new ItalianCardView(card);
             Button bt = c.getCardRepresentation(card);
@@ -208,20 +257,32 @@ public class GameViewImpl implements GameView {
         for (int i = 1; i < 4; i++) {
             for (ItalianCard card : game.getPlayers().get(i).getHand().getCards()) {
                 ItalianCardViewFactory c = new ItalianCardView(card);
-                this.map2.put(card, c.getBackCardRepresentation());
-                this.map.put(c.getBackCardRepresentation(), card);
                 Button bt = c.getBackCardRepresentation();
+                this.map2.put(card, bt);
+                this.map.put(bt, card);
                 boxes.get(i).getChildren().add(bt);
             }
         }
     }
 
+    private void setPlayersName(final List<Player> players) {
+        int i = 0;
+
+        for (Player player : players) {
+            Text nome = new Text(player.getName());
+            nome.setStyle("-fx-text-color: blue; -fx-font-size: 25px;");
+            this.boxes.get(i).getChildren().add(nome);
+            i++;
+        }
+    }
     /**
      * Put in the primaryStage the selected Briscola.
      * 
      * @param suit Suit
      */
     private void setBriscolaOnStage(final Suit suit) {
-
+        Text briscolaArea = new Text("BRISCOLA: " + suit.toString());
+        briscolaArea.setStyle("-fx-font-size: 30px;");
+        ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setCenter(briscolaArea);
     }
 }
