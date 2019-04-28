@@ -163,6 +163,18 @@ public class BeccaccinoBunchOfCards implements BunchOfCards {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public List<ItalianCard> getOrderedCards() {
+        final List<ItalianCard> orderedCards = new LinkedList<>();
+        orderedCards.addAll(this.getCardsOfSuit(Suit.BASTONI));
+        orderedCards.addAll(this.getCardsOfSuit(Suit.COPPE));
+        orderedCards.addAll(this.getCardsOfSuit(Suit.DENARI));
+        orderedCards.addAll(this.getCardsOfSuit(Suit.SPADE));
+        return orderedCards;
+    }
+
+    /**
      * It is used to give each value the corresponding score.
      */
     private void createPointsMap() {
