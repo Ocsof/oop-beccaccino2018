@@ -81,7 +81,7 @@ public class TeamTest {
         assertFalse(tizio.getHand().getCards().contains(treDiCoppe));
 
         assertTrue(caio.getHand().getCards().contains(treDiCoppe));
-        assertFalse(tizio.getHand().getCards().contains(assoDiBastoni));
+        assertTrue(tizio.getHand().getCards().contains(assoDiBastoni));
 
         assertEquals(tizio.getHand().getCards().size(), 2);
         assertEquals(caio.getHand().getCards().size(), 2);
@@ -99,6 +99,8 @@ public class TeamTest {
     @org.junit.Test
     public void testTeam() {
         /* Testing the method getPlayers() */
+        lakers.addPlayer(tizio);
+        lakers.addPlayer(caio);
         assertEquals(lakers.getPlayers().size(), 2);
         assertTrue(lakers.getPlayers().contains(tizio));
         assertTrue(lakers.getPlayers().contains(caio));
