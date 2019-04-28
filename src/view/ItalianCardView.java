@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 
 import javafx.scene.control.Button;
@@ -13,13 +15,13 @@ import model.entities.ItalianCard;
  * the corresponding image.
  */
 public class ItalianCardView implements ItalianCardViewFactory {
-    private String name; // the name of the image corresponding to
-                         // thebItalianCard
+    private String name; // the name of the image corresponding to the ItalianCard
     private Button cardView;
     private ImageView image;
     private String sep = File.separator;
-    private int width = 20;
-    private int height = 40;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private int width = (int) screenSize.getWidth() / 40;
+    private int height = (int) screenSize.getWidth() / 30;
 
     /**
      * Class constructor.

@@ -5,20 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import controller.game.CardController;
 import controller.game.CardControllerImpl;
 import controller.game.GameController;
-import javafx.animation.KeyFrame;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -31,18 +23,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
-import model.entities.Play;
 import model.entities.Player;
 import model.logic.Game;
 import model.logic.Round;
-import javafx.stage.Popup;
 
 /**
- * Alessia Rocco 
- * GameView Implementation.
+ * Alessia Rocco GameView Implementation.
  */
 public class GameViewImpl implements GameView {
     private Game game;
@@ -165,28 +153,23 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void update() {
-        if(this.game.getCurrentRound().getPlays().size() == 1) {
+        if (this.game.getCurrentRound().getPlays().size() == 1) {
             this.currentRound = this.game.getCurrentRound();
         }
-        
+
         this.setTableCards(this.boxes);
         this.setBriscolaOnStage(this.game.getBriscola().get());
-        
-        Alert fineround = new Alert(AlertType.INFORMATION);
-        fineround.initOwner(primaryStage);
-        fineround.setTitle("AI ha giocato");
-        fineround.setHeaderText(null);
-        fineround.setContentText(null);
-        fineround.showAndWait();
-        
+
+        AlertInformationFactory fineRound = new AlertInformationFactory("ROUND FINISHED", 
+                null, "AI has just made its play", this.primaryStage);
+        fineRound.getAlert().showAndWait();
+
         if (this.game.getCurrentRound().hasJustStarted()) {
-            System.out.println("match finito");
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.initOwner(primaryStage);
-            alert.setTitle("Match finished");
-            alert.setHeaderText("Match win b: " /*+ this.game.getCurrentRound().getWinningPlay().get().getCard().toString()*/);
-            alert.setContentText(null);
-            alert.showAndWait();
+            System.out.println("Match finito");
+            String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
+            AlertInformationFactory matchFinished = new AlertInformationFactory("MATCH FINISHED", null, "Match win by: " 
+                    + winnigPlay, this.primaryStage);
+            matchFinished.getAlert().showAndWait();
             this.clearTable();
         }
     }
@@ -200,13 +183,13 @@ public class GameViewImpl implements GameView {
     private void setTableCards(final List<Pane> boxes) {
         ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
         ItalianCardView c = new ItalianCardView(card);
+
         if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
             hbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
             this.boxes.get(0).getChildren().remove(this.map2.get(card));
-            System.out.println("carta di UserPlay");
         }
         if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
@@ -214,7 +197,6 @@ public class GameViewImpl implements GameView {
             vbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
             this.boxes.get(1).getChildren().remove(this.map2.get(card));
-            System.out.println("carta di Ai destra");
         }
         if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
@@ -222,7 +204,6 @@ public class GameViewImpl implements GameView {
             hbox.setAlignment(Pos.BOTTOM_CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
             this.boxes.get(2).getChildren().remove(this.map2.get(card));
-            System.out.println("carta di Ai top");
         }
         if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
@@ -230,11 +211,10 @@ public class GameViewImpl implements GameView {
             vbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
             this.boxes.get(3).getChildren().remove(this.map2.get(card));
-            System.out.println("carta di Ai sinistra");
         }
 
     }
-    
+
     private void clearTable() {
         this.boxes.get(4).getChildren().clear();
     }
@@ -275,6 +255,7 @@ public class GameViewImpl implements GameView {
             i++;
         }
     }
+
     /**
      * Put in the primaryStage the selected Briscola.
      * 
