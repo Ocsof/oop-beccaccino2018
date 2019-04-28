@@ -157,12 +157,12 @@ public class GameViewImpl implements GameView {
             this.currentRound = this.game.getCurrentRound();
         }
 
-        this.setTableCards(this.boxes);
+        if (this.putCardOnTheTable()) {
+            AlertInformationFactory fineTurn = new AlertInformationFactory("TURN FINISHED", null,
+                    "AI has just made its play", this.primaryStage);
+            fineTurn.getAlert().showAndWait();
+        }
         this.setBriscolaOnStage(this.game.getBriscola().get());
-
-        AlertInformationFactory fineTurn = new AlertInformationFactory("TURN FINISHED", 
-                null, "AI has just made its play", this.primaryStage);
-        fineTurn.getAlert().showAndWait();
 
         if (this.game.getCurrentRound().hasJustStarted()) {
             System.out.println("Round finito");
@@ -178,9 +178,9 @@ public class GameViewImpl implements GameView {
      * A method in order to set cards played during a Round in the center of the
      * table.
      * 
-     * @param boxes list of the five region of boxes (where the cards are added)
+     *@return false if the played card belonged to human player, true otherwise.
      */
-    private void setTableCards(final List<Pane> boxes) {
+    private boolean putCardOnTheTable() {
         ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
         ItalianCardView c = new ItalianCardView(card);
 
@@ -190,6 +190,7 @@ public class GameViewImpl implements GameView {
             hbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
             this.boxes.get(0).getChildren().remove(this.map2.get(card));
+            return false;
         }
         if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
@@ -197,6 +198,7 @@ public class GameViewImpl implements GameView {
             vbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
             this.boxes.get(1).getChildren().remove(this.map2.get(card));
+            return true;
         }
         if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
@@ -204,6 +206,7 @@ public class GameViewImpl implements GameView {
             hbox.setAlignment(Pos.BOTTOM_CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
             this.boxes.get(2).getChildren().remove(this.map2.get(card));
+            return true;
         }
         if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
@@ -211,8 +214,9 @@ public class GameViewImpl implements GameView {
             vbox.setAlignment(Pos.CENTER);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
             this.boxes.get(3).getChildren().remove(this.map2.get(card));
+            return true;
         }
-
+        throw new IllegalStateException("No player has the last played card");
     }
 
     private void clearTable() {
