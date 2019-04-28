@@ -23,7 +23,6 @@ import model.entities.Team;
  */
 public class BeccaccinoGame extends GameTemplate {
     private static final int NUMBER_OF_PLAYERS = 4;
-    private static final int CRICCA_POINTS = 9;
     private static final int LAST_ROUND_POINTS = 3;
 
     private final List<Team> teams;
@@ -113,25 +112,9 @@ public class BeccaccinoGame extends GameTemplate {
     }
 
     /**
-     * If the first player has ASSO, DUE, TRE of the briscola suit and he plays
-     * first the ASSO, his team gains immediately extra points.
-     * 
-     * @param play - this turn play
+     * {@inheritDoc} 
      */
     protected void firstTurnRoutine(final Play play) {
-        final ItalianCard assoDiBriscola = new ItalianCardImpl(this.getBriscola().get(), Value.ASSO);
-        final ItalianCard dueDiBriscola = new ItalianCardImpl(this.getBriscola().get(), Value.DUE);
-        final ItalianCard treDiBriscola = new ItalianCardImpl(this.getBriscola().get(), Value.TRE);
-        final List<ItalianCard> cricca = new ArrayList<>();
-        cricca.add(assoDiBriscola);
-        cricca.add(dueDiBriscola);
-        cricca.add(treDiBriscola);
-
-        if (play.getCard().equals(assoDiBriscola)) {
-            if (this.getCurrentPlayer().getHand().getCards().containsAll(cricca)) {
-                this.getTeamOf(this.getCurrentPlayer()).assignPoints(CRICCA_POINTS);
-            }
-        }
     }
 
     /**
