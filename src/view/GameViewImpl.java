@@ -160,14 +160,14 @@ public class GameViewImpl implements GameView {
         this.setTableCards(this.boxes);
         this.setBriscolaOnStage(this.game.getBriscola().get());
 
-        AlertInformationFactory fineRound = new AlertInformationFactory("ROUND FINISHED", 
+        AlertInformationFactory fineTurn = new AlertInformationFactory("TURN FINISHED", 
                 null, "AI has just made its play", this.primaryStage);
-        fineRound.getAlert().showAndWait();
+        fineTurn.getAlert().showAndWait();
 
         if (this.game.getCurrentRound().hasJustStarted()) {
-            System.out.println("Match finito");
+            System.out.println("Round finito");
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
-            AlertInformationFactory matchFinished = new AlertInformationFactory("MATCH FINISHED", null, "Match win by: " 
+            AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null, "Round win by: " 
                     + winnigPlay, this.primaryStage);
             matchFinished.getAlert().showAndWait();
             this.clearTable();
