@@ -99,6 +99,7 @@ public class BeccaccinoGame extends GameTemplate {
        final Player winningPlayer = this.playersByPlay.get(finishedRound.getWinningPlay().get());
        final Team winningTeam = this.getTeamOf(winningPlayer);
        this.getTurnOrder().setNext(winningPlayer);
+       this.playersByPlay.clear();
        for (ItalianCard card : finishedRound.getPlayedCards()) {
            winningTeam.addWonCard(card);
        }
