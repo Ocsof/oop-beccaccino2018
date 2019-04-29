@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import controller.game.CardControllerImpl;
 import controller.game.GameController;
 import javafx.geometry.Insets;
@@ -110,6 +112,8 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     public void allowUserPlay() {
+        this.setBriscolaOnStage(this.game.getBriscola().get());
+
         for (Node card : ((Pane) this.boxes.get(0)).getChildren()) {
             if (this.game.getCurrentRound().getPlayableCards().contains(this.map.get(card))) {
                 card.setDisable(false);
@@ -168,12 +172,13 @@ public class GameViewImpl implements GameView {
                     "AI has just made its play", this.primaryStage);
             fineTurn.getAlert().showAndWait();
         }
+
         this.setBriscolaOnStage(this.game.getBriscola().get());
 
         if (this.game.getCurrentRound().hasJustStarted()) {
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
-            AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null, "Round win by: " 
-                    + winnigPlay, this.primaryStage);
+            AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null,
+                    "Round win by: " + winnigPlay, this.primaryStage);
             matchFinished.getAlert().showAndWait();
             this.clearTable();
             if (this.game.isOver()) {
@@ -195,18 +200,26 @@ public class GameViewImpl implements GameView {
      * A method in order to set cards played during a Round in the center of the
      * table.
      * 
-     *@return false if the played card belonged to human player, true otherwise.
+     * @return false if the played card belonged to human player, true
+     * otherwise.
      */
     private boolean putCardOnTheTable() {
         ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
         ItalianCardView c = new ItalianCardView(card);
+        Optional<String> message = this.currentRound.getPlays().get(this.currentRound.getPlays().size() - 1)
+                .getMessage();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) screenSize.getHeight() / GameViewImpl.SPACING_BETWEEN_CARDS;
         int weight = (int) screenSize.getWidth() / GameViewImpl.SPACING_BETWEEN_CARDS;
+        Text messageText;
 
         if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
+            if (message.isPresent()) {
+                messageText = new Text("Message:" + message.get());
+                hbox.getChildren().add(messageText);
+            }
             hbox.setAlignment(Pos.CENTER);
             hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
@@ -216,6 +229,10 @@ public class GameViewImpl implements GameView {
         if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
+            if (message.isPresent()) {
+                messageText = new Text("Message:" + message.get());
+                vbox.getChildren().add(messageText);
+            }
             vbox.setAlignment(Pos.CENTER);
             vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
@@ -225,6 +242,10 @@ public class GameViewImpl implements GameView {
         if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
             HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
+            if (message.isPresent()) {
+                messageText = new Text("Message:" + message.get());
+                hbox.getChildren().add(messageText);
+            }
             hbox.setAlignment(Pos.BOTTOM_CENTER);
             hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
@@ -234,6 +255,10 @@ public class GameViewImpl implements GameView {
         if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
             VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
+            if (message.isPresent()) {
+                messageText = new Text("Message:" + message.get());
+                vbox.getChildren().add(messageText);
+            }
             vbox.setAlignment(Pos.CENTER);
             vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
