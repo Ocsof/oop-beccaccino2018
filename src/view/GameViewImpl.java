@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
 import model.entities.Player;
+import model.entities.Team;
 import model.logic.Game;
 import model.logic.Round;
 
@@ -170,12 +171,23 @@ public class GameViewImpl implements GameView {
         this.setBriscolaOnStage(this.game.getBriscola().get());
 
         if (this.game.getCurrentRound().hasJustStarted()) {
-            System.out.println("Round finito");
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
             AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null, "Round win by: " 
                     + winnigPlay, this.primaryStage);
             matchFinished.getAlert().showAndWait();
             this.clearTable();
+            if (this.game.isOver()) {
+                final Team winningTeam;
+                final Team losingTeam;
+                if (this.game.getTeams().get(0).getPoints() >= this.game.getTeams().get(1).getPoints()) {
+                    winningTeam = this.game.getTeams().get(0);
+                    losingTeam = this.game.getTeams().get(1);
+                } else {
+                    winningTeam = this.game.getTeams().get(1);
+                    losingTeam = this.game.getTeams().get(0);
+                }
+                new EndgameReport(this.primaryStage, winningTeam, losingTeam);
+            }
         }
     }
 

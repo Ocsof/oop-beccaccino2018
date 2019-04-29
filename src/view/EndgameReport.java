@@ -24,9 +24,9 @@ public class EndgameReport {
         alert.setTitle("Game over");
         alert.setHeaderText("Here is the results");
         alert.setContentText("Winning players are: " + winningTeam.getPlayers().get(0) + " and "
-                + winningTeam.getPlayers().get(0) + "./nThey totalised " + winningTeamPoints
-                + " points./nLosing players are: " + losingTeam.getPlayers().get(0) + " and "
-                + losingTeam.getPlayers().get(0) + "./nThey totalised" + losingTeamPoints + " points.");
+                + winningTeam.getPlayers().get(1) + ".\nThey totalised " + winningTeamPoints
+                + " points.\nLosing players are: " + losingTeam.getPlayers().get(0) + " and "
+                + losingTeam.getPlayers().get(1) + ".\nThey totalised" + losingTeamPoints + " points.");
         alert.showAndWait();
         MenuView.menuSetup(primaryStage, "MainMenuScene.fxml");
 
