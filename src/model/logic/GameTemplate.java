@@ -59,6 +59,9 @@ public abstract class GameTemplate implements Game {
      * {@inheritDoc}
      */
     public void makeTurn(final Play play) {
+        if(this.isOver()) {
+            throw new IllegalStateException("Can't make a turn if the game is over");
+        }
         this.checkBriscolaIsPresent();
         if (this.rounds.size() == 1) {
             this.firstTurnRoutine(play);
@@ -66,9 +69,7 @@ public abstract class GameTemplate implements Game {
         this.getCurrentRound().addPlay(play);
         if (this.getCurrentRound().isOver()) {
             this.roundOverRoutine();
-            if (!this.isOver()) {
-                this.rounds.add(this.newRound(this.turnOrder));
-            }
+            this.rounds.add(this.newRound(this.turnOrder));
         }
     }
 
