@@ -63,19 +63,19 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
             List<Player> playerList = new ArrayList<Player>();
             playerList.add(ruleset.newPlayer(profilesComboBox.getValue()));
             if (rightmostAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI"));
+                playerList.add(ruleset.newPlayer("Basic AI 1"));
             } else {
-                playerList.add(ruleset.newPlayer(rightmostAIComboBox.getValue()));
+                playerList.add(ruleset.newPlayer("Medium AI 1"));
             }
             if (upperAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI"));
+                playerList.add(ruleset.newPlayer("Basic AI 2"));
             } else {
-                playerList.add(ruleset.newPlayer(upperAIComboBox.getValue()));
+                playerList.add(ruleset.newPlayer("Medium AI 2"));
             }
             if (leftmostAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI"));
+                playerList.add(ruleset.newPlayer("Basic AI 3"));
             } else {
-                playerList.add(ruleset.newPlayer(leftmostAIComboBox.getValue()));
+                playerList.add(ruleset.newPlayer("Medium AI 3"));
             }
             Game currentGame = ruleset.newGame(playerList);
             GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));
