@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.ProfileMenuControlImpl">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.ProfileMenuControlImpl">
    <center>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="277.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Profile Creation" />
+            <Label text="Profile Creation" textFill="#e9ff00" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Button mnemonicParsing="false" onAction="#backClicked" text="Back to Main Menu" />
          </children>

@@ -6,17 +6,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.SettingsMenuControlImpl">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.SettingsMenuControlImpl">
    <left>
       <VBox prefHeight="329.0" prefWidth="284.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="SOUND" />
-            <CheckBox fx:id="musicBox" mnemonicParsing="false" text="Music" />
-            <CheckBox fx:id="voiceBox" mnemonicParsing="false" text="Voice" />
-            <CheckBox fx:id="soundFXBox" mnemonicParsing="false" text="SFX" />
+            <Label text="SOUND" textFill="#e9ff00" />
+            <CheckBox fx:id="musicBox" mnemonicParsing="false" text="Music" textFill="#e9ff00" />
+            <CheckBox fx:id="voiceBox" mnemonicParsing="false" text="Voice" textFill="#e9ff00" />
+            <CheckBox fx:id="soundFXBox" mnemonicParsing="false" text="SFX" textFill="#e9ff00" />
             <ImageView fitHeight="15.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
-            <Label text="GAME" />
-            <CheckBox fx:id="criccaBox" mnemonicParsing="false" text="Points Reward for &quot;Cricca&quot;" />
+            <Label text="GAME" textFill="#e9ff00" />
+            <CheckBox fx:id="criccaBox" mnemonicParsing="false" text="Points Reward for &quot;Cricca&quot;" textFill="#e9ff00" />
          </children>
          <padding>
             <Insets left="75.0" />
@@ -24,7 +24,7 @@
       </VBox>
    </left>
    <top>
-      <Label text="Settings" BorderPane.alignment="CENTER">
+      <Label text="Settings" textFill="#e9ff00" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="50.0" />
          </BorderPane.margin>

@@ -8,18 +8,18 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.PreGameMenuControlImpl">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.control.PreGameMenuControlImpl">
    <center>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="208.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Player 3 (AI)" />
+            <Label text="Player 3 (AI)" textFill="#e9ff00" />
             <ComboBox fx:id="upperAIComboBox" prefWidth="150.0" promptText="Basic AI">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ComboBox>
             <ImageView fitHeight="122.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label text="Player 1 (Human)" />
+            <Label text="Player 1 (Human)" textFill="#e9ff00" />
             <ComboBox fx:id="profilesComboBox" prefWidth="150.0" promptText="Human Player">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -33,7 +33,7 @@
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="205.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="86.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label text="Player 4 (AI)" />
+            <Label text="Player 4 (AI)" textFill="#e9ff00" />
             <ComboBox fx:id="leftmostAIComboBox" prefWidth="150.0" promptText="Basic AI">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -55,7 +55,7 @@
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="182.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="86.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label alignment="CENTER" text="Player 2 (AI)" />
+            <Label alignment="CENTER" text="Player 2 (AI)" textFill="#e9ff00" />
             <ComboBox fx:id="rightmostAIComboBox" prefWidth="150.0" promptText="Basic AI">
                <cursor>
                   <Cursor fx:constant="HAND" />
