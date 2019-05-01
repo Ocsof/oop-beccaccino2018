@@ -56,7 +56,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     public void observePlays(final Round currentRound) {
         this.currentRound = currentRound;
         this.roundPlayed.add(this.currentRound);
-        // se non sono il primo del round guardo le giocate fatte
+        //if it is not the first of the round look at the plays made
         if (!currentRound.hasJustStarted()) {
             List<Play> roundPlays = this.currentRound.getPlays();
             final int alreadyPlayed = roundPlays.size();
@@ -69,7 +69,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      * {@inheritDoc}
      */
     public void updateLastRound() {
-        if (hastheMatchStarted()) { // se non e' il primo round della partita
+        if (hastheMatchStarted()) { //if it is not the first round of the game
             final List<Play> roundPlays = this.lastRound.getPlays();
             final Play myLastPlay = this.allPlays.get(this.allPlays.size() - 1);
             // play done by RIGHT player in last round
@@ -93,7 +93,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
             return probability;
         } else if (myRoundPositionIs(SECOND) && hasPlayerTheBestCardOf(TEAMMATE, this.currentRound.getSuit().get())) {
             return probability;
-        } else if (isEnemyTempWinner()) { // se sta prendendo il nemico
+        } else if (isEnemyTempWinner()) { // if the enemy is winning
             final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
             final ItalianCard tempWinner = this.currentRound.getWinningPlay().get().getCard();
             if (!card.getSuit().equals(tempWinner.getSuit()) || comparator.compare(tempWinner, card) > 0) {
@@ -290,7 +290,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
                 }
                 this.allPlayers.get(player).setProbabilityOf(card, 100);
             }
-            // altrimenti non fa niente perche' il giocatore ha bussato a caso
+            //otherwise it does nothing because the player has "Busso" at random
         }
     }
 
@@ -302,7 +302,7 @@ public class GameBasicAnalyzer implements GameAnalyzer {
      */
     protected void removeAndAdd(final int player, final Play play) {
         this.remainingCards.remove(play.getCard());
-        this.allPlays.add(play); // aggiunge la giocata
+        this.allPlays.add(play); // add the play
         this.allPlayers.get(player).addPlay(play);
         for (Partecipant partecipant : this.allPlayers) {
             partecipant.removeCard(play.getCard());

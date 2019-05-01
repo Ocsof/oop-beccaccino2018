@@ -49,7 +49,6 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
                 return (isAssoOfSuitStillPlayable(roundSuit) && !myLastCardOfIsTre(this.briscola))
                         || haveIAssoOf(this.briscola) || (twoPointInvolved() && !myLastCardOfIsTre(this.briscola))
                         || moreOfTwoPointInvolve();
-                // anche giocando il tre di briscola
             }
         }
         return false;
@@ -89,7 +88,8 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
             final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(cardsOf);
             if (cardsOf.size() == ONECARD && !bunchOfCardsOf.getCardsOfValue(Value.TRE).isEmpty()) {
                 return true;
-                // se ho ancora una carta del seme e corrisponde al tre
+                //if I still have a card of the seed passed as parameter 
+                //and corresponds to three
             }
         }
         return false;

@@ -15,8 +15,6 @@ public class AIImpl implements AI {
     private final BestPlaySelector chooser;
     private ConditionForTaglio conditionForTaglio;
 
-    // nel ruleset sarà inizializzato il tipo di game --> e' lui che definisce
-    // l'AI
     /**
      * Class constructor.
      * 
@@ -30,14 +28,6 @@ public class AIImpl implements AI {
         this.chooser = new BestPlaySelectorImpl(this.game);
     }
 
-    /*
-     * in questa nuova versione i controlli: - se sta prendendo il nemico --->
-     * gameAnalyzer metodo combinato con la getTeamProbability - se sta
-     * prendendo il nemico tagliando ---> gameAnalyzer metodo combinato con la
-     * getTeamProbability - se posso tagliare ---> conditionTaglio - carta
-     * migliore da giocare che sia del seme del round oppure un liscio di un
-     * seme se non ce l'ho --> BestPlaySelector
-     */
     /**
      * {@inheritDoc}
      */
@@ -46,12 +36,12 @@ public class AIImpl implements AI {
         this.game.observePlays(currentRound);
         final Play myPlay;
         if (!currentRound.hasJustStarted()) {
-            if (this.conditionForTaglio.areRespected()) { // posso tagliare
+            if (this.conditionForTaglio.areRespected()) { // if he can taglio
                 myPlay = this.chooser.doTheBestTaglio();
             } else {
                 myPlay = this.chooser.doTheBestPlayFrom(currentRound.getPlayableCards());
             }
-        } else { // sono il primo a giocare nel round
+        } else { //is the first to play in the round
             myPlay = this.chooser.doTheBestPlayFrom(currentRound.getPlayableCards());
         }
         this.game.addMyPlay(myPlay);

@@ -74,23 +74,22 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
     private void selector() {
         int cont = 0;
         final Random rnd = new Random();
-        // pensare di aggiungere un random
-        while (this.preferredSuitList.size() != UNACARTA) { 
+        while (this.preferredSuitList.size() != UNACARTA) {
             cont++;
-            this.maxValueOfSuit();           
-            if (cont == DUECARTE && this.preferredSuitList.size() == QUATTROCARTE) { 
+            this.maxValueOfSuit();
+            if (cont == DUECARTE && this.preferredSuitList.size() == QUATTROCARTE) {
                 this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
-            } else if (cont == TRECARTE && this.preferredSuitList.size() == TRECARTE) { 
+            } else if (cont == TRECARTE && this.preferredSuitList.size() == TRECARTE) {
                 this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
-            } else if ((cont == CINQUECARTE || cont == QUATTROCARTE || cont == TRECARTE) && this.preferredSuitList.size() == DUECARTE) { 
+            } else if ((cont == CINQUECARTE || cont == QUATTROCARTE || cont == TRECARTE)
+                    && this.preferredSuitList.size() == DUECARTE) {
                 this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
             }
         }
-        // se continua a non uscire dal while vuol dire che ho dei semi con lo
-        // stesso numero di carte e con lo stesso valore di calte alte
+        // if it still does not come out of while it means that I have seeds with
+        // the same number of cards and with the same card value
 
-        // perche' ce ne e' uno solo in lista
-        this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size())); 
+        this.preferredSuit = this.preferredSuitList.get(rnd.nextInt(this.preferredSuitList.size()));
     }
 
     /**
@@ -98,7 +97,6 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
      * cards.
      */
     private void maxValueOfSuit() {
-        // a caso
         ItalianCard max = new ItalianCardImpl(Suit.BASTONI, Value.QUATTRO); 
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(this.myCards);
@@ -118,7 +116,7 @@ public class BriscolaSelectorImpl implements BriscolaSelector {
             if (bunchOfCards.getHighestCardOfSuit(suit).isPresent()) {
                 this.myCards.remove(bunchOfCards.getHighestCardOfSuit(suit).get()); 
             }
-        } // dopo si guarda la seconda carta di value + alto
+        }
     }
 
 }
