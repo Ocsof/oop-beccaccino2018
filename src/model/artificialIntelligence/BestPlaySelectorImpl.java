@@ -29,11 +29,11 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         this.game = game;
     }
 
-    // listOfCards non puo' essere vuoto
     /**
      * {@inheritDoc}
      */
     public Play doTheBestPlayFrom(final List<ItalianCard> listOfCards) {
+        //listOfCards cannot be empty
         final ItalianCard myCard;
         Optional<String> message = Optional.empty();
         List<ItalianCard> myBestCards = new LinkedList<>();
@@ -57,14 +57,14 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                 message = Optional.of("VOLO");
             }
         } else {
-            // listOfCards ora non puo'essere vuoto
             return this.playLiscio(listOfCards);
         }
         return new PlayImpl(myCard, message);
     }
 
-    // non devo fare controlli perche' quando viene chiamato questo metodo sono
-    // gia' stati fatti
+
+    //this method is called when the conditions for cutting are respected. 
+    //Look at ConditionForTaglio.
     /**
      * {@inheritDoc}
      */
@@ -104,7 +104,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         ItalianCard myCard = bunchOfCards.getLowestCards().get(0);
         if (currentRound.hasJustStarted()) {
             final List<ItalianCard> listOfTwo = bunchOfCards.getCardsOfValue(Value.DUE);
-            // gestire il proprio busso cosi
+            //the AI "​​Bussi" is managed here
             if (!listOfTwo.isEmpty()) {
                 final Suit suitBusso = listOfTwo.get(0).getSuit();
                 if (!iVoloIn(suitBusso)) {
@@ -139,8 +139,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
                 }
             }
         }
-        // potrebbe essere vuoto nel caso in cui nemico abbia tagliato e non
-        // posso tagliare
+        // could be an empty list in case the enemy has cut and the AI ​​cannot cut
         return myBetterCardThan;
     }
 
@@ -153,9 +152,6 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean areWinnerCard(final List<ItalianCard> cards) {
         for (ItalianCard card : cards) {
-            /*
-             * if (!this.game.willWinTheRound(card)) { return false; }
-             */
             if (this.game.getWinningTeamProbability(card) != 100) {
                 return false;
             }
@@ -171,10 +167,10 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean iVoloIn(final Suit suit) {
         final Round currentRound = this.game.getCurrentRound();
-        // non deve essere iniziato il round volare
+        //the round does not have to be started for "Volo"
         if (currentRound.hasJustStarted()) {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
-            // se e' l'ultima che ho in mano
+            //if it's the last card of the suit I have in my hand
             return bunchOfCards.getCardsOfSuit(suit).size() == 1;
         }
         return false;

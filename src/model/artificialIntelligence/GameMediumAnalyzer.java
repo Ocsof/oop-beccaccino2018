@@ -56,7 +56,7 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
                     return probability;
                 }
             }
-        } else if (isEnemyTempWinner()) { // se sta prendendo il nemico
+        } else if (isEnemyTempWinner()) { //if the enemy is winning
             final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
             final ItalianCard tempWinner = this.getCurrentRound().getWinningPlay().get().getCard();
             if (!card.getSuit().equals(tempWinner.getSuit()) || comparator.compare(tempWinner, card) > 0) {
@@ -166,8 +166,8 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
         int probability = 0;
         if (!this.getCurrentRound().hasJustStarted()) {
             final Suit roundSuit = this.getCurrentRound().getSuit().get();
-            // solo se non aveva volato nel seme in precedenza rifattorizzo le
-            // probabilità delle carte
+            // the probability of the cards is recalculated only if it had not already flown 
+            //into the seed
             if (!hadAlreadyFinishedCardsOf(indexPlayer, roundSuit)) {
                 final List<Suit> voliPlayer = this.voliEachPlayer.get(indexPlayer);
                 voliPlayer.add(roundSuit);
@@ -183,16 +183,16 @@ public class GameMediumAnalyzer extends GameBasicAnalyzer {
                     }
                 }
                 probability = 100;
-                // numero giocatori che non hanno volato
+                //number of players who did not fly
                 final int other = NUMOTHERPLAYER - numVoliRoundSuit;
                 for (Partecipant player : this.getAllPlayer()) {
-                    // non devo considerarmi
+                    // does not consider himself
                     if (this.getAllPlayer().indexOf(player) != ME) {
-                        // se il giocatore non ha volato
+                        // if the player had not already Volo in that suit
                         if (!this.hadAlreadyFinishedCardsOf(this.getAllPlayer().indexOf(player), roundSuit)) {
                             if (other != 0) {
                                 for (ItalianCard card : cardsOf) {
-                                    // 100 : num giocatori che non hanno volato
+                                    // 100 / number of players who did not fly
                                     player.setProbabilityOf(card, probability / other);
                                 }
                             }
