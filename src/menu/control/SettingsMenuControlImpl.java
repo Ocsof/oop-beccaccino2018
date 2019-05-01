@@ -10,12 +10,15 @@ import java.io.PrintWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.BorderPane;
 import menu.view.MenuView;
 import util.UtilityClass;
 /**
  * This is an implementation of the Interface SettingsMenuControl.
  */
 public class SettingsMenuControlImpl implements SettingsMenuControl {
+    @FXML
+    private BorderPane borderPane;
     @FXML
     private CheckBox musicBox;
     @FXML
@@ -24,6 +27,29 @@ public class SettingsMenuControlImpl implements SettingsMenuControl {
     private CheckBox soundFXBox;
     @FXML
     private CheckBox criccaBox;
+    /**
+     * {@inheritDoc}
+     */
+    public void initialize() {
+        UtilityClass.setBackgroundImage(borderPane);
+        try {
+        BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") 
+                                                                    + System.getProperty("file.separator") 
+                                                                    + "res" + System.getProperty("file.separator") + "settings.txt"));
+        String line = reader.readLine();
+        criccaBox.setSelected(line.equals("points_for_cricca: TRUE"));
+        line = reader.readLine();
+        musicBox.setSelected(line.equals("music: TRUE"));
+        line = reader.readLine();
+        voiceBox.setSelected(line.equals("voices: TRUE"));
+        line = reader.readLine();
+        soundFXBox.setSelected(line.equals("sfx: TRUE"));
+        reader.close();
+        } catch (IOException e) {
+            System.out.println("Error in reading Settings file.\nShutting down...");
+            System.exit(1);
+        }
+    }
     /**
      * {@inheritDoc}
      */
@@ -58,27 +84,5 @@ public class SettingsMenuControlImpl implements SettingsMenuControl {
             System.out.println("Error in writing into the Settings file.\nShutting down...");
         }
         MenuView.menuSetup(UtilityClass.returnStageOf(event), "MainMenuScene.fxml");
-    }
-    /**
-     * {@inheritDoc}
-     */
-    public void initialize() {
-        try {
-        BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") 
-                                                                    + System.getProperty("file.separator") 
-                                                                    + "res" + System.getProperty("file.separator") + "settings.txt"));
-        String line = reader.readLine();
-        criccaBox.setSelected(line.equals("points_for_cricca: TRUE"));
-        line = reader.readLine();
-        musicBox.setSelected(line.equals("music: TRUE"));
-        line = reader.readLine();
-        voiceBox.setSelected(line.equals("voices: TRUE"));
-        line = reader.readLine();
-        soundFXBox.setSelected(line.equals("sfx: TRUE"));
-        reader.close();
-        } catch (IOException e) {
-            System.out.println("Error in reading Settings file.\nShutting down...");
-            System.exit(1);
-        }
     }
 }

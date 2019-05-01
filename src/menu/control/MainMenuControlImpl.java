@@ -1,12 +1,22 @@
 package menu.control;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.layout.BorderPane;
 import menu.view.MenuView;
 import util.UtilityClass;
 /**
  * This is an implementation of the Interface MainMenuControl.
  */
 public class MainMenuControlImpl implements MainMenuControl {
+    @FXML
+    private BorderPane borderPane;
+    /**
+     * {@inheritDoc}
+     */
+    public void initialize() {
+        UtilityClass.setBackgroundImage(borderPane);
+    }
     /**
      * {@inheritDoc}
      */

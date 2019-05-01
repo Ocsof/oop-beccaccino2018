@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.ComboBox;
 import menu.view.MenuView;
 import model.artificialIntelligence.AI;
@@ -26,6 +27,8 @@ import view.GameViewImpl;
  */
 public class PreGameMenuControlImpl implements PreGameMenuControl {
     @FXML
+    private BorderPane borderPane;
+    @FXML
     private ComboBox<String> profilesComboBox;
     @FXML
     private ComboBox<String> leftmostAIComboBox;
@@ -37,6 +40,7 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
      * {@inheritDoc}
      */
     public void initialize() {
+        UtilityClass.setBackgroundImage(borderPane);
         File folder = new File("res/profiles");
         File[] files = folder.listFiles();
         for (int i = 0; i < files.length; i++) {
@@ -63,19 +67,19 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
             List<Player> playerList = new ArrayList<Player>();
             playerList.add(ruleset.newPlayer(profilesComboBox.getValue()));
             if (rightmostAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI 1"));
+                playerList.add(ruleset.newPlayer("Player 1 (Basic AI)"));
             } else {
-                playerList.add(ruleset.newPlayer("Medium AI 1"));
+                playerList.add(ruleset.newPlayer("Player 1 (Medium AI)"));
             }
             if (upperAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI 2"));
+                playerList.add(ruleset.newPlayer("Player 2 (Basic AI)"));
             } else {
-                playerList.add(ruleset.newPlayer("Medium AI 2"));
+                playerList.add(ruleset.newPlayer("Player 2 (Medium AI)"));
             }
             if (leftmostAIComboBox.getValue() == null) {
-                playerList.add(ruleset.newPlayer("Basic AI 3"));
+                playerList.add(ruleset.newPlayer("Player 3 (Basic AI)"));
             } else {
-                playerList.add(ruleset.newPlayer("Medium AI 3"));
+                playerList.add(ruleset.newPlayer("Player 3 (Medium AI)"));
             }
             Game currentGame = ruleset.newGame(playerList);
             GameViewImpl currentGameView = ruleset.newGameView(currentGame, UtilityClass.returnStageOf(event));

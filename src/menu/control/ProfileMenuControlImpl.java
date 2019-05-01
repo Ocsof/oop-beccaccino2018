@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.TextField;
 
 import menu.view.MenuView;
@@ -13,8 +14,15 @@ import util.UtilityClass;
  */
 public class ProfileMenuControlImpl implements ProfileMenuControl {
     @FXML
+    private BorderPane borderPane;
+    @FXML
     private TextField nameField;
-
+    /**
+     * {@inheritDoc}
+     */
+    public void initialize() {
+        UtilityClass.setBackgroundImage(borderPane);
+    }
     /**
      * {@inheritDoc}
      */

@@ -6,6 +6,10 @@ import javafx.event.ActionEvent;
  */
 public interface ProfileMenuControl {
     /**
+     * This is the method called by the FXML file after the injection of all FXML items.
+     */
+    void initialize();
+    /**
      * Controller method for the pressing of the Back button on the Profile Menu.
      * @param event - the event triggered by the pressing of the Back Button.
      */
