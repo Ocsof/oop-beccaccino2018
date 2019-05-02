@@ -11,7 +11,7 @@ import model.logic.Round;
 public class AIImpl implements AI {
     private final Player me;
     private BriscolaSelector selector;
-    private final GameAnalyzer game;
+    private final GameAnalyzer gameAnalyzer;
     private final BestPlaySelector chooser;
     private ConditionForTaglio conditionForTaglio;
 
@@ -19,21 +19,21 @@ public class AIImpl implements AI {
      * Class constructor.
      * 
      * @param player is the virtual player associated with the AI.
-     * @param game is a game analyzer useful to act in the best way in a game.
+     * @param gameAnalyzer is a game analyzer useful to act in the best way in a game.
      */
-    public AIImpl(final Player player, final GameAnalyzer game) {
+    public AIImpl(final Player player, final GameAnalyzer gameAnalyzer) {
         this.me = player;
         this.selector = new BriscolaSelectorImpl(this.me.getHand().getCards());
-        this.game = game;
-        this.chooser = new BestPlaySelectorImpl(this.game);
+        this.gameAnalyzer = gameAnalyzer;
+        this.chooser = new BestPlaySelectorImpl(this.gameAnalyzer);
     }
 
     /**
      * {@inheritDoc}
      */
     public Play makePlay(final Round currentRound) {
-        this.game.updateLastRound();
-        this.game.observePlays(currentRound);
+        this.gameAnalyzer.updateLastRound();
+        this.gameAnalyzer.observePlays(currentRound);
         final Play myPlay;
         if (!currentRound.hasJustStarted()) {
             if (this.conditionForTaglio.areRespected()) { // if he can taglio
@@ -44,7 +44,7 @@ public class AIImpl implements AI {
         } else { //is the first to play in the round
             myPlay = this.chooser.doTheBestPlayFrom(currentRound.getPlayableCards());
         }
-        this.game.addMyPlay(myPlay);
+        this.gameAnalyzer.addMyPlay(myPlay);
         return myPlay;
     }
 
@@ -53,7 +53,7 @@ public class AIImpl implements AI {
      */
     public Suit selectBriscola() {
         final Suit briscola = this.selector.getPreferredSuit();
-        this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
+        this.conditionForTaglio = new ConditionForTaglioImpl(this.gameAnalyzer, briscola);
         return briscola;
     }
 
@@ -61,8 +61,8 @@ public class AIImpl implements AI {
      * {@inheritDoc}
      */
     public void setBriscola(final Suit briscola) {
-        this.game.setBriscola(briscola);
-        this.conditionForTaglio = new ConditionForTaglioImpl(this.game, briscola);
+        this.gameAnalyzer.setBriscola(briscola);
+        this.conditionForTaglio = new ConditionForTaglioImpl(this.gameAnalyzer, briscola);
     }
 
     /**
