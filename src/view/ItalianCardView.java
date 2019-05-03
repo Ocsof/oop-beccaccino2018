@@ -29,7 +29,7 @@ public class ItalianCardView implements ItalianCardViewFactory {
      * @param card the ItalianCard to be represented
      */
     public ItalianCardView(final ItalianCard card) {
-        this.image = new ImageView(new Image("file:src/res/cards/" + card.toString() + ".jpg"));
+        this.image = new ImageView(new Image("file:res/cards/" + card.toString() + ".jpg"));
         this.cardView = new Button();
         cardView.setGraphic(image);
     }
@@ -46,7 +46,7 @@ public class ItalianCardView implements ItalianCardViewFactory {
      */
     public Button getBackCardRepresentation() {
         Button back = new Button();
-        this.image = new ImageView(new Image("res" + sep + "cards" + sep + "retro.jpg"));
+        this.image = new ImageView(new Image("file:res/cards/retro.jpg"));
         image.setFitWidth(this.width);
         image.setFitHeight(this.heigth);
         back.setGraphic(image);
