@@ -61,6 +61,7 @@ public class GameViewImpl implements GameView {
      * @param primaryStage the stage
      */
     public GameViewImpl(final Game game, final Stage primaryStage) {
+        primaryStage.setResizable(true);
         this.game = game;
         this.currentPlayer = this.game.getCurrentPlayer();
         this.primaryStage = primaryStage;
