@@ -10,17 +10,15 @@
    <left>
       <VBox prefHeight="329.0" prefWidth="317.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="SOUND" textFill="#e9ff00" />
-            <CheckBox fx:id="musicBox" mnemonicParsing="false" text="Music" textFill="#e9ff00" />
-            <CheckBox fx:id="voiceBox" mnemonicParsing="false" text="Voice" textFill="#e9ff00" />
-            <CheckBox fx:id="soundFXBox" mnemonicParsing="false" text="SFX" textFill="#e9ff00" />
-            <ImageView fitHeight="15.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true" />
             <Label text="GAME" textFill="#e9ff00" />
             <CheckBox fx:id="criccaBox" mnemonicParsing="false" text="Enable Extra Points for &quot;Cricca&quot;" textFill="#e9ff00" />
          </children>
          <padding>
             <Insets left="75.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets top="100.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <top>
