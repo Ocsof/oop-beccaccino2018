@@ -33,4 +33,7 @@
          </children>
       </VBox>
    </right>
+   <padding>
+      <Insets left="200.0" right="200.0" />
+   </padding>
 </BorderPane>
