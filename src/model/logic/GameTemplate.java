@@ -21,7 +21,7 @@ public abstract class GameTemplate implements Game {
 
     /**
      * 
-     * @param turnOrder - //TODO
+     * @param turnOrder - the turn order this game should follow
      */
     public GameTemplate(final TurnOrder turnOrder) {
         this.turnOrder = turnOrder;
@@ -59,7 +59,7 @@ public abstract class GameTemplate implements Game {
      * {@inheritDoc}
      */
     public void makeTurn(final Play play) {
-        if(this.isOver()) {
+        if (this.isOver()) {
             throw new IllegalStateException("Can't make a turn if the game is over");
         }
         this.checkBriscolaIsPresent();
