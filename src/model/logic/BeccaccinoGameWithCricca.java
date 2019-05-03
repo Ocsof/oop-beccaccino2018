@@ -10,7 +10,7 @@ import model.entities.Team;
 import model.entities.ItalianCard.Value;
 
 /**
- * A beccaccino game that rewards the first player with extra points for cricca.
+ * A beccaccino game that rewards the first player with extra points if he has cricca.
  */
 public class BeccaccinoGameWithCricca extends BeccaccinoGame {
     private static final int CRICCA_POINTS = 9;

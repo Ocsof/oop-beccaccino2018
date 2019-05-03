@@ -18,15 +18,15 @@ import model.logic.Round;
  */
 public class BestPlaySelectorImpl implements BestPlaySelector {
 
-    private final GameAnalyzer game;
+    private final GameAnalyzer gameAnalyzer;
 
     /**
      * Class constructor.
      * 
-     * @param game is the game analyzer of AI.
+     * @param gameAnalyzer is the game analyzer of AI.
      */
-    public BestPlaySelectorImpl(final GameAnalyzer game) {
-        this.game = game;
+    public BestPlaySelectorImpl(final GameAnalyzer gameAnalyzer) {
+        this.gameAnalyzer = gameAnalyzer;
     }
 
     /**
@@ -39,7 +39,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
         List<ItalianCard> myBestCards = new LinkedList<>();
         int max = 0;
         for (ItalianCard card : listOfCards) {
-            int temp = this.game.getWinningTeamProbability(card);
+            int temp = this.gameAnalyzer.getWinningTeamProbability(card);
             if (temp > max) {
                 max = temp;
                 myBestCards = new LinkedList<>();
@@ -69,9 +69,9 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      * {@inheritDoc}
      */
     public Play doTheBestTaglio() {
-        final Suit briscola = this.game.getBriscola();
+        final Suit briscola = this.gameAnalyzer.getBriscola();
         final Play myPlay;
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         List<ItalianCard> myBriscole = bunchOfCards.getCardsOfSuit(briscola);
         final BunchOfCards setOfBriscole = new BeccaccinoBunchOfCards(myBriscole);
@@ -99,7 +99,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private Play playLiscio(final List<ItalianCard> listOfCards) {
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(listOfCards);
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         Optional<String> message = Optional.empty();
         ItalianCard myCard = bunchOfCards.getLowestCards().get(0);
         if (currentRound.hasJustStarted()) {
@@ -128,7 +128,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
     private List<ItalianCard> compareWithMyCards(final ItalianCard winningCard) {
         final Suit suit = winningCard.getSuit();
         List<ItalianCard> myBetterCardThan = new LinkedList<>();
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         final BeccaccinoCardComparator comparator = new BeccaccinoCardComparator();
         final List<ItalianCard> cardsOfRoundSuit = bunchOfCards.getCardsOfSuit(suit);
@@ -152,7 +152,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      */
     private boolean areWinnerCard(final List<ItalianCard> cards) {
         for (ItalianCard card : cards) {
-            if (this.game.getWinningTeamProbability(card) != 100) {
+            if (this.gameAnalyzer.getWinningTeamProbability(card) != 100) {
                 return false;
             }
         }
@@ -166,7 +166,7 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
      * @return true if "has volo" in the suit, false otherwise.
      */
     private boolean iVoloIn(final Suit suit) {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         //the round does not have to be started for "Volo"
         if (currentRound.hasJustStarted()) {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
@@ -177,10 +177,10 @@ public class BestPlaySelectorImpl implements BestPlaySelector {
     }
 
     private boolean hasTempWinnerTaglio() {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         if (!currentRound.hasJustStarted()) {
             final ItalianCard tempWinner = currentRound.getWinningPlay().get().getCard();
-            if (this.game.isTaglio(tempWinner)) {
+            if (this.gameAnalyzer.isTaglio(tempWinner)) {
                 return true;
             }
         }

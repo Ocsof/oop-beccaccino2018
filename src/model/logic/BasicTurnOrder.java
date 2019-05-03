@@ -49,4 +49,43 @@ public class BasicTurnOrder implements TurnOrder {
         final List<Player> defensiveCopy = new ArrayList<>(this.players);
         return defensiveCopy;
     }
+
+    /**
+     * {@inheritDoc}.
+     */
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + index;
+        result = prime * result + ((players == null) ? 0 : players.hashCode());
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        BasicTurnOrder other = (BasicTurnOrder) obj;
+        if (index != other.index) {
+            return false;
+        }
+        if (players == null) {
+            if (other.players != null) {
+                return false;
+            }
+        } else if (!players.equals(other.players)) {
+            return false;
+        }
+        return true;
+    }
+
 }

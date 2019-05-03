@@ -14,7 +14,7 @@ import model.logic.Round;
  */
 public class ConditionForTaglioImpl implements ConditionForTaglio {
 
-    private final GameAnalyzer game;
+    private final GameAnalyzer gameAnalyzer;
     private final Suit briscola;
 
     private static final int ONECARD = 1;
@@ -23,11 +23,11 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
     /**
      * Class constructor.
      * 
-     * @param game is a game analyzer.
+     * @param gameAnalyzer is a game analyzer.
      * @param briscola is the briscola of the game.
      */
-    public ConditionForTaglioImpl(final GameAnalyzer game, final Suit briscola) {
-        this.game = game;
+    public ConditionForTaglioImpl(final GameAnalyzer gameAnalyzer, final Suit briscola) {
+        this.gameAnalyzer = gameAnalyzer;
         this.briscola = briscola;
     }
 
@@ -35,7 +35,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * {@inheritDoc}
      */
     public boolean areRespected() {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         if (!currentRound.hasJustStarted()) {
             final BunchOfCards bunchofcards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
             if (bunchofcards.getCardsOfSuit(this.briscola).isEmpty()) {
@@ -43,8 +43,8 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
             }
             final Suit roundSuit = currentRound.getSuit().get();
             final ItalianCard tempWinnerCard = currentRound.getWinningPlay().get().getCard();
-            if ((!roundSuit.equals(briscola)) && ((!this.game.isTeammateTempWinner())
-                    || (this.game.isTeammateTempWinner() && !this.game.willWinTheRound(tempWinnerCard)))) {
+            if ((!roundSuit.equals(briscola)) && ((!this.gameAnalyzer.isTeammateTempWinner())
+                    || (this.gameAnalyzer.isTeammateTempWinner() && !this.gameAnalyzer.willWinTheRound(tempWinnerCard)))) {
 
                 return (isAssoOfSuitStillPlayable(roundSuit) && !myLastCardOfIsTre(this.briscola))
                         || haveIAssoOf(this.briscola) || (twoPointInvolved() && !myLastCardOfIsTre(this.briscola))
@@ -62,7 +62,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * otherwise.
      */
     private boolean isAssoOfSuitStillPlayable(final Suit suit) {
-        final List<ItalianCard> remainingCards = this.game.getRemainingCards();
+        final List<ItalianCard> remainingCards = this.gameAnalyzer.getRemainingCards();
         if (!remainingCards.isEmpty()) {
             final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(remainingCards);
             final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
@@ -81,7 +81,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * @return true if "tre" is my last card of the suit, false otherwise.
      */
     private boolean myLastCardOfIsTre(final Suit suit) {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         final List<ItalianCard> cardsOf = bunchOfCards.getCardsOfSuit(suit);
         if (!cardsOf.isEmpty()) {
@@ -103,7 +103,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * player's hand, false otherwise.
      */
     private boolean haveIAssoOf(final Suit suit) {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayableCards());
         final BunchOfCards bunchOfCardsOf = new BeccaccinoBunchOfCards(bunchOfCards.getCardsOfSuit(suit));
         if (!bunchOfCardsOf.getCardsOfValue(Value.ASSO).isEmpty()) {
@@ -119,7 +119,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * @return true if the score is equals to two, false otherwise.
      */
     private boolean twoPointInvolved() {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayedCards());
         return bunchOfCards.getPoints() == TWOPOINTS;
     }
@@ -131,7 +131,7 @@ public class ConditionForTaglioImpl implements ConditionForTaglio {
      * @return true if the score is greater than two, false otherwise.
      */
     private boolean moreOfTwoPointInvolve() {
-        final Round currentRound = this.game.getCurrentRound();
+        final Round currentRound = this.gameAnalyzer.getCurrentRound();
         final BunchOfCards bunchOfCards = new BeccaccinoBunchOfCards(currentRound.getPlayedCards());
         return bunchOfCards.getPoints() > TWOPOINTS;
     }

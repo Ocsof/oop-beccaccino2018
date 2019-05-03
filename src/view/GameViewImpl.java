@@ -45,7 +45,7 @@ public class GameViewImpl implements GameView {
     private CardControllerImpl cardController = new CardControllerImpl();
     private Stage primaryStage;
     private final String sep = File.separator;
-    private final BackgroundImage tavolo = new BackgroundImage(new Image("res" + sep + "tavolo.jpg"),
+    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:res/tavolo.jpg"),
             BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
     private List<Pane> boxes = new ArrayList<>();
     private Map<Button, ItalianCard> map = new HashMap<>();
