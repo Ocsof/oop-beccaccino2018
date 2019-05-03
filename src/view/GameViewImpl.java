@@ -1,5 +1,6 @@
 package view;
 
+import javafx.scene.image.Image;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
@@ -16,7 +17,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -41,17 +41,18 @@ import model.logic.Round;
  */
 public class GameViewImpl implements GameView {
     private Game game;
+    private Round currentRound;
+    private Player currentPlayer;
     private GameController controller;
     private CardControllerImpl cardController = new CardControllerImpl();
-    private Stage primaryStage;
-    private final String sep = File.separator;
-    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:res/tavolo.jpg"),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
     private List<Pane> boxes = new ArrayList<>();
     private Map<Button, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Button> map2 = new HashMap<>();
-    private Round currentRound;
+    private Stage primaryStage;
     private static final int SPACING_BETWEEN_CARDS = 20;
+    private final String sep = File.separator;
+    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:res" + this.sep + "images" + this.sep + "tavolo.jpg"),
+            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
     /**
      * Class constructor.
@@ -61,6 +62,7 @@ public class GameViewImpl implements GameView {
      */
     public GameViewImpl(final Game game, final Stage primaryStage) {
         this.game = game;
+        this.currentPlayer = this.game.getCurrentPlayer();
         this.primaryStage = primaryStage;
 
         HBox roottop = new HBox();
@@ -87,7 +89,7 @@ public class GameViewImpl implements GameView {
         rootright.setAlignment(Pos.CENTER_RIGHT);
         rootbottom.setAlignment(Pos.BOTTOM_CENTER);
 
-        // add at external pane all the hands of the 4 players
+        // add to external pane all the hands of the 4 players
         externalPane.setBottom(this.boxes.get(0));
         externalPane.setRight(this.boxes.get(1));
         externalPane.setTop(this.boxes.get(2));
@@ -168,19 +170,24 @@ public class GameViewImpl implements GameView {
         }
 
         if (this.putCardOnTheTable()) {
-            AlertInformationFactory fineTurn = new AlertInformationFactory("TURN FINISHED", null,
-                    "AI has just made its play", this.primaryStage);
-            fineTurn.getAlert().showAndWait();
+            AlertInformationFactory endTurn = new AlertInformationFactory("TURN FINISHED", null,
+                    this.currentPlayer.getName() + " has just made its play", this.primaryStage);
+            endTurn.getAlert().showAndWait();
         }
+
+        this.currentPlayer = this.game.getCurrentPlayer();
 
         this.setBriscolaOnStage(this.game.getBriscola().get());
 
         if (this.game.getCurrentRound().hasJustStarted()) {
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
+
             AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null,
                     "Round win by: " + winnigPlay, this.primaryStage);
             matchFinished.getAlert().showAndWait();
+
             this.clearTable();
+
             if (this.game.isOver()) {
                 final Team winningTeam;
                 final Team losingTeam;
@@ -208,63 +215,57 @@ public class GameViewImpl implements GameView {
         ItalianCardView c = new ItalianCardView(card);
         Optional<String> message = this.currentRound.getPlays().get(this.currentRound.getPlays().size() - 1)
                 .getMessage();
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) screenSize.getHeight() / GameViewImpl.SPACING_BETWEEN_CARDS;
-        int weight = (int) screenSize.getWidth() / GameViewImpl.SPACING_BETWEEN_CARDS;
         Text messageText;
+        HBox hbox = new HBox();
+        VBox vbox = new VBox();
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setPadding(new Insets((int) screenSize.getHeight() / GameViewImpl.SPACING_BETWEEN_CARDS));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets((int) screenSize.getWidth() / GameViewImpl.SPACING_BETWEEN_CARDS));
 
         if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
-            HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
             if (message.isPresent()) {
                 messageText = new Text("Message:" + message.get());
                 hbox.getChildren().add(messageText);
             }
-            hbox.setAlignment(Pos.CENTER);
-            hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
             this.boxes.get(0).getChildren().remove(this.map2.get(card));
             return false;
         }
         if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
-            VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
             if (message.isPresent()) {
                 messageText = new Text("Message:" + message.get());
                 vbox.getChildren().add(messageText);
             }
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
             this.boxes.get(1).getChildren().remove(this.map2.get(card));
             return true;
         }
         if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
-            HBox hbox = new HBox();
             hbox.getChildren().add(c.getCardRepresentation(card));
             if (message.isPresent()) {
                 messageText = new Text("Message:" + message.get());
                 hbox.getChildren().add(messageText);
             }
-            hbox.setAlignment(Pos.BOTTOM_CENTER);
-            hbox.setPadding(new Insets(height));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
             this.boxes.get(2).getChildren().remove(this.map2.get(card));
             return true;
         }
         if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
-            VBox vbox = new VBox();
             vbox.getChildren().add(c.getCardRepresentation(card));
             if (message.isPresent()) {
                 messageText = new Text("Message:" + message.get());
                 vbox.getChildren().add(messageText);
             }
-            vbox.setAlignment(Pos.CENTER);
-            vbox.setPadding(new Insets(weight));
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
             this.boxes.get(3).getChildren().remove(this.map2.get(card));
             return true;
         }
+
         throw new IllegalStateException("No player has the last played card");
     }
 

@@ -23,13 +23,14 @@ public class ItalianCardView implements ItalianCardViewFactory {
     private static final int HEIGTH_CARDS = 30;
     private int width = (int) screenSize.getWidth() / ItalianCardView.WIDTH_CARDS;
     private int heigth = (int) screenSize.getWidth() / ItalianCardView.HEIGTH_CARDS;
+
     /**
      * Class constructor.
      * 
      * @param card the ItalianCard to be represented
      */
     public ItalianCardView(final ItalianCard card) {
-        this.image = new ImageView(new Image("file:res/cards/" + card.toString() + ".jpg"));
+        this.image = new ImageView(new Image("file:res" + this.sep + "images" + this.sep + "cards" + this.sep + card.toString() + ".jpg"));
         this.cardView = new Button();
         cardView.setGraphic(image);
     }
@@ -46,7 +47,7 @@ public class ItalianCardView implements ItalianCardViewFactory {
      */
     public Button getBackCardRepresentation() {
         Button back = new Button();
-        this.image = new ImageView(new Image("file:res/cards/retro.jpg"));
+        this.image = new ImageView(new Image("file:res" + this.sep + "images" + this.sep + "cards" + this.sep + "retro.jpg"));
         image.setFitWidth(this.width);
         image.setFitHeight(this.heigth);
         back.setGraphic(image);
