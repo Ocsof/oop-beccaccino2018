@@ -27,14 +27,40 @@ public class GameBasicAnalyzer implements GameAnalyzer {
     private final List<Round> roundPlayed;
     private Suit briscola;
 
-    protected final static int RIGHT = 0;
-    protected final static int TEAMMATE = 1;
-    protected final static int LEFT = 2;
-    protected final static int ME = 3;
+    /**
+     * This field represents the position of the rightmost player.
+     */
+    protected static final int RIGHT = 0;
 
-    protected final static int FIRST = 0;
-    protected final static int SECOND = 1;
-    protected final static int THIRD = 2;
+    /**
+     * This field represents the position of the upper player.
+     */
+    protected static final int TEAMMATE = 1;
+
+    /**
+     * This field represents the position of the leftmost player.
+     */
+    protected static final int LEFT = 2;
+
+    /**
+     * This field represents the position of the human player.
+     */
+    protected static final int ME = 3;
+
+    /**
+     * It serves to verify if a player is the first in the round.
+     */
+    protected static final int FIRST = 0;
+
+    /**
+     * It serves to verify if a player is the second in the round.
+     */
+    protected static final int SECOND = 1;
+
+    /**
+     * It serves to verify if a player is the third in the round.
+     */
+    protected static final int THIRD = 2;
 
     /**
      * Class constructor.
