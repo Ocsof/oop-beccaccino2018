@@ -21,12 +21,13 @@ public class EndgameReport {
         final int winningTeamPoints = winningTeam.getPoints() / 3;
         final int losingTeamPoints = losingTeam.getPoints() / 3;
         final Alert alert = new Alert(AlertType.INFORMATION);
+        alert.initOwner(primaryStage);
         alert.setTitle("Game over");
         alert.setHeaderText("Here is the results");
         alert.setContentText("Winning players are: " + winningTeam.getPlayers().get(0) + " and "
                 + winningTeam.getPlayers().get(1) + ".\nThey totalised " + winningTeamPoints
                 + " points.\nLosing players are: " + losingTeam.getPlayers().get(0) + " and "
-                + losingTeam.getPlayers().get(1) + ".\nThey totalised" + losingTeamPoints + " points.");
+                + losingTeam.getPlayers().get(1) + ".\nThey totalised " + losingTeamPoints + " points.");
         alert.showAndWait();
         MenuView.menuSetup(primaryStage, "MainMenuScene.fxml");
 
