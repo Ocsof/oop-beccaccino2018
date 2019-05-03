@@ -22,8 +22,8 @@ import javafx.stage.Stage;
  * This class contains various utility methods used throughout the project.
  */
 public final class UtilityClass {
-    private static double adjustedScreenWidth = 0.8 * Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    private static double adjustedScreenHeight = 0.9 * Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private static final double ADJUSTED_SCREEN_WIDTH = 0.8 * Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final double ADJUSTED_SCREEN_HEIGHT = 0.89 * Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static String profilesFilePath = "res" + System.getProperty("file.separator") + "profiles" + System.getProperty("file.separator");
     /**
      * This method returns the Stage on which an event occurred.
@@ -41,8 +41,10 @@ public final class UtilityClass {
      */
     public static void setScene(final Stage primaryStage, final Parent root) {
         primaryStage.setTitle("Beccaccino/Marafone");
-        Scene newscene = new Scene(root, adjustedScreenWidth, adjustedScreenHeight);
+        Scene newscene = new Scene(root, ADJUSTED_SCREEN_WIDTH, ADJUSTED_SCREEN_HEIGHT);
         primaryStage.setScene(newscene);
+        primaryStage.sizeToScene();
+        primaryStage.setResizable(false);
     }
     /**
      * This method sets a Scene onto a Stage using specific proportions.
@@ -106,12 +108,12 @@ public final class UtilityClass {
      * @param borderPane - the BorderPane on which to set the default background image.
      */
     public static void setBackgroundImage(final BorderPane borderPane) {
-        Image image = new Image("res" + System.getProperty("file.separator") + "MenuBackground.jpg");
+        Image image = new Image("file:res" + System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "MenuBackground.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image,
                             BackgroundRepeat.NO_REPEAT,
                             BackgroundRepeat.NO_REPEAT,
                             BackgroundPosition.CENTER,
-                            BackgroundSize.DEFAULT);
+                            new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
         Background background = new Background(backgroundImage);
         borderPane.setBackground(background);
     }
