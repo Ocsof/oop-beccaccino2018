@@ -121,7 +121,7 @@ public class BeccaccinoGame extends GameTemplate {
     /**
      * {@inheritDoc} 
      * In a Beccaccino game, in order to choose the first player,
-     * cards have to be dealt. Then whoever holds a specific card goes first.
+     * cards have to be dealt. Then whoever holds the "quattro di denari" goes first.
      */
     protected Player selectFirstPlayer() {
         this.dealCards(new ItalianCardsDeckImpl());
