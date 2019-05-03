@@ -43,7 +43,7 @@ public class RulesetImpl implements Ruleset {
                 reader.close();
                 throw new FileNotFoundException();
             }
-            if (line.equals("pints_for_cricca: TRUE")) {
+            if (line.equals("points_for_cricca: TRUE")) {
                 game = new BeccaccinoGameWithCricca(turnOrder, teams.get(0), teams.get(1));
             } else {
                 game = new BeccaccinoGame(turnOrder, teams.get(0), teams.get(1));
