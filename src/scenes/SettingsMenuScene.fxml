@@ -37,4 +37,7 @@
          </BorderPane.margin>
       </Button>
    </right>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </BorderPane>
