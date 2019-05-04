@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import controller.game.CardControllerImpl;
-import controller.game.GameController;
+import controller.CardControllerImpl;
+import controller.GameController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

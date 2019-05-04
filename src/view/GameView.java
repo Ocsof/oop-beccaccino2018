@@ -1,7 +1,7 @@
 package view;
 
 import model.entities.ItalianCard.Suit;
-import controller.game.GameController;
+import controller.GameController;
 
 /**
  * A GUI for a turn based Italian card game.
