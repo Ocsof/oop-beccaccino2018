@@ -10,8 +10,7 @@ import model.entities.ItalianCard;
 import model.entities.ItalianCard.Suit;
 
 /**
- * Alessia Rocco 
- * Class that implement, by an User Interface, the choice of the
+ * Alessia Rocco Class that implement, by an User Interface, the choice of the
  * Match's Briscola. Here implemented by a Choice Dialog.
  */
 public class BriscolaView {
@@ -38,10 +37,6 @@ public class BriscolaView {
         this.dialog.setTitle("Briscola");
         this.dialog.setHeaderText("Choose your Briscola");
         this.dialog.setContentText("Briscola:");
-        // rename button "annulla"
-        // ((Button)
-        // dialog.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Not
-        // Cancel Anymore");
 
         this.suit = dialog.showAndWait();
         suit.ifPresent(suit -> System.out.println("Your Briscola choice: " + suit));
