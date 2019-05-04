@@ -36,7 +36,8 @@ import model.logic.Game;
 import model.logic.Round;
 
 /**
- * Alessia Rocco GameView Implementation.
+ * Alessia Rocco 
+ * GameView Implementation.
  */
 public class GameViewImpl implements GameView {
     private Game game;
@@ -218,7 +219,7 @@ public class GameViewImpl implements GameView {
                 .getMessage();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Text messageText;
+        Text messageText = new Text();
         HBox hbox = new HBox();
         VBox vbox = new VBox();
         hbox.setAlignment(Pos.CENTER);
@@ -226,42 +227,34 @@ public class GameViewImpl implements GameView {
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets((int) screenSize.getWidth() / GameViewImpl.SPACING_BETWEEN_CARDS));
 
+        if (message.isPresent()) {
+            messageText = new Text("Message: " + message.get());
+        }
+
         if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
             hbox.getChildren().add(c.getCardRepresentation(card));
-            if (message.isPresent()) {
-                messageText = new Text("Message:" + message.get());
-                hbox.getChildren().add(messageText);
-            }
+            hbox.getChildren().add(messageText);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
             this.boxes.get(0).getChildren().remove(this.map2.get(card));
             return false;
         }
         if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
             vbox.getChildren().add(c.getCardRepresentation(card));
-            if (message.isPresent()) {
-                messageText = new Text("Message:" + message.get());
-                vbox.getChildren().add(messageText);
-            }
+            vbox.getChildren().add(messageText);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
             this.boxes.get(1).getChildren().remove(this.map2.get(card));
             return true;
         }
         if (this.boxes.get(2).getChildren().contains(this.map2.get(card))) {
             hbox.getChildren().add(c.getCardRepresentation(card));
-            if (message.isPresent()) {
-                messageText = new Text("Message:" + message.get());
-                hbox.getChildren().add(messageText);
-            }
+            hbox.getChildren().add(messageText);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setTop(hbox);
             this.boxes.get(2).getChildren().remove(this.map2.get(card));
             return true;
         }
         if (this.boxes.get(3).getChildren().contains(this.map2.get(card))) {
             vbox.getChildren().add(c.getCardRepresentation(card));
-            if (message.isPresent()) {
-                messageText = new Text("Message:" + message.get());
-                vbox.getChildren().add(messageText);
-            }
+            vbox.getChildren().add(messageText);
             ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setLeft(vbox);
             this.boxes.get(3).getChildren().remove(this.map2.get(card));
             return true;
