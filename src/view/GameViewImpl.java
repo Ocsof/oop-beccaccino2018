@@ -36,8 +36,7 @@ import model.logic.Game;
 import model.logic.Round;
 
 /**
- * Alessia Rocco 
- * GameView Implementation.
+ * Alessia Rocco GameView Implementation.
  */
 public class GameViewImpl implements GameView {
     private Game game;
@@ -51,8 +50,9 @@ public class GameViewImpl implements GameView {
     private Stage primaryStage;
     private static final int SPACING_BETWEEN_CARDS = 20;
     private final String sep = File.separator;
-    private final BackgroundImage tavolo = new BackgroundImage(new Image("file:res" + this.sep + "images" + this.sep + "tavolo.jpg"),
-            BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+    private final BackgroundImage tavolo = new BackgroundImage(
+            new Image("file:res" + this.sep + "images" + this.sep + "tavolo.jpg"), BackgroundRepeat.REPEAT,
+            BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
     /**
      * Class constructor.
@@ -213,7 +213,7 @@ public class GameViewImpl implements GameView {
      */
     private boolean putCardOnTheTable() {
         ItalianCard card = this.currentRound.getPlayedCards().get(this.currentRound.getPlayedCards().size() - 1);
-        ItalianCardView c = new ItalianCardView(card);
+        ItalianCardViewFactory c = new ItalianCardViewFactoryImpl();
         Optional<String> message = this.currentRound.getPlays().get(this.currentRound.getPlays().size() - 1)
                 .getMessage();
 
@@ -281,8 +281,9 @@ public class GameViewImpl implements GameView {
      * added)
      */
     private void setPlayersHand(final List<Pane> boxes) {
+        ItalianCardViewFactory c = new ItalianCardViewFactoryImpl();
+
         for (ItalianCard card : game.getPlayers().get(0).getHand().getCards()) {
-            ItalianCardViewFactory c = new ItalianCardView(card);
             Button bt = c.getCardRepresentation(card);
             this.map2.put(card, bt);
             this.map.put(bt, card);
@@ -291,7 +292,6 @@ public class GameViewImpl implements GameView {
 
         for (int i = 1; i < 4; i++) {
             for (ItalianCard card : game.getPlayers().get(i).getHand().getCards()) {
-                ItalianCardViewFactory c = new ItalianCardView(card);
                 Button bt = c.getBackCardRepresentation();
                 this.map2.put(card, bt);
                 this.map.put(bt, card);
