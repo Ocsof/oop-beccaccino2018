@@ -171,7 +171,7 @@ public class GameViewImpl implements GameView {
         }
 
         if (this.putCardOnTheTable()) {
-            AlertInformationFactory endTurn = new AlertInformationFactory("TURN FINISHED", null,
+            AlertInformationFactory endTurn = new AlertInformationFactoryImpl("TURN FINISHED", null,
                     this.currentPlayer.getName() + " has just made its play", this.primaryStage);
             endTurn.getAlert().showAndWait();
         }
@@ -183,7 +183,7 @@ public class GameViewImpl implements GameView {
         if (this.game.getCurrentRound().hasJustStarted()) {
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
 
-            AlertInformationFactory matchFinished = new AlertInformationFactory("ROUND FINISHED", null,
+            AlertInformationFactory matchFinished = new AlertInformationFactoryImpl("ROUND FINISHED", null,
                     "Round win by: " + winnigPlay, this.primaryStage);
             matchFinished.getAlert().showAndWait();
 
