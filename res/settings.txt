@@ -1,0 +1,4 @@
+points_for_cricca: FALSE
+music: FALSE
+voices: TRUE
+sfx: TRUE
