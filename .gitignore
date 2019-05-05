@@ -2,3 +2,4 @@ bin/
 docs/
 *.log
 *.pdf
+ res/profiles res/settings.txt
