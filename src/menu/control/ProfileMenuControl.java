@@ -1,22 +1,58 @@
 package menu.control;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextField;
+
+import menu.view.MenuView;
+import util.UtilityClass;
 /**
- * This Interface contains all controller methods regarding the Profile Menu Scene.
+ * This is an implementation of the Interface ProfileMenuControl.
  */
-public interface ProfileMenuControl {
+public class ProfileMenuControl {
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private TextField nameField;
     /**
-     * This is the method called by the FXML file after the injection of all FXML items.
+     * {@inheritDoc}
      */
-    void initialize();
+    public void initialize() {
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
+    }
     /**
-     * Controller method for the pressing of the Back button on the Profile Menu.
-     * @param event - the event triggered by the pressing of the Back Button.
+     * {@inheritDoc}
      */
-    void backClicked(ActionEvent event);
+    public void backClicked(final ActionEvent event) {
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "MainMenuScene.fxml");
+    }
     /**
-     * Controller method for the pressing of the Create Profile button on the Profile Menu.
-     * @param event - the event triggered by the pressing of the Create Profile Button.
+     * {@inheritDoc}
      */
-    void createClicked(ActionEvent event);
+    public void createClicked(final ActionEvent event) {
+        if (nameField.getText().isEmpty()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Empty Profile Name");
+            alert.setContentText("You can't create a profile with an empty name.");
+            alert.showAndWait();
+        } else if (!UtilityClass.createProfile(nameField.getText())) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Name");
+            alert.setContentText("A profile with this name already exists or the name chosen contains invalid characters.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Profile Created");
+            alert.setHeaderText(null);
+            alert.setContentText("The profile was created successfully.");
+            alert.showAndWait();
+        }
+        nameField.setText("");
+    }
 }
