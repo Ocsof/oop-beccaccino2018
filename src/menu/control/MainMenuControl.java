@@ -1,32 +1,46 @@
 package menu.control;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.layout.BorderPane;
+import menu.view.MenuView;
+import util.UtilityClass;
 /**
- * This Interface contains all controller methods regarding the Main Menu Scene.
+ * This is an implementation of the Interface MainMenuControl.
  */
-public interface MainMenuControl {
+public class MainMenuControl {
+    @FXML
+    private BorderPane borderPane;
     /**
-     * This is the method called by the FXML file after the injection of all FXML items.
+     * {@inheritDoc}
      */
-    void initialize();
+    public void initialize() {
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
+    }
     /**
-     * Controller method for the pressing of the Start button on the Main Menu.
-     * @param event - the event triggered by the pressing of the Start Button.
+     * {@inheritDoc}
      */
-    void startClicked(ActionEvent event);
+    public void startClicked(final ActionEvent event) {
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "PreGameScene.fxml");
+    }
     /**
-     * Controller method for the pressing of the Profiles button on the Main Menu.
-     * @param event - the event triggered by the pressing of the Profiles Button.
+     * {@inheritDoc}
      */
-    void createProfileClicked(ActionEvent event);
+    public void createProfileClicked(final ActionEvent event) {
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "ProfileMenuScene.fxml");
+    }
     /**
-     * Controller method for the pressing of the Settings button on the Main Menu.
-     * @param event - the event triggered by the pressing of the Settings Button.
+     * {@inheritDoc}
      */
-    void settingsClicked(ActionEvent event);
+    public void settingsClicked(final ActionEvent event) {
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "SettingsMenuScene.fxml");
+    }
     /**
-     * Controller method for the pressing of the Exit button on the Main Menu.
-     * Calls a System.exit.
+     * {@inheritDoc}
      */
-    void exitClicked();
+    public void exitClicked() {
+        System.exit(0);
+    }
+
 }

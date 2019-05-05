@@ -1,17 +1,62 @@
 package menu.control;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.layout.BorderPane;
+import menu.view.MenuView;
+import util.UtilityClass;
 /**
- * This Interface contains all controller methods regarding the Settings Menu Scene.
+ * This is an implementation of the Interface SettingsMenuControl.
  */
-public interface SettingsMenuControl {
+public class SettingsMenuControl {
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private CheckBox criccaBox;
     /**
-     * Controller method for the pressing of the Back button on the Settings Menu.
-     * @param event - the event triggered by the pressing of the Back Button.
+     * {@inheritDoc}
      */
-    void backClicked(ActionEvent event);
+    public void initialize() {
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
+        try {
+        BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") 
+                                                                    + System.getProperty("file.separator") 
+                                                                    + "res" + System.getProperty("file.separator") + "settings.txt"));
+        String line = reader.readLine();
+        criccaBox.setSelected(line.equals("points_for_cricca: TRUE"));
+        reader.close();
+        } catch (IOException e) {
+            System.out.println("Error in reading Settings file.\nShutting down...");
+            System.exit(1);
+        }
+    }
     /**
-     * This is the method called by the FXML file after the injection of all FXML items.
+     * {@inheritDoc}
      */
-    void initialize();
+    public void backClicked(final ActionEvent event) {
+        File settingsFilePath = new File(System.getProperty("user.dir") 
+                                        + System.getProperty("file.separator") 
+                                        + "res" + System.getProperty("file.separator") + "settings.txt");
+        try {
+            PrintWriter writer = new PrintWriter(settingsFilePath.getPath());
+            if (criccaBox.isSelected()) {
+                writer.write("points_for_cricca: TRUE\n");
+            } else {
+                writer.write("points_for_cricca: FALSE\n");
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error in writing into the Settings file.\nShutting down...");
+        }
+        MenuView.menuSetup(UtilityClass.returnStageOf(event), "MainMenuScene.fxml");
+    }
 }
