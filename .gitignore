@@ -1,5 +1,10 @@
 bin/
+
 docs/
+
 *.log
+
 *.pdf
- res/profiles res/settings.txt
+
+res/profiles/* 
+res/settings.txt
