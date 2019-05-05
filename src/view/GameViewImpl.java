@@ -3,7 +3,6 @@ package view;
 import javafx.scene.image.Image;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,9 +49,8 @@ public class GameViewImpl implements GameView {
     private Map<ItalianCard, Button> map2 = new HashMap<>();
     private Stage primaryStage;
     private static final int SPACING_BETWEEN_CARDS = 20;
-    private final String sep = File.separator;
     private final BackgroundImage tavolo = new BackgroundImage(
-            new Image("file:res" + this.sep + "images" + this.sep + "tavolo.jpg"), BackgroundRepeat.REPEAT,
+            new Image(this.getClass().getResourceAsStream("/images/tavolo.jpg")), BackgroundRepeat.REPEAT,
             BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 
     /**

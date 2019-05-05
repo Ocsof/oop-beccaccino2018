@@ -17,7 +17,6 @@ import model.entities.ItalianCard;
 public class ItalianCardViewFactoryImpl implements ItalianCardViewFactory {
     private Button cardView;
     private ImageView image;
-    private String sep = File.separator;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static final int WIDTH_CARDS = 40;
     private static final int HEIGTH_CARDS = 30;
@@ -36,7 +35,7 @@ public class ItalianCardViewFactoryImpl implements ItalianCardViewFactory {
     public Button getCardRepresentation(final ItalianCard card) {
         this.cardView = new Button();
         this.image = new ImageView(
-                new Image("file:res" + this.sep + "images" + this.sep + "cards" + this.sep + card.toString() + ".jpg"));
+                new Image(this.getClass().getResourceAsStream("/images/cards/" + card.toString() + ".jpg")));
         cardView.setGraphic(image);
         return this.cardView;
     }
@@ -47,7 +46,7 @@ public class ItalianCardViewFactoryImpl implements ItalianCardViewFactory {
     public Button getBackCardRepresentation() {
         this.cardView = new Button();
         this.image = new ImageView(
-                new Image("file:res" + this.sep + "images" + this.sep + "cards" + this.sep + "retro.jpg"));
+                new Image(this.getClass().getResourceAsStream("/images/cards/retro.jpg")));
         image.setFitWidth(this.width);
         image.setFitHeight(this.heigth);
         this.cardView.setGraphic(image);
