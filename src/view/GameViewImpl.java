@@ -171,6 +171,8 @@ public class GameViewImpl implements GameView {
             this.currentRound = this.game.getCurrentRound();
         }
 
+        this.setBriscolaOnStage(this.game.getBriscola().get());
+
         if (this.putCardOnTheTable()) {
             AlertInformationFactory endTurn = new AlertInformationFactoryImpl("TURN FINISHED", null,
                     this.currentPlayer.getName() + " has just made its play", this.primaryStage);
@@ -178,8 +180,6 @@ public class GameViewImpl implements GameView {
         }
 
         this.currentPlayer = this.game.getCurrentPlayer();
-
-        this.setBriscolaOnStage(this.game.getBriscola().get());
 
         if (this.game.getCurrentRound().hasJustStarted()) {
             String winnigPlay = this.currentRound.getWinningPlay().get().getCard().toString();
