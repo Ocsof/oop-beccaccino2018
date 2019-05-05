@@ -25,7 +25,8 @@ public class SettingsMenuControlImpl implements SettingsMenuControl {
      * {@inheritDoc}
      */
     public void initialize() {
-        UtilityClass.setBackgroundImage(borderPane);
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
         try {
         BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.dir") 
                                                                     + System.getProperty("file.separator") 

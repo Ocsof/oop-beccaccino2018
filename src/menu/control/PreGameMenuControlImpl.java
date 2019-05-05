@@ -40,7 +40,8 @@ public class PreGameMenuControlImpl implements PreGameMenuControl {
      * {@inheritDoc}
      */
     public void initialize() {
-        UtilityClass.setBackgroundImage(borderPane);
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
         File folder = new File("res/profiles");
         File[] files = folder.listFiles();
         for (int i = 0; i < files.length; i++) {

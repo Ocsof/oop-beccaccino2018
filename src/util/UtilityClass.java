@@ -107,8 +107,8 @@ public final class UtilityClass {
      * This method sets the default background image on the borderpane passed.
      * @param borderPane - the BorderPane on which to set the default background image.
      */
-    public static void setBackgroundImage(final BorderPane borderPane) {
-        Image image = new Image("file:res" + System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "MenuBackground.jpg");
+    public void setBackgroundImage(final BorderPane borderPane) {
+        Image image = new Image(this.getClass().getResourceAsStream("/images/MenuBackground.jpg"));
         BackgroundImage backgroundImage = new BackgroundImage(image,
                             BackgroundRepeat.NO_REPEAT,
                             BackgroundRepeat.NO_REPEAT,
@@ -117,7 +117,10 @@ public final class UtilityClass {
         Background background = new Background(backgroundImage);
         borderPane.setBackground(background);
     }
-    private UtilityClass() {
+    /**
+     * Class builder (empty).
+     */
+    public UtilityClass() {
     }
 }
 

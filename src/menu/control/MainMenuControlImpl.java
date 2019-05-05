@@ -15,7 +15,8 @@ public class MainMenuControlImpl implements MainMenuControl {
      * {@inheritDoc}
      */
     public void initialize() {
-        UtilityClass.setBackgroundImage(borderPane);
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
     }
     /**
      * {@inheritDoc}

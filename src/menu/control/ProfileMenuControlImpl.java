@@ -21,7 +21,8 @@ public class ProfileMenuControlImpl implements ProfileMenuControl {
      * {@inheritDoc}
      */
     public void initialize() {
-        UtilityClass.setBackgroundImage(borderPane);
+        UtilityClass util = new UtilityClass();
+        util.setBackgroundImage(borderPane);
     }
     /**
      * {@inheritDoc}
