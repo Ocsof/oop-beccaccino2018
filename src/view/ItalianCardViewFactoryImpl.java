@@ -2,8 +2,6 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.File;
-
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,8 +43,7 @@ public class ItalianCardViewFactoryImpl implements ItalianCardViewFactory {
      */
     public Button getBackCardRepresentation() {
         this.cardView = new Button();
-        this.image = new ImageView(
-                new Image(this.getClass().getResourceAsStream("/images/cards/retro.jpg")));
+        this.image = new ImageView(new Image(this.getClass().getResourceAsStream("/images/cards/retro.jpg")));
         image.setFitWidth(this.width);
         image.setFitHeight(this.heigth);
         this.cardView.setGraphic(image);

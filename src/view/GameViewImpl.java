@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import controller.CardController;
 import controller.CardControllerImpl;
 import controller.GameController;
 import javafx.geometry.Insets;
@@ -43,7 +44,7 @@ public class GameViewImpl implements GameView {
     private Round currentRound;
     private Player currentPlayer;
     private GameController controller;
-    private CardControllerImpl cardController = new CardControllerImpl();
+    private CardController cardController;
     private List<Pane> boxes = new ArrayList<>();
     private Map<Button, ItalianCard> map = new HashMap<>();
     private Map<ItalianCard, Button> map2 = new HashMap<>();
@@ -64,6 +65,7 @@ public class GameViewImpl implements GameView {
         this.game = game;
         this.currentPlayer = this.game.getCurrentPlayer();
         this.primaryStage = primaryStage;
+        this.cardController = new CardControllerImpl();
 
         HBox roottop = new HBox();
         HBox rootbottom = new HBox();

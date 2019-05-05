@@ -3,6 +3,7 @@ package controller;
 import java.util.Optional;
 
 import model.entities.ItalianCard;
+import model.entities.Play;
 
 /**
  * Alessia Rocco 
@@ -16,4 +17,10 @@ public interface CardController {
      * @param m message selected if present
      */
     void action(ItalianCard c, Optional<String> m);
+
+    /**
+     * 
+     * @return the Play made by the user.
+     */
+    Play getPlay();
 }

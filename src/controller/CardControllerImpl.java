@@ -22,8 +22,7 @@ public class CardControllerImpl implements CardController {
     }
 
     /**
-     * 
-     * @return the Play made by the user.
+     * {@inheritDoc}
      */
     public Play getPlay() {
         return this.play;
