@@ -1,45 +1,18 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
-
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+##OOP18-Beccaccino
+Lo scopo dell'applicativo è quello di giocare una partita di Beccaccino/Marafone, famoso gioco di carte Romagnolo. Per maggiori informazioni sulle regole di gioco [cliccare qui](https://it.wikipedia.org/wiki/Marafone_Beccacino).
 
 ---
 
-## Edit a file
+**Guida Utente**
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+All’avvio dell’applicazione si aprirà il menu principale, nel quale si potrà scegliere tra diverse opzioni:
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. Start: si inizia il gioco con una nuova partita. Si apre la finestra di scelta dei giocatori, eventuali giocatori creati in precedenza potranno essere selezionati.
+2. Create new Profile: permette di creare un nuovo profilo da poter utilizzare nel gioco. Si viene reindirizzati in una nuova finestra con le indicazioni di come fare.
+3. Settings: indirizza alle impostazioni del gioco che possono essere selezionate o meno. Si può infatti selezionare i “Points reward for Cricca” che è l’opzione per considerare i 3 punti nel caso un giocatore possieda la “Cricca”.
+4. Exit: consente di chiudere l’applicazione.
 
----
+Appena l’utente avrà premuto start comparirà un’altra schermata che presenta la disposizione dei quattro giocatori. Tre di questi, rispettivamente quelli di destra, sopra e sinistra, apparterranno alle intelligenze artificiali. Di questi tre giocatori è possibile selezionare, tramite apposita tendina, le difficoltà degli AI che in questo gioco sono “AI basic”, ovvero una AI base pari alle conoscenze di un giocatore novizio, e “AI medium”, ovvero una AI media pari alle conoscenze di un giocatore più esperto. Il quarto giocatore invece è lo User che dovrà selezionare uno tra i profili creati per poter iniziare a giocare.
+Una volta impostato tutti i giocatori sarà possibile premere sul pulsante “start” per poter iniziare effettivamente il gioco.
 
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+Si ricorda inoltre che prima di iniziare un nuovo gioco l’utente dovrà creare almeno un nuovo giocatore attraverso “Create New Profile”. Questo è necessario per iniziare un nuovo gioco in quanto l’applicazione necessita delle informazioni di almeno un profilo per poter salvare il giocatore corrente e le sue relative informazioni, per tanto se è la prima volta che si apre il gioco la prima cosa da fare è creare un nuovo profilo da questo menu. In caso contrario il gioco segnalerà questa necessità aiutando l’utente sul da farsi, bloccando l’avvio dell’applicazione fino a quando almeno un profilo non è stato creato e selezionato.
