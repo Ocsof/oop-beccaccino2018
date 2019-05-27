@@ -1,0 +1,460 @@
+src/controller/GameController.java:97:	Local variable 'ai' could be declared final
+src/controller/GameController.java:97:	Local variable 'ai' could be declared final
+src/controller/GameController.java:109:	Local variable 'intelligence' could be declared final
+src/controller/GameController.java:109:	Local variable 'intelligence' could be declared final
+src/menu/control/MainMenuControl.java:18:	Local variable 'util' could be declared final
+src/menu/control/MainMenuControl.java:18:	Local variable 'util' could be declared final
+src/menu/control/PreGameMenuControl.java:43:	Local variable 'util' could be declared final
+src/menu/control/PreGameMenuControl.java:43:	Local variable 'util' could be declared final
+src/menu/control/PreGameMenuControl.java:45:	Local variable 'folder' could be declared final
+src/menu/control/PreGameMenuControl.java:45:	Local variable 'folder' could be declared final
+src/menu/control/PreGameMenuControl.java:46:	Local variable 'files' could be declared final
+src/menu/control/PreGameMenuControl.java:46:	Local variable 'files' could be declared final
+src/menu/control/PreGameMenuControl.java:61:	Local variable 'alert' could be declared final
+src/menu/control/PreGameMenuControl.java:61:	Local variable 'alert' could be declared final
+src/menu/control/PreGameMenuControl.java:67:	Local variable 'ruleset' could be declared final
+src/menu/control/PreGameMenuControl.java:67:	Local variable 'ruleset' could be declared final
+src/menu/control/PreGameMenuControl.java:68:	Local variable 'playerList' could be declared final
+src/menu/control/PreGameMenuControl.java:68:	Local variable 'playerList' could be declared final
+src/menu/control/PreGameMenuControl.java:85:	Local variable 'currentGame' could be declared final
+src/menu/control/PreGameMenuControl.java:85:	Local variable 'currentGame' could be declared final
+src/menu/control/PreGameMenuControl.java:86:	Local variable 'currentGameView' could be declared final
+src/menu/control/PreGameMenuControl.java:86:	Local variable 'currentGameView' could be declared final
+src/menu/control/PreGameMenuControl.java:87:	Local variable 'playerMap' could be declared final
+src/menu/control/PreGameMenuControl.java:87:	Local variable 'playerMap' could be declared final
+src/menu/control/PreGameMenuControl.java:92:	Local variable 'currentGameController' could be declared final
+src/menu/control/PreGameMenuControl.java:92:	Local variable 'currentGameController' could be declared final
+src/menu/control/ProfileMenuControl.java:24:	Local variable 'util' could be declared final
+src/menu/control/ProfileMenuControl.java:24:	Local variable 'util' could be declared final
+src/menu/control/ProfileMenuControl.java:38:	Local variable 'alert' could be declared final
+src/menu/control/ProfileMenuControl.java:38:	Local variable 'alert' could be declared final
+src/menu/control/ProfileMenuControl.java:44:	Local variable 'alert' could be declared final
+src/menu/control/ProfileMenuControl.java:44:	Local variable 'alert' could be declared final
+src/menu/control/ProfileMenuControl.java:50:	Local variable 'alert' could be declared final
+src/menu/control/ProfileMenuControl.java:50:	Local variable 'alert' could be declared final
+src/menu/control/SettingsMenuControl.java:28:	Local variable 'util' could be declared final
+src/menu/control/SettingsMenuControl.java:28:	Local variable 'util' could be declared final
+src/menu/control/SettingsMenuControl.java:31:	Local variable 'reader' could be declared final
+src/menu/control/SettingsMenuControl.java:31:	Local variable 'reader' could be declared final
+src/menu/control/SettingsMenuControl.java:32:	The String literal "file.separator" appears 4 times in this file; the first occurrence is on line 32
+src/menu/control/SettingsMenuControl.java:32:	The String literal "file.separator" appears 4 times in this file; the first occurrence is on line 32
+src/menu/control/SettingsMenuControl.java:34:	Local variable 'line' could be declared final
+src/menu/control/SettingsMenuControl.java:34:	Local variable 'line' could be declared final
+src/menu/control/SettingsMenuControl.java:46:	Local variable 'settingsFilePath' could be declared final
+src/menu/control/SettingsMenuControl.java:46:	Local variable 'settingsFilePath' could be declared final
+src/menu/control/SettingsMenuControl.java:50:	Local variable 'writer' could be declared final
+src/menu/control/SettingsMenuControl.java:50:	Local variable 'writer' could be declared final
+src/menu/view/MenuView.java:27:	Local variable 'launcher' could be declared final
+src/menu/view/MenuView.java:27:	Local variable 'launcher' could be declared final
+src/model/artificialIntelligence/AI.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/AI.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/AIImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/AIImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/AIImpl.java:13:	Private field 'selector' could be made final; it is only initialized in the declaration or constructor.
+src/model/artificialIntelligence/AIImpl.java:13:	Private field 'selector' could be made final; it is only initialized in the declaration or constructor.
+src/model/artificialIntelligence/AIImpl.java:91:	Local variable 'other' could be declared final
+src/model/artificialIntelligence/AIImpl.java:91:	Local variable 'other' could be declared final
+src/model/artificialIntelligence/BeccaccinoCardComparator.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BeccaccinoCardComparator.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BeccaccinoCardComparator.java:15:	Private field 'valueMap' could be made final; it is only initialized in the declaration or constructor.
+src/model/artificialIntelligence/BeccaccinoCardComparator.java:15:	Private field 'valueMap' could be made final; it is only initialized in the declaration or constructor.
+src/model/artificialIntelligence/BestPlaySelector.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BestPlaySelector.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:41:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:41:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:42:	Local variable 'temp' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:42:	Local variable 'temp' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:87:	Local variable 'myCard' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:87:	Local variable 'myCard' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:130:	Local variable 'myBetterCardThan' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:130:	Local variable 'myBetterCardThan' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:136:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:136:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:154:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BestPlaySelectorImpl.java:154:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BriscolaSelector.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BriscolaSelector.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:56:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:56:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:103:	Local variable 'suit' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:103:	Local variable 'suit' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:105:	Local variable 'maxOfSuit' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:105:	Local variable 'maxOfSuit' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:115:	Local variable 'suit' could be declared final
+src/model/artificialIntelligence/BriscolaSelectorImpl.java:115:	Local variable 'suit' could be declared final
+src/model/artificialIntelligence/ConditionForTaglio.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/ConditionForTaglio.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/ConditionForTaglioImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/ConditionForTaglioImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/ConditionForTaglioImpl.java:109:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/artificialIntelligence/ConditionForTaglioImpl.java:109:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/artificialIntelligence/Counter.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/Counter.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/Counter.java:8:	It is somewhat confusing to have a field name matching the declaring class name
+src/model/artificialIntelligence/Counter.java:8:	It is somewhat confusing to have a field name matching the declaring class name
+src/model/artificialIntelligence/GameAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameBasicAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameBasicAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameBasicAnalyzer.java:87:	Local variable 'roundPlays' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:87:	Local variable 'roundPlays' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:217:	Local variable 'roundPlays' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:217:	Local variable 'roundPlays' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:289:	Local variable 'cardOf' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:289:	Local variable 'cardOf' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:313:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:313:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:314:	Local variable 'partecipant' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:314:	Local variable 'partecipant' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:333:	Local variable 'partecipant' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:333:	Local variable 'partecipant' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:402:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:402:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:433:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:433:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:456:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:456:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:472:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameBasicAnalyzer.java:472:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameMediumAnalyzer.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/GameMediumAnalyzer.java:119:	Local variable 'cont' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:119:	Local variable 'cont' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:137:	Local variable 'cardOfBriscola' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:137:	Local variable 'cardOfBriscola' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:176:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:176:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:180:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:180:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:188:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:188:	Local variable 'player' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:194:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/GameMediumAnalyzer.java:194:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/Partecipant.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/Partecipant.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/PartecipantImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/PartecipantImpl.java:1:	Package name contains upper case characters
+src/model/artificialIntelligence/PartecipantImpl.java:80:	Local variable 'card' could be declared final
+src/model/artificialIntelligence/PartecipantImpl.java:80:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:42:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:42:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:56:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:56:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:69:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:69:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:108:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:108:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:109:	Local variable 'temp' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:109:	Local variable 'temp' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:127:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:127:	Local variable 'card' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:128:	Local variable 'temp' could be declared final
+src/model/entities/BeccaccinoBunchOfCards.java:128:	Local variable 'temp' could be declared final
+src/model/entities/BeccaccinoHand.java:12:	Avoid unnecessary constructors - the compiler will generate these for you
+src/model/entities/BeccaccinoHand.java:12:	Avoid unnecessary constructors - the compiler will generate these for you
+src/model/entities/BeccaccinoHand.java:31:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/BeccaccinoHand.java:31:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/BeccaccinoHand.java:51:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/BeccaccinoHand.java:51:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/HandTemplate.java:24:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/entities/HandTemplate.java:24:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/entities/ItalianCardImpl.java:59:	Local variable 'other' could be declared final
+src/model/entities/ItalianCardImpl.java:59:	Local variable 'other' could be declared final
+src/model/entities/ItalianCardImpl.java:63:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/ItalianCardImpl.java:63:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/ItalianCardsDeckImpl.java:11:	Private field 'cardDeck' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/ItalianCardsDeckImpl.java:11:	Private field 'cardDeck' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/ItalianCardsDeckImpl.java:12:	This final field could be made static
+src/model/entities/ItalianCardsDeckImpl.java:12:	This final field could be made static
+src/model/entities/ItalianCardsDeckImpl.java:43:	Local variable 'suitList' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:43:	Local variable 'suitList' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:44:	Local variable 'valueList' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:44:	Local variable 'valueList' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:45:	Local variable 'suit' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:45:	Local variable 'suit' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:46:	Local variable 'value' could be declared final
+src/model/entities/ItalianCardsDeckImpl.java:46:	Local variable 'value' could be declared final
+src/model/entities/PlayImpl.java:10:	Private field 'card' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayImpl.java:10:	Private field 'card' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayImpl.java:11:	Private field 'message' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayImpl.java:11:	Private field 'message' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayImpl.java:65:	Local variable 'other' could be declared final
+src/model/entities/PlayImpl.java:65:	Local variable 'other' could be declared final
+src/model/entities/PlayerImpl.java:8:	Private field 'name' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayerImpl.java:8:	Private field 'name' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayerImpl.java:9:	Private field 'hand' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayerImpl.java:9:	Private field 'hand' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/PlayerImpl.java:61:	Local variable 'other' could be declared final
+src/model/entities/PlayerImpl.java:61:	Local variable 'other' could be declared final
+src/model/entities/TeamImpl.java:12:	Private field 'players' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/TeamImpl.java:12:	Private field 'players' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/TeamImpl.java:13:	Private field 'cards' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/TeamImpl.java:13:	Private field 'cards' could be made final; it is only initialized in the declaration or constructor.
+src/model/entities/TeamImpl.java:47:	Local variable 'defenceCopyPlayers' could be declared final
+src/model/entities/TeamImpl.java:47:	Local variable 'defenceCopyPlayers' could be declared final
+src/model/entities/TeamImpl.java:48:	Consider simply returning the value vs storing it in local variable 'defenceCopyPlayers'
+src/model/entities/TeamImpl.java:48:	Consider simply returning the value vs storing it in local variable 'defenceCopyPlayers'
+src/model/entities/TeamImpl.java:62:	Local variable 'defenceCopyWonCards' could be declared final
+src/model/entities/TeamImpl.java:62:	Local variable 'defenceCopyWonCards' could be declared final
+src/model/entities/TeamImpl.java:63:	Consider simply returning the value vs storing it in local variable 'defenceCopyWonCards'
+src/model/entities/TeamImpl.java:63:	Consider simply returning the value vs storing it in local variable 'defenceCopyWonCards'
+src/model/entities/TeamImpl.java:105:	Local variable 'other' could be declared final
+src/model/entities/TeamImpl.java:105:	Local variable 'other' could be declared final
+src/model/entities/TeamImpl.java:120:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/entities/TeamImpl.java:120:	Avoid unnecessary if..then..else statements when returning booleans
+src/model/logic/BasicTurnOrder.java:50:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/logic/BasicTurnOrder.java:50:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/logic/BasicTurnOrder.java:77:	Local variable 'other' could be declared final
+src/model/logic/BasicTurnOrder.java:77:	Local variable 'other' could be declared final
+src/model/logic/BeccaccinoGame.java:29:	Private field 'playersByPlay' could be made final; it is only initialized in the declaration or constructor.
+src/model/logic/BeccaccinoGame.java:29:	Private field 'playersByPlay' could be made final; it is only initialized in the declaration or constructor.
+src/model/logic/BeccaccinoGame.java:84:	Consider simply returning the value vs storing it in local variable 'newRound'
+src/model/logic/BeccaccinoGame.java:84:	Consider simply returning the value vs storing it in local variable 'newRound'
+src/model/logic/BeccaccinoGame.java:103:	Local variable 'card' could be declared final
+src/model/logic/BeccaccinoGame.java:103:	Local variable 'card' could be declared final
+src/model/logic/BeccaccinoGame.java:108:	Local variable 'team' could be declared final
+src/model/logic/BeccaccinoGame.java:108:	Local variable 'team' could be declared final
+src/model/logic/BeccaccinoGame.java:129:	Local variable 'player' could be declared final
+src/model/logic/BeccaccinoGame.java:129:	Local variable 'player' could be declared final
+src/model/logic/BeccaccinoGame.java:145:	Local variable 'team' could be declared final
+src/model/logic/BeccaccinoGame.java:145:	Local variable 'team' could be declared final
+src/model/logic/BeccaccinoRound.java:49:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/model/logic/BeccaccinoRound.java:49:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/model/logic/BeccaccinoRound.java:73:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/model/logic/BeccaccinoRound.java:73:	Avoid declaring a variable if it is unreferenced before a possible exit point.
+src/model/logic/BeccaccinoRound.java:78:	Local variable 'card' could be declared final
+src/model/logic/BeccaccinoRound.java:78:	Local variable 'card' could be declared final
+src/model/logic/BeccaccinoRound.java:143:	Local variable 'play' could be declared final
+src/model/logic/BeccaccinoRound.java:143:	Local variable 'play' could be declared final
+src/model/logic/GameTemplate.java:20:	Private field 'rounds' could be made final; it is only initialized in the declaration or constructor.
+src/model/logic/GameTemplate.java:20:	Private field 'rounds' could be made final; it is only initialized in the declaration or constructor.
+src/model/logic/GameTemplate.java:94:	Local variable 'player' could be declared final
+src/model/logic/GameTemplate.java:94:	Local variable 'player' could be declared final
+src/model/logic/GameTemplate.java:108:	Local variable 'player' could be declared final
+src/model/logic/GameTemplate.java:108:	Local variable 'player' could be declared final
+src/model/logic/RoundTemplate.java:50:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/logic/RoundTemplate.java:50:	Consider simply returning the value vs storing it in local variable 'defensiveCopy'
+src/model/logic/RulesetImpl.java:34:	Local variable 'turnOrder' could be declared final
+src/model/logic/RulesetImpl.java:34:	Local variable 'turnOrder' could be declared final
+src/model/logic/RulesetImpl.java:35:	Local variable 'teams' could be declared final
+src/model/logic/RulesetImpl.java:35:	Local variable 'teams' could be declared final
+src/model/logic/RulesetImpl.java:38:	Local variable 'reader' could be declared final
+src/model/logic/RulesetImpl.java:38:	Local variable 'reader' could be declared final
+src/model/logic/RulesetImpl.java:41:	Local variable 'line' could be declared final
+src/model/logic/RulesetImpl.java:41:	Local variable 'line' could be declared final
+src/model/logic/RulesetImpl.java:63:	Local variable 'gameView' could be declared final
+src/model/logic/RulesetImpl.java:63:	Local variable 'gameView' could be declared final
+src/model/logic/RulesetImpl.java:64:	Consider simply returning the value vs storing it in local variable 'gameView'
+src/model/logic/RulesetImpl.java:64:	Consider simply returning the value vs storing it in local variable 'gameView'
+src/model/logic/RulesetImpl.java:71:	Local variable 'hand' could be declared final
+src/model/logic/RulesetImpl.java:71:	Local variable 'hand' could be declared final
+src/model/logic/RulesetImpl.java:72:	Local variable 'player' could be declared final
+src/model/logic/RulesetImpl.java:72:	Local variable 'player' could be declared final
+src/model/logic/RulesetImpl.java:73:	Consider simply returning the value vs storing it in local variable 'player'
+src/model/logic/RulesetImpl.java:73:	Consider simply returning the value vs storing it in local variable 'player'
+src/model/logic/RulesetImpl.java:86:	Local variable 'ai' could be declared final
+src/model/logic/RulesetImpl.java:86:	Local variable 'ai' could be declared final
+src/model/logic/RulesetImpl.java:87:	Consider simply returning the value vs storing it in local variable 'ai'
+src/model/logic/RulesetImpl.java:87:	Consider simply returning the value vs storing it in local variable 'ai'
+src/tests/EntitiesTest.java:24:	Private field 'fanteDiSpade' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:24:	Private field 'fanteDiSpade' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:25:	Private field 'cavalloDiDenari' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:25:	Private field 'cavalloDiDenari' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:26:	Private field 'assoDiBastoni' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:26:	Private field 'assoDiBastoni' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:27:	Private field 'treDiCoppe' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:27:	Private field 'treDiCoppe' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:28:	Private field 'dueDiSpade' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:28:	Private field 'dueDiSpade' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:29:	Private field 'setteDiDenari' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:29:	Private field 'setteDiDenari' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:30:	Private field 'tizio' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:30:	Private field 'tizio' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:31:	Private field 'caio' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:31:	Private field 'caio' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:32:	Private field 'team' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:32:	Private field 'team' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:33:	Private field 'lakers' could be made final; it is only initialized in the declaration or constructor.
+src/tests/EntitiesTest.java:33:	Private field 'lakers' could be made final; it is only initialized in the declaration or constructor.
+src/tests/MatchTest.java:23:	Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/tests/MatchTest.java:23:	Fields should be declared at the top of the class, before any method declarations, constructors, initializers or inner classes.
+src/tests/MatchTest.java:31:	Local variable 'playerList' could be declared final
+src/tests/MatchTest.java:31:	Local variable 'playerList' could be declared final
+src/tests/MatchTest.java:36:	Local variable 'game' could be declared final
+src/tests/MatchTest.java:36:	Local variable 'game' could be declared final
+src/tests/MatchTest.java:37:	Local variable 'ais' could be declared final
+src/tests/MatchTest.java:37:	Local variable 'ais' could be declared final
+src/tests/MatchTest.java:38:	The String literal "Basic AI" appears 4 times in this file; the first occurrence is on line 38
+src/tests/MatchTest.java:38:	The String literal "Basic AI" appears 4 times in this file; the first occurrence is on line 38
+src/tests/MatchTest.java:49:	Local variable 'intelligence' could be declared final
+src/tests/MatchTest.java:49:	Local variable 'intelligence' could be declared final
+src/util/SceneLauncherImpl.java:14:	Perhaps 'root' could be replaced by a local variable.
+src/util/SceneLauncherImpl.java:14:	Perhaps 'root' could be replaced by a local variable.
+src/util/UtilityClass.java:27:	The String literal "file.separator" appears 6 times in this file; the first occurrence is on line 27
+src/util/UtilityClass.java:27:	The String literal "file.separator" appears 6 times in this file; the first occurrence is on line 27
+src/util/UtilityClass.java:34:	Local variable 'stageFound' could be declared final
+src/util/UtilityClass.java:34:	Local variable 'stageFound' could be declared final
+src/util/UtilityClass.java:35:	Consider simply returning the value vs storing it in local variable 'stageFound'
+src/util/UtilityClass.java:35:	Consider simply returning the value vs storing it in local variable 'stageFound'
+src/util/UtilityClass.java:44:	Local variable 'newscene' could be declared final
+src/util/UtilityClass.java:44:	Local variable 'newscene' could be declared final
+src/util/UtilityClass.java:55:	Local variable 'file' could be declared final
+src/util/UtilityClass.java:55:	Local variable 'file' could be declared final
+src/util/UtilityClass.java:79:	Local variable 'profilesPath' could be declared final
+src/util/UtilityClass.java:79:	Local variable 'profilesPath' could be declared final
+src/util/UtilityClass.java:81:	Local variable 'settingsFilePath' could be declared final
+src/util/UtilityClass.java:81:	Local variable 'settingsFilePath' could be declared final
+src/util/UtilityClass.java:94:	Local variable 'writer' could be declared final
+src/util/UtilityClass.java:94:	Local variable 'writer' could be declared final
+src/util/UtilityClass.java:111:	Local variable 'image' could be declared final
+src/util/UtilityClass.java:111:	Local variable 'image' could be declared final
+src/util/UtilityClass.java:112:	Local variable 'backgroundImage' could be declared final
+src/util/UtilityClass.java:112:	Local variable 'backgroundImage' could be declared final
+src/util/UtilityClass.java:117:	Local variable 'background' could be declared final
+src/util/UtilityClass.java:117:	Local variable 'background' could be declared final
+src/util/UtilityClass.java:123:	Avoid unnecessary constructors - the compiler will generate these for you
+src/util/UtilityClass.java:123:	Avoid unnecessary constructors - the compiler will generate these for you
+src/util/UtilityClass.java:123:	Document empty constructor
+src/util/UtilityClass.java:123:	Document empty constructor
+src/view/AlertInformationFactoryImpl.java:11:	Private field 'title' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:11:	Private field 'title' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:12:	Private field 'headerText' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:12:	Private field 'headerText' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:13:	Private field 'contentText' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:13:	Private field 'contentText' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:14:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:14:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:15:	Private field 'alert' could be made final; it is only initialized in the declaration or constructor.
+src/view/AlertInformationFactoryImpl.java:15:	Private field 'alert' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:17:	Perhaps 'choices' could be replaced by a local variable.
+src/view/BriscolaView.java:17:	Perhaps 'choices' could be replaced by a local variable.
+src/view/BriscolaView.java:17:	Private field 'choices' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:17:	Private field 'choices' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:18:	Perhaps 'dialog' could be replaced by a local variable.
+src/view/BriscolaView.java:18:	Perhaps 'dialog' could be replaced by a local variable.
+src/view/BriscolaView.java:18:	Private field 'dialog' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:18:	Private field 'dialog' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:20:	Perhaps 'primaryStage' could be replaced by a local variable.
+src/view/BriscolaView.java:20:	Perhaps 'primaryStage' could be replaced by a local variable.
+src/view/BriscolaView.java:20:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/BriscolaView.java:20:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:43:	Private field 'game' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:43:	Private field 'game' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:47:	Private field 'cardController' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:47:	Private field 'cardController' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:48:	Private field 'boxes' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:48:	Private field 'boxes' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:49:	Private field 'map' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:49:	Private field 'map' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:50:	Private field 'map2' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:50:	Private field 'map2' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:51:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:51:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/GameViewImpl.java:70:	Local variable 'roottop' could be declared final
+src/view/GameViewImpl.java:70:	Local variable 'roottop' could be declared final
+src/view/GameViewImpl.java:71:	Local variable 'rootbottom' could be declared final
+src/view/GameViewImpl.java:71:	Local variable 'rootbottom' could be declared final
+src/view/GameViewImpl.java:72:	Local variable 'rootleft' could be declared final
+src/view/GameViewImpl.java:72:	Local variable 'rootleft' could be declared final
+src/view/GameViewImpl.java:73:	Local variable 'rootright' could be declared final
+src/view/GameViewImpl.java:73:	Local variable 'rootright' could be declared final
+src/view/GameViewImpl.java:74:	Local variable 'rootcentre' could be declared final
+src/view/GameViewImpl.java:74:	Local variable 'rootcentre' could be declared final
+src/view/GameViewImpl.java:82:	Local variable 'externalPane' could be declared final
+src/view/GameViewImpl.java:82:	Local variable 'externalPane' could be declared final
+src/view/GameViewImpl.java:83:	Local variable 'backGround' could be declared final
+src/view/GameViewImpl.java:83:	Local variable 'backGround' could be declared final
+src/view/GameViewImpl.java:101:	Local variable 'scene' could be declared final
+src/view/GameViewImpl.java:101:	Local variable 'scene' could be declared final
+src/view/GameViewImpl.java:121:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:121:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:125:	Local variable 'b' could be declared final
+src/view/GameViewImpl.java:125:	Local variable 'b' could be declared final
+src/view/GameViewImpl.java:126:	Local variable 'm' could be declared final
+src/view/GameViewImpl.java:126:	Local variable 'm' could be declared final
+src/view/GameViewImpl.java:138:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:138:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:144:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:144:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:152:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:152:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:161:	Local variable 'briscola' could be declared final
+src/view/GameViewImpl.java:161:	Local variable 'briscola' could be declared final
+src/view/GameViewImpl.java:177:	Local variable 'endTurn' could be declared final
+src/view/GameViewImpl.java:177:	Local variable 'endTurn' could be declared final
+src/view/GameViewImpl.java:185:	Local variable 'winnigPlay' could be declared final
+src/view/GameViewImpl.java:185:	Local variable 'winnigPlay' could be declared final
+src/view/GameViewImpl.java:187:	Local variable 'matchFinished' could be declared final
+src/view/GameViewImpl.java:187:	Local variable 'matchFinished' could be declared final
+src/view/GameViewImpl.java:216:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:216:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:217:	Local variable 'c' could be declared final
+src/view/GameViewImpl.java:217:	Local variable 'c' could be declared final
+src/view/GameViewImpl.java:218:	Local variable 'message' could be declared final
+src/view/GameViewImpl.java:218:	Local variable 'message' could be declared final
+src/view/GameViewImpl.java:221:	Local variable 'screenSize' could be declared final
+src/view/GameViewImpl.java:221:	Local variable 'screenSize' could be declared final
+src/view/GameViewImpl.java:223:	Local variable 'hbox' could be declared final
+src/view/GameViewImpl.java:223:	Local variable 'hbox' could be declared final
+src/view/GameViewImpl.java:224:	Local variable 'vbox' could be declared final
+src/view/GameViewImpl.java:224:	Local variable 'vbox' could be declared final
+src/view/GameViewImpl.java:277:	Local variable 'c' could be declared final
+src/view/GameViewImpl.java:277:	Local variable 'c' could be declared final
+src/view/GameViewImpl.java:279:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:279:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:280:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:280:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:287:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:287:	Local variable 'card' could be declared final
+src/view/GameViewImpl.java:288:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:288:	Local variable 'bt' could be declared final
+src/view/GameViewImpl.java:299:	Local variable 'player' could be declared final
+src/view/GameViewImpl.java:299:	Local variable 'player' could be declared final
+src/view/GameViewImpl.java:300:	Local variable 'nome' could be declared final
+src/view/GameViewImpl.java:300:	Local variable 'nome' could be declared final
+src/view/GameViewImpl.java:313:	Local variable 'briscolaArea' could be declared final
+src/view/GameViewImpl.java:313:	Local variable 'briscolaArea' could be declared final
+src/view/ItalianCardViewFactoryImpl.java:18:	Private field 'screenSize' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:18:	Private field 'screenSize' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:21:	Private field 'width' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:21:	Private field 'width' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:22:	Private field 'heigth' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:22:	Private field 'heigth' could be made final; it is only initialized in the declaration or constructor.
+src/view/ItalianCardViewFactoryImpl.java:27:	Avoid unnecessary constructors - the compiler will generate these for you
+src/view/ItalianCardViewFactoryImpl.java:27:	Avoid unnecessary constructors - the compiler will generate these for you
+src/view/ItalianCardViewFactoryImpl.java:27:	Document empty constructor
+src/view/ItalianCardViewFactoryImpl.java:27:	Document empty constructor
+src/view/MessageView.java:19:	Private field 'message' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:19:	Private field 'message' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:20:	Perhaps 'game' could be replaced by a local variable.
+src/view/MessageView.java:20:	Perhaps 'game' could be replaced by a local variable.
+src/view/MessageView.java:20:	Private field 'game' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:20:	Private field 'game' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:21:	Perhaps 'card' could be replaced by a local variable.
+src/view/MessageView.java:21:	Perhaps 'card' could be replaced by a local variable.
+src/view/MessageView.java:21:	Private field 'card' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:21:	Private field 'card' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:22:	Perhaps 'primaryStage' could be replaced by a local variable.
+src/view/MessageView.java:22:	Perhaps 'primaryStage' could be replaced by a local variable.
+src/view/MessageView.java:22:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:22:	Private field 'primaryStage' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:23:	Perhaps 'choice' could be replaced by a local variable.
+src/view/MessageView.java:23:	Perhaps 'choice' could be replaced by a local variable.
+src/view/MessageView.java:23:	Private field 'choice' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:23:	Private field 'choice' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:24:	Perhaps 'dialog' could be replaced by a local variable.
+src/view/MessageView.java:24:	Perhaps 'dialog' could be replaced by a local variable.
+src/view/MessageView.java:24:	Private field 'dialog' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:24:	Private field 'dialog' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:25:	Private field 'defaultMessage' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:25:	Private field 'defaultMessage' could be made final; it is only initialized in the declaration or constructor.
+src/view/MessageView.java:40:	Local variable 'sm' could be declared final
+src/view/MessageView.java:40:	Local variable 'sm' could be declared final
+src/view/MessageView.java:42:	Local variable 's' could be declared final
+src/view/MessageView.java:42:	Local variable 's' could be declared final
+src/view/MessageView.java:64:	Avoid unnecessary if..then..else statements when returning booleans
+src/view/MessageView.java:64:	Avoid unnecessary if..then..else statements when returning booleans

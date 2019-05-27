@@ -1,0 +1,57 @@
+Found a 4 line (66 tokens) duplication in the following files: 
+Starting at line 234 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/view/GameViewImpl.java
+Starting at line 248 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/view/GameViewImpl.java
+
+        if (this.boxes.get(0).getChildren().contains(this.map2.get(card))) {
+            hbox.getChildren().add(c.getCardRepresentation(card));
+            hbox.getChildren().add(messageText);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setBottom(hbox);
+=====================================================================
+Found a 4 line (66 tokens) duplication in the following files: 
+Starting at line 241 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/view/GameViewImpl.java
+Starting at line 255 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/view/GameViewImpl.java
+
+        if (this.boxes.get(1).getChildren().contains(this.map2.get(card))) {
+            vbox.getChildren().add(c.getCardRepresentation(card));
+            vbox.getChildren().add(messageText);
+            ((BorderPane) this.boxes.get(this.boxes.size() - 1)).setRight(vbox);
+=====================================================================
+Found a 12 line (55 tokens) duplication in the following files: 
+Starting at line 124 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/model/artificialIntelligence/GameBasicAnalyzer.java
+Starting at line 61 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/model/artificialIntelligence/GameMediumAnalyzer.java
+
+            final ItalianCard tempWinner = this.currentRound.getWinningPlay().get().getCard();
+            if (!card.getSuit().equals(tempWinner.getSuit()) || comparator.compare(tempWinner, card) > 0) {
+                return 0;
+            }
+        }
+        return this.getWinningProbabilityOf(card);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addMyPlay(final Play play) {
+=====================================================================
+Found a 17 line (53 tokens) duplication in the following files: 
+Starting at line 74 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/model/artificialIntelligence/AIImpl.java
+Starting at line 42 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/model/entities/ItalianCardImpl.java
+Starting at line 60 of /home/danysk/git/oop18-alpi-davide-berti-riccardo-foschini-francesco-rocco/src/model/logic/BasicTurnOrder.java
+
+        result = prime * result + ((me == null) ? 0 : me.hashCode());
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
